@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
 
-const situacionSchema = new mongoose.Schema({
+const historialSchema = new mongoose.Schema({
   titulo: { type: String, required: true },
-  fechaInicio: { type: Date, required: true },
-  fechaFinal: { type: Date, required: true },
   descripcion: { type: String, required: true },
   paciente: {
       type: mongoose.Schema.ObjectId,
       ref: 'Paciente'}
   });
 
-module.exports = mongoose.model("SituacionTerapeutica", situacionSchema);
+module.exports = mongoose.model("HistorialClinico", historialSchema);

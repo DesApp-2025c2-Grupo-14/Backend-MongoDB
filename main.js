@@ -1,20 +1,19 @@
+const express = require('express')
+const conectarMongoDB = require('./config/database')
+const pacienteRouter = require('./routers/pacienteRouters')
 require('dotenv').config()
-const express = require("express");
-const {connectDB}  = require('./db/dbMock')
-const {router} = require ('./routers/pacienteRouters')
 
 const app = express();
-const PORT = process.env.PORT || 3001;
-
-// Middleware para JSON
+const PORT = process.env.PORT || 3001
 app.use(express.json());
 
-app.use('/pacientes',router)
+//Rutas
+app.use('/pacientes', pacienteRouter)
 
-// Conectar a la base mockeada
-connectDB();
-
+//Conectamos la base de datos
+conectarMongoDB()
 app.listen(PORT, ()=>{
     console.log(`Servidor iniciado en el puerto ${PORT}`)
-    console.log('Clinica-Prestadores');
-})
+    console.log('Clinica-Prestador');
+});
+
