@@ -1,6 +1,9 @@
 const express = require('express')
 const conectarMongoDB = require('./config/database')
 const pacienteRouter = require('./routers/pacienteRouters')
+const situacionTerapeuticaRouter = require('./routers/situacionTerapeuticaRouters')
+const solicitudRouter = require('./routers/solicitudRouters')
+
 require('dotenv').config()
 
 const app = express();
@@ -9,6 +12,8 @@ app.use(express.json());
 
 //Rutas
 app.use('/pacientes', pacienteRouter)
+app.use('/situacionesTerapeuticas', situacionTerapeuticaRouter)
+app.use('/solicitudes', solicitudRouter)
 
 //Conectamos la base de datos
 conectarMongoDB()
