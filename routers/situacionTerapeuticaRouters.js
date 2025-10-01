@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const router = Router();
-const { obtenerPacientes} = require('../controllers/pacienteControllers');
+const { modificarFechaFinalizacion, eliminarSituacion} = require('../controllers/situacionController');
 
-router.get('/', obtenerPacientes);
+router.delete('/:id', eliminarSituacion);
+router.patch('/:id/cambiarFecha',modificarFechaFinalizacion)
 
 
 module.exports = router;
