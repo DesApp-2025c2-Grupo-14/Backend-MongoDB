@@ -1,10 +1,35 @@
 const mongoose = require("mongoose");
 
-const solicitud = new mongoose.Schema({
-  titulo: { type: String, required: true },
-  tipo: { type: String, required: true },
-  descripcion: { type: String, required: true },
-  estado: { type: String, required: true }
+const solicitudSchema = new mongoose.Schema({
+  
+  pacienteId : {
+    type: Schema.Types.ObjectId,
+    ref: 'Paciente',
+    required: true
+  },
+  fechaPrestacion: {
+    type: Date
+  },
+  medico: {
+    type: String
+  },
+  especialidad: {
+    type: String
+  },
+  lugar: {
+    type: String
+  },
+  observaciones: {
+    type: String
+  },
+  estado: { 
+    type: String, 
+    enum: ['Pendiente', 'En análisis', 'Observada', 'Aprobada', 'Rechazada'], 
+    required: true 
+  }
+},
+{
+  collection: 'solicitudes'
 })
 
 module.exports = mongoose.model("Solicitud", solicitud);

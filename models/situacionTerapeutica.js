@@ -8,6 +8,9 @@ const situacionSchema = new mongoose.Schema({
   paciente: {
       type: mongoose.Schema.ObjectId,
       ref: 'Paciente'}
-  });
+},
+{
+  collection: 'situacionesTerapeuticas'
+});
 
 module.exports = mongoose.model("SituacionTerapeutica", situacionSchema);

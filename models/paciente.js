@@ -16,6 +16,9 @@ const pacienteSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'HistorialClinico'
   }]
+},
+{
+  collection: 'pacientes'
 });
 
 module.exports = mongoose.model("Paciente", pacienteSchema);
