@@ -1,0 +1,36 @@
+const mongoose = require('mongoose')
+
+const reintegroSchema = new mongoose.Schema({
+    cuit: {
+        type: String,
+        required: true
+    },
+    fecha: {
+        type: Date,
+        required: true
+    },
+    valorTotal: {
+        type: Double,
+        required: true
+    },
+    pago: {
+        type: String,
+        required: true
+    },
+    facturadoA: {
+        type: String,
+        required: true
+    },
+    cbu: {
+        type: BigInt
+    },
+    solicitudId: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Solicitud' 
+    }
+},
+{
+    collection: 'reintegros'
+})
+
+module.exports = mongoose.model("Reintegro", reintegroSchema);

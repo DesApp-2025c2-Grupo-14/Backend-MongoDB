@@ -6,6 +6,10 @@ const historialSchema = new mongoose.Schema({
   paciente: {
       type: mongoose.Schema.ObjectId,
       ref: 'Paciente'}
-  });
+},
+{
+  collection: 'historialesClinicos'
+}
+);
 
 module.exports = mongoose.model("HistorialClinico", historialSchema);
