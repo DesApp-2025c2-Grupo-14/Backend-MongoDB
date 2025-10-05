@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const solicitudSchema = new mongoose.Schema({
   
   pacienteId : {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: 'Paciente',
     required: true
   },
@@ -32,4 +32,4 @@ const solicitudSchema = new mongoose.Schema({
   collection: 'solicitudes'
 })
 
-module.exports = mongoose.model("Solicitud", solicitud);
+module.exports = mongoose.model("Solicitud", solicitudSchema);
