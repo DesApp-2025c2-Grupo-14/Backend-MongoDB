@@ -5,5 +5,4 @@ const { modificarFechaFinalizacion, eliminarSituacion} = require('../controllers
 router.delete('/:id', eliminarSituacion);
 router.patch('/:id/cambiarFecha',modificarFechaFinalizacion)
 
-
 module.exports = router;

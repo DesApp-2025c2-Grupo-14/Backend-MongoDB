@@ -10,7 +10,7 @@ const reintegroSchema = new mongoose.Schema({
         required: true
     },
     valorTotal: {
-        type: Double,
+        type: Number,
         required: true
     },
     pago: {
@@ -22,7 +22,7 @@ const reintegroSchema = new mongoose.Schema({
         required: true
     },
     cbu: {
-        type: BigInt
+        type: String
     },
     solicitudId: {
         type: mongoose.Schema.ObjectId,
