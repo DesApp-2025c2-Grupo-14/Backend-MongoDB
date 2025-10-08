@@ -18,6 +18,9 @@ const obtenerSolicitudesPendientes = async (req,res) => {
           }
         },
         {
+          $unwind: '$paciente' // 👈 convierte el array en objeto
+        },
+        {
           $project: {
             'paciente._id': 0,
             'paciente.edad': 0,
