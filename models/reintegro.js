@@ -5,10 +5,6 @@ const reintegroSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    fecha: {
-        type: Date,
-        required: true
-    },
     valorTotal: {
         type: Number,
         required: true

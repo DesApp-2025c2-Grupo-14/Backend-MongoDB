@@ -8,7 +8,6 @@ async function seedReintegros() {
     const reintegros = [
         {
             cuit: "20-34567890-1",
-            fecha: new Date('2025-10-06'),
             valorTotal: 15000.50,
             pago: "Transferencia",
             facturadoA: "Clínica Los Andes",

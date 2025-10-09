@@ -22,9 +22,14 @@ const solicitudSchema = new mongoose.Schema({
   observaciones: {
     type: String
   },
+  tipo:{
+    type: String,
+    enum: ['Reintegro', 'Autorizacion', 'Receta'],
+    required: true
+  },
   estado: { 
     type: String, 
-    enum: ['Pendiente', 'En análisis', 'Observada', 'Aprobada', 'Rechazada'], 
+    enum: ['Pendiente', 'En analisis', 'Observada', 'Aprobada', 'Rechazada'], 
     required: true 
   }
 },

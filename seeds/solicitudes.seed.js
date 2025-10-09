@@ -11,6 +11,7 @@ async function seedSolicitudes() {
         especialidad: 'Cardiología',
         lugar: 'Consultorio Central',
         observaciones: 'Paciente con dolor torácico leve',
+        tipo: 'Reintegro',
         estado: 'Pendiente'
     },
     {
@@ -20,11 +21,13 @@ async function seedSolicitudes() {
         especialidad: 'Obstetricia',
         lugar: 'Consultorio Norte',
         observaciones: 'Ecografía',
+        tipo: 'Autorizacion',
         estado: 'Pendiente'
     },
     {
         pacienteId: pacientes[2]._id,
         observaciones: 'Analgésico',
+        tipo: 'Receta',
         estado: 'Pendiente'
     }
 ]
