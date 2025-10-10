@@ -12,7 +12,7 @@ const crearPaciente = async (req, res) => {
   }
 };
 
-const obtenerPacientes = async (req,res) => {
+/* const obtenerPacientes = async (req,res) => {
   try{
     const listaPacientes = await Paciente.find().select('nombre');
     res.status(200).json(listaPacientes)
@@ -24,6 +24,46 @@ const obtenerPacientes = async (req,res) => {
     res.status(500).json({error:'Error interno del servidor'})
   }
 }
+ */
+ 
+
+const obtenerPacientes = async (req, res) => {
+  try {
+    const pacientes = await Paciente.find({}, {
+      dni: 1,
+      telefono: 1,
+      nroAfiliado: 1,
+      nombre: 1,
+      apellido: 1,
+      parentesco: 1,
+      fechaNacimiento: 1,
+      _id: 0
+    });
+
+    if (!pacientes || pacientes.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron pacientes' });
+    }
+    //esto es para que se envie la fecha de nacimiento en formato normal los recorro a todos y voy cambiando
+    const pacientesFormateados = pacientes.map(paciente => {
+      const fecha = new Date(paciente.fechaNacimiento);
+      const dia = fecha.getDate().toString().padStart(2, '0');//padstart es para asegurar q todos los campos tengan el mismo formato osea 00/00/00
+      const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+      const anio = fecha.getFullYear();
+      //convierto paciente a objeto
+      return {
+        ...paciente.toObject(), 
+        fechaNacimiento: `${dia}/${mes}/${anio}`
+      };
+    });
+
+    res.status(200).json(pacientesFormateados);
+  } catch (error) {
+    console.error('Error al obtener pacientes:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+
 
 
 
