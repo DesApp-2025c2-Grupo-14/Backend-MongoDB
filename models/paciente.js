@@ -5,6 +5,7 @@ const pacienteSchema = new mongoose.Schema({
   dni: { type: String, required: true, unique: true },
   /* nombreCompleto: { type: String, required: true }, */
   /* edad: { type: Number, required: true }, */
+  nombre: { type: String, required: true },
   apellido: { type: String, required: true },
   fechaNacimiento: {type: Date, required: true},
   telefono: {type: String, required: true},
