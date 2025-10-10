@@ -1,21 +1,46 @@
 const Paciente = require('../models/paciente')
 
 const pacientes = [
-  {
-    nombre: "Juan Pérez",
-    edad: 34,
-    nroAfiliado: "0000001-01"
+    {
+    tipoDocumento: "DNI",
+    dni: "30123456",
+    nombre: "María",
+    apellido: "González",
+    fechaNacimiento: new Date("1975-03-12"),
+    telefono: "1134567890",
+    mail: "MariGonz@gmail.com.ar",
+    direccion: "Aviador Patallo 2148",
+    nroAfiliado: "10001-01",
+    parentesco: "Titular",
+    planMedico: "Plata"
   },
   {
-    nombre: "María Gómez",
-    edad: 28,
-    nroAfiliado: "0000002-01"
+    tipoDocumento: "DNI",
+    dni: "38109876",
+    nombre: "Lucía",
+    apellido: "González",
+    fechaNacimiento: new Date("2000-04-20"),
+    telefono: "1112345679",
+    mail: "LuciGonz@gmail.com.ar",
+    direccion: "Aviador Patallo 2148",
+    nroAfiliado: "10001-02",
+    parentesco: "Hija",
+    planMedico: "Plata"
   },
   {
-    nombre: "Carlos Sánchez",
-    edad: 45,
-    nroAfiliado: "0000003-01"
-  }
+    tipoDocumento: "DNI",
+    dni: "27876543",
+    nombre: "Martín",
+    apellido: "González",
+    fechaNacimiento: new Date("1970-05-05"),
+    telefono: "1112345681",
+    mail: "MartinGonz@gmail.com.ar",
+    direccion: "Aviador Patallo 2148",
+    nroAfiliado: "10001-03",
+    parentesco: "Cónyuge",
+    planMedico: "Plata"
+  },
+
 ]
 
 async function seedPacientes() {
