@@ -40,7 +40,19 @@ const pacientes = [
     parentesco: "Cónyuge",
     planMedico: "Plata"
   },
-
+  {
+    tipoDocumento: "DNI",
+    dni: "42504601",
+    nombre: "Jorge",
+    apellido: "Pérez",
+    fechaNacimiento: new Date("2001-05-05"),
+    telefono: "1112345121",
+    mail: "JorgeP@gmail.com.ar",
+    direccion: "Aviador Mellman 2074",
+    nroAfiliado: "10002-01",
+    parentesco: "Titular",
+    planMedico: "Oro"
+  },
 ]
 
 async function seedPacientes() {
@@ -52,5 +64,6 @@ async function seedPacientes() {
         console.log('Error al insertar los pacientes', error.message)
     }
 }
+
 
 module.exports = {seedPacientes}
