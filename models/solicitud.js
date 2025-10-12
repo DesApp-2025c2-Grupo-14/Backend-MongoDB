@@ -7,6 +7,10 @@ const solicitudSchema = new mongoose.Schema({
     ref: 'Paciente',
     required: true
   },
+  prestadorId : {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Prestador'
+  },
   fechaPrestacion: {
     type: Date
   },
@@ -25,7 +29,7 @@ const solicitudSchema = new mongoose.Schema({
   tipo:{
     type: String,
     enum: ['Reintegro', 'Autorizacion', 'Receta'],
-    required: true
+    required: true 
   },
   estado: { 
     type: String, 
