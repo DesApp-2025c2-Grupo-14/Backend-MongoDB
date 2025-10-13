@@ -14,7 +14,7 @@ const crearPaciente = async (req, res) => {
 
 const obtenerPacientes = async (req,res) => {
   try{
-    const listaPacientes = await Paciente.find().select('nombre');
+    const listaPacientes = await Paciente.find().select('nombre').select('edad').select('nroAfiliado').select('email');
     res.status(200).json(listaPacientes)
     if(!pacientes){
       return res.status(404).json({ message: 'Publicaciones no encontradas' })

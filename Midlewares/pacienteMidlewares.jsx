@@ -16,11 +16,11 @@ const validUser = async (req, res, next) => {
 const validNombre = async (req, res, next) => {
     const { nombre } = req.body;
     if (!nickName) {
-        return res.status(400).json({ message: 'El nickname es requerido' });
+        return res.status(400).json({ message: 'El nombre es requerido' });
     }
     const existeNick = await User.findOne({ nickName: nickName.trim() });
     if (existeNick) {
-        return res.status(409).json({ message: 'El nickname ya existe' });
+        return res.status(401).json({ message: 'El nombre ya existe' });
     }
     next();
 };
@@ -32,7 +32,13 @@ const validEdad = async (req, res, next) => {
     return res.status(404).json({ message: 'La edad debe ser mayor a 0 y menor a 120' });
     }
 };
-
+const validNroAfiliado = async (req,res,next) => {
+    const {nroAfiliado} = req.body;
+    if (nroAfiliado.length < 6 || nroAfiliado.length > 8 ){
+        return res.status(401).json({message: 'El numero de afiliado debe contener como minimo 6 y maximo 8'})
+    }
+    next();
+}
 const validEmail = async (req, res, next) => {
     const { email } = req.body;
     if (!email) {
@@ -44,7 +50,7 @@ const validEmail = async (req, res, next) => {
     }
     next();
 };
-
+*/
 const validationSchemma = (schema) =>{
     return (req, res, next) =>{
         const {error, _} = schema.validate(req.body, {abortEarly:false})
@@ -54,7 +60,7 @@ const validationSchemma = (schema) =>{
         next()
     }
 }
-
+/*
 const validationEmailSchema = (schema) =>{
     return (req, res, next) =>{
         const {error, _} = schema.validate(req.body, {abortEarly:false})
@@ -64,7 +70,7 @@ const validationEmailSchema = (schema) =>{
         next()
     }
 }
+*/
 
 
-
-module.exports = {validUser,validNombre,validEdad, validEmail, validationSchemma, validationEmailSchema} 
+module.exports = {validUser,validNombre,validEdad,validNroAfiliado, validationSchemma, validEmail} 
