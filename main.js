@@ -26,6 +26,7 @@ async function iniciarServidor() {
     await seeds.seedPrestadores();
     await seeds.seedPacientes();
     await seeds.seedHistoriasClinicas();
+    await seeds.seedSituacionesTerapeuticas();
     await seeds.seedSolicitudes();
     await seeds.seedReintegros();
     await seeds.seedAutorizaciones();
