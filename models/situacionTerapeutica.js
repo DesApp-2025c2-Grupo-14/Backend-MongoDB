@@ -25,7 +25,9 @@ const situacionSchema = new mongoose.Schema({
     required: true
   },
   fechaFinal: {
-    type: Date
+    type: Date,
+    required:false,
+    default:null
   },
   descripcion: {
     type: String,

@@ -1,8 +1,7 @@
-const SituacionTerapeutica = require ('../models/situacionTerapeutica')
 const Paciente = require ("../models/paciente")
 const situacionTerapeutica = require('../models/situacionTerapeutica')
 
-const crearNuevaSituacionTerapeutica = async (req, res) => {
+/* const crearNuevaSituacionTerapeutica = async (req, res) => {
   try {
     const nroAfiliado = req.params.nAfiliado
     const { titulo,fechaInicio,fechaFinal,descripcion,} = req.body
@@ -21,9 +20,7 @@ const crearNuevaSituacionTerapeutica = async (req, res) => {
     console.error(error);
     res.status(400).json({ message: 'Error al crear la publicación' })
   }
-}
-
-
+} */
 /* const obtenerSituacionTerapeutica = async (req, res) => {
   try {
     const nroAfiliado = req.params.nAfiliado
@@ -35,8 +32,6 @@ const crearNuevaSituacionTerapeutica = async (req, res) => {
   }
 }
  */
-
-
 
 const obtenerSituacionTerapeutica = async (req, res) => {
   const { nAfiliado } = req.params; 
@@ -67,6 +62,45 @@ const obtenerSituacionTerapeutica = async (req, res) => {
 };
 
 
+const crearNuevaSituacionTerapeutica = async (req, res) => {
+  const { titulo, fechaInicio, fechaFinal, descripcion } = req.body;
+  const {id} = req.params;
+  
+  try {
+    const nuevaSituacion = new situacionTerapeutica({
+      pacienteId: id,
+      titulo,
+      descripcion,
+      fechaInicio,
+      fechaFinal: fechaFinal || null // esta es opcional
+    })
+
+    await nuevaSituacion.save()
+
+
+    res.status(201).json({message:"La situación terapéutica fue creada correctamente", situacion:nuevaSituacion});
+  } catch (error) {
+    console.error("Error al crear nueva situación:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
+// aca valido la fecha con el middleware por eso es mas corto
+const modificarFechaFinalizacion = async (req, res) => {
+  const { fechaFinal } = req.body;
+
+  try {
+    const situacion = req.situacion;
+
+    situacion.fechaFinal = fechaFinal;
+    await situacion.save();
+
+    res.status(200).json(situacion);
+  } catch (error) {
+    console.error("Error al modificar la fecha de finalización:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
 
 const eliminarSituacion = async (req, res) => {
     try {
@@ -102,22 +136,6 @@ const eliminarSituacion = async (req, res) => {
     }
 } */
  
-// aca valido la fecha con el middleware por eso es mas corto
-const modificarFechaFinalizacion = async (req, res) => {
-  const { fechaFinal } = req.body;
-
-  try {
-    const situacion = req.situacion;
-
-    situacion.fechaFinal = fechaFinal;
-    await situacion.save();
-
-    res.status(200).json(situacion);
-  } catch (error) {
-    console.error("Error al modificar la fecha de finalización:", error);
-    res.status(500).json({ error: "Error interno del servidor" });
-  }
-};
 
 
 

@@ -4,7 +4,9 @@ const { obtenerPacientes, crearPaciente,obtenerGrupoFamiliar } = require('../con
 const {obtenerHistorialClinico} = require('../controllers/historialController'); 
 const {obtenerSituacionTerapeutica, crearNuevaSituacionTerapeutica} = require('../controllers/situacionController')
 const { modificarFechaFinalizacion } = require('../controllers/situacionController');
-const { validarFechaFinal } = require('../middlewares/validarFechaFinal');
+const { validarFechaFinal} = require('../middlewares/validarFechaFinal');
+const { validarFechas} = require('../middlewares/validarFechas');
+
 
 //para pacientes
 router.get('/', obtenerPacientes);
@@ -15,12 +17,16 @@ router.post('/', crearPaciente);
 router.get('/:nAfiliado/historiasClinicas', obtenerHistorialClinico);
 
 // para situacion terapeutica
-router.post('/:nAfiliado/crearSituacion', crearNuevaSituacionTerapeutica);
+            //aca lo cambie a id en vez de nroafiliado
+router.post('/:id/crearSituacion', validarFechas, crearNuevaSituacionTerapeutica);
 router.get('/:nAfiliado/situacionesTerapeuticas', obtenerSituacionTerapeutica);
-router.put('/situacion/:id', validarFechaFinal, modificarFechaFinalizacion);
+router.put('/:id/situacion', validarFechaFinal, modificarFechaFinalizacion);
 
 
 module.exports = router;
+
+// aca nos convendria cambiar todas las rutas para que usen id en vez de nrafiliado
+
 
 /* 
 Historias clinicas
@@ -30,5 +36,12 @@ Consulta con prestador
 http://localhost:3001/pacientes/10001-01/historiasClinicas?prestador=Dr.%20Peralta
 */
 
+/* 
+Situacion terapeutica 
+put de situacion
+http://localhost:3001/pacientes/68ee8e5daf9d2f7c912b53c5/situacion
+post de creacion
+http://localhost:3001/pacientes/68eea2996906ba6c6dc852a5/crearSituacion
 
+*/
 

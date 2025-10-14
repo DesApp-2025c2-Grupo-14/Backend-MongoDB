@@ -40,7 +40,7 @@ const obtenerPacientes = async (req, res) => {
       parentesco: 1,
       fechaNacimiento: 1,
       planMedico:1,
-      _id: 0
+      _id: 1
     });
 
     if (!pacientes || pacientes.length === 0) {
