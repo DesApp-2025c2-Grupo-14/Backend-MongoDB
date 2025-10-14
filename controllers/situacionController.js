@@ -102,17 +102,25 @@ const modificarFechaFinalizacion = async (req, res) => {
   }
 };
 
+
+
 const eliminarSituacion = async (req, res) => {
-    try {
-        const id = req.params.id
-        const situacionEliminada = await Post.findByIdAndDelete(id)
-        await Paciente.deleteMany({ situacionesTerapeuticas: id })
-        res.status(200).json({ message: 'Situacion terapeutica eliminada exitosamente' })
+  const {id} = req.params  
+  try {
+        const situacionEliminada = await situacionTerapeutica.findByIdAndDelete(id)
+
+        if (!situacionEliminada) {
+          return res.status(404).json({ message: "Situación terapéutica no existe" });
+        }
+        
+        res.status(200).json({ message: "Situación terapéutica fue borrada correctamente" });
+
     } catch (error) {
-        console.error(error);
-        res.status(400).json({ error: 'Error al eliminar la situacion terapeutica' })
-    }
-} 
+    console.error(error);
+    res.status(500).json({ error: 'Error al eliminar la situacion terapeutica' });
+}
+
+}  
 
 /*  const modificarFechaFinalizacion = async (req, res) => {
     const id = req.params.id
