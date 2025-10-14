@@ -25,7 +25,7 @@ const pacientes = [
     direccion: "Aviador Patallo 2148",
     nroAfiliado: "10001-02",
     parentesco: "Hija",
-    planMedico: "Plata"
+    planMedico: "Oro"
   },
   {
     tipoDocumento: "DNI",

@@ -34,7 +34,7 @@ planMedico: {
   }],
   historialClinico:[{
     type: mongoose.Schema.ObjectId,
-    ref: 'HistorialClinico'
+    ref: 'HistoriaClinica'
   }]
 },
 {
