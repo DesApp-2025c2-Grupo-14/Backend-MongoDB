@@ -32,32 +32,68 @@ const situacionTerapeutica = require('../models/situacionTerapeutica')
   }
 }
  */
+/*
+const obtenerSituacionTerapeutica = async (req, res) => {
+  const id = req.params.id;
+  console.log("ID recibido:", id);
+  
+  // Primero obtenemos el paciente
+  const paciente = await Paciente.findById(id);
+  try {
+      
+      if (!paciente) {
+        return res.status(404).json({ message: 'Paciente no porque no encontrado' });
+      }
+
+      // Buscar situaciones relacionadas con el paciente
+      const situaciones = await situacionTerapeutica
+        .find({ pacienteId: id })
+        .select('-__v');
+
+      if (situaciones.length === 0) {
+        return res.status(404).json({ message: 'No se encontraron situaciones terapéuticas' });
+      }
+
+      res.status(200).json({
+        nombrePaciente: `${paciente.nombre} ${paciente.apellido}`,
+        situaciones
+      });
+
+    } catch (error) {
+      console.error('Error al obtener situaciones:', error);
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  };
+
+*/
 
 const obtenerSituacionTerapeutica = async (req, res) => {
-  const { nAfiliado } = req.params; 
-
   try {
-    //buscar paciente en base
-    const paciente = await Paciente.findOne({ nroAfiliado: nAfiliado });
-    //error si no lo encuentra
+    const  id  = req.params.id;
+
+    // Buscar paciente y traer sus situaciones terapéuticas
+    const paciente = await Paciente.findById(id)
+      .populate({
+        path: 'situacionesTerapeuticas', // nombre del campo en el modelo Paciente
+        select: '-__v',      // opcional, para limpiar el resultado
+      })
+      .lean();
+
+    // Si no se encuentra el paciente
     if (!paciente) {
-      return res.status(404).json({ message: 'Paciente no encontrado' });
-    }
-    
-    //busca las situaciones que hagan match con el _id de paciente y se queda con todas las del paciente 
-    const situaciones = await situacionTerapeutica.find({pacienteId: paciente._id}).select('-__v');
-
-    if ( situaciones.length === 0) {
-      return res.status(404).json({ message: 'No se encontraron situaciones terapeuticas' });
+      return res.status(404).json({ message: 'Paciente no porque no esta encontrado' });
     }
 
-    res.status(200).json({
+    // Si no tiene situaciones, devolvemos una lista vacía
+    const situaciones = paciente.situacionesTerapeuticas || [];
+
+    return res.status(200).json({
       nombrePaciente: `${paciente.nombre} ${paciente.apellido}`,
-      situaciones
+      situaciones,
     });
   } catch (error) {
-    console.error('Error al obtener situaciones:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error('💥 Error al obtener situaciones terapéuticas:', error);
+    return res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
@@ -67,6 +103,11 @@ const crearNuevaSituacionTerapeutica = async (req, res) => {
   const {id} = req.params;
   
   try {
+    const paciente = await Paciente.findById(id);
+    if(!paciente){
+      return res.status(404).json({message:'Paciente no encontrado'});
+    }
+
     const nuevaSituacion = new situacionTerapeutica({
       pacienteId: id,
       titulo,
@@ -76,7 +117,10 @@ const crearNuevaSituacionTerapeutica = async (req, res) => {
     })
 
     await nuevaSituacion.save()
-
+    
+    paciente.situacionesTerapeuticas = paciente.situacionesTerapeuticas || [];
+    paciente.situacionesTerapeuticas.push(nuevaSituacion._id);
+    await paciente.save();
 
     res.status(201).json({message:"La situación terapéutica fue creada correctamente", situacion:nuevaSituacion});
   } catch (error) {

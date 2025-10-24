@@ -16,24 +16,27 @@ const Paciente = require('../models/paciente');
 
 
 const obtenerHistorialClinico = async (req, res) => {
-  const { nAfiliado } = req.params; 
+  const  id  = req.params.id; // ahora usamos el id de Mongo
   const { prestador } = req.query;
 
   try {
-    //buscar paciente en base
-    const paciente = await Paciente.findOne({ nroAfiliado: nAfiliado });
-    //error si no lo encuentra
+    // Buscar paciente por _id
+    const paciente = await Paciente.findById(id);
+
+    // Error si no lo encuentra
     if (!paciente) {
       return res.status(404).json({ message: 'Paciente no encontrado' });
     }
-    //filtro base para traer solo las del paciente
+
+    // Filtro para traer solo las historias del paciente
     const filtro = { pacienteId: paciente._id };
 
-    //agrego el filtro para el prestador
+    // Agregar filtro para el prestador si se pasó por query
     if (prestador) {
       filtro.prestador = prestador;
     }
-    //busca la coleccion de historias con el filtro ademas deja fuera el campo de versiones de mongo
+
+    // Buscar en la colección de Historias Clínicas
     const historial = await HistorialClinico.find(filtro).select('-__v');
 
     if (!historial || historial.length === 0) {

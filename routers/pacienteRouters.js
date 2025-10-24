@@ -1,27 +1,33 @@
 const { Router } = require('express');
 const router = Router();
-const { obtenerPacientes, crearPaciente,obtenerGrupoFamiliar } = require('../controllers/pacienteControllers');
+const { obtenerPacientes, crearPaciente,obtenerGrupoFamiliar, borrarPaciente, obtenerPaciente} = require('../controllers/pacienteControllers');
 const {obtenerHistorialClinico} = require('../controllers/historialController'); 
-const {obtenerSituacionTerapeutica, crearNuevaSituacionTerapeutica,eliminarSituacion} = require('../controllers/situacionController')
+const {obtenerSituacionTerapeutica, crearNuevaSituacionTerapeutica, eliminarSituacion} = require('../controllers/situacionController')
 const { modificarFechaFinalizacion } = require('../controllers/situacionController');
 const { validarFechaFinal} = require('../middlewares/validarFechaFinal');
 const { validarFechas} = require('../middlewares/validarFechas');
+const { validarDescripcion} = require('../middlewares/validarDescripcion');
+const { validarTitulo} = require('../middlewares/validarTitulo');
+const { validarObjectId} = require('../middlewares/validarObjectId');
+
 
 
 //para pacientes
-router.get('/', obtenerPacientes);
-router.get('/:nAfiliado/grupoFamiliar', obtenerGrupoFamiliar);
-router.post('/', crearPaciente);
+router.get('/:id',validarObjectId,obtenerPaciente);  // funcionando
+router.delete('/:id/eliminarPaciente',validarObjectId,borrarPaciente); //funcionando
+router.get('/:id/grupoFamiliar',validarObjectId, obtenerGrupoFamiliar); //funcionando
+router.post('/', crearPaciente); //funcionando
+router.get('/', obtenerPacientes);  //funcionando
 
 //para historial clinico
-router.get('/:nAfiliado/historiasClinicas', obtenerHistorialClinico);
+router.get('/:id/historiasClinicas',validarObjectId, obtenerHistorialClinico); //funcionando
 
 // para situacion terapeutica
-            //aca lo cambie a id en vez de nroafiliado
-router.post('/:id/crearSituacion', validarFechas, crearNuevaSituacionTerapeutica);
-router.get('/:nAfiliado/situacionesTerapeuticas', obtenerSituacionTerapeutica);
-router.patch('/:id/situacion', validarFechaFinal, modificarFechaFinalizacion);
-router.delete('/:id/eliminarSituacion', eliminarSituacion);
+//aca lo cambie a id en vez de nroafiliado
+router.post('/:id/crearSituacion',validarObjectId,validarFechas, validarDescripcion,validarTitulo,crearNuevaSituacionTerapeutica);
+router.get('/:id/situacionesTerapeuticas',validarObjectId,obtenerSituacionTerapeutica);
+router.patch('/:id/situacion',validarObjectId,validarFechaFinal, modificarFechaFinalizacion);
+router.delete('/:id/eliminarSituacion',validarObjectId,eliminarSituacion);
 
 module.exports = router;
 
