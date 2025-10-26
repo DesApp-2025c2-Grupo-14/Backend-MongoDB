@@ -9,6 +9,8 @@ const { validarFechas} = require('../middlewares/validarFechas');
 const { validarDescripcion} = require('../middlewares/validarDescripcion');
 const { validarTitulo} = require('../middlewares/validarTitulo');
 const { validarObjectId} = require('../middlewares/validarObjectId');
+const validateSchema = require('../middlewares/validateSchema');
+const pacienteSchema = require('../schemas/pacienteSchema');
 
 
 
@@ -16,7 +18,7 @@ const { validarObjectId} = require('../middlewares/validarObjectId');
 router.get('/:id',validarObjectId,obtenerPaciente);  // funcionando
 router.delete('/:id/eliminarPaciente',validarObjectId,borrarPaciente); //funcionando
 router.get('/:id/grupoFamiliar',validarObjectId, obtenerGrupoFamiliar); //funcionando
-router.post('/', crearPaciente); //funcionando
+router.post('/',validateSchema(pacienteSchema), crearPaciente); //funcionando
 router.get('/', obtenerPacientes);  //funcionando
 
 //para historial clinico
