@@ -1,8 +1,10 @@
 const Solicitud = require('../models/solicitud')
 const Paciente = require('../models/paciente')
+const Prestador = require('../models/prestador')
 
 async function seedSolicitudes() {
     const pacientes = await Paciente.find()
+    const prestadores = await Prestador.find()
     const solicitudes = [
     {
         pacienteId: pacientes[0]._id,
@@ -25,10 +27,32 @@ async function seedSolicitudes() {
         estado: 'Pendiente'
     },
     {
+        prestadorId : prestadores[0]._id,
         pacienteId: pacientes[2]._id,
         observaciones: 'Analgésico',
         tipo: 'Receta',
-        estado: 'Pendiente'
+        estado: 'En analisis'
+    },
+    {
+        prestadorId : prestadores[0]._id,
+        pacienteId: pacientes[2]._id,
+        observaciones: 'Vacuna',
+        tipo: 'Receta',
+        estado: 'Aprobada'
+    },
+    {
+        prestadorId : prestadores[0]._id,
+        pacienteId: pacientes[2]._id,
+        observaciones: 'Antibiótico',
+        tipo: 'Receta',
+        estado: 'Aprobada'
+    },
+    {
+        prestadorId : prestadores[0]._id,
+        pacienteId: pacientes[2]._id,
+        observaciones: 'Antiséptico',
+        tipo: 'Receta',
+        estado: 'Observada'
     }
 ]
     try {

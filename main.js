@@ -32,7 +32,6 @@ async function iniciarServidor() {
     await seeds.seedAutorizaciones();
     await seeds.seedRecetas();
   }
-
   app.listen(PORT, () => {
     console.log(`Servidor iniciado en el puerto ${PORT}`);
     console.log('Clinica-Prestador');

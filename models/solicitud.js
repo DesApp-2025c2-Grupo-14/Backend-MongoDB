@@ -9,7 +9,8 @@ const solicitudSchema = new mongoose.Schema({
   },
   prestadorId : {
     type: mongoose.Schema.ObjectId,
-    ref: 'Prestador'
+    ref: 'Prestador',
+    default: null
   },
   fechaPrestacion: {
     type: Date
@@ -25,6 +26,10 @@ const solicitudSchema = new mongoose.Schema({
   },
   observaciones: {
     type: String
+  },
+  motivo: {
+    type: String,
+    default: null
   },
   tipo:{
     type: String,
