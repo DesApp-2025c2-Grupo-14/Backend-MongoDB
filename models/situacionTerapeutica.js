@@ -38,6 +38,11 @@ const situacionSchema = new mongoose.Schema({
     ref: 'Paciente',
     required: true
   },
+  activa: {
+    type: Boolean,
+    required: true,
+    default: true
+  }
 }, {
   collection: 'situacionesTerapeuticas'
 });

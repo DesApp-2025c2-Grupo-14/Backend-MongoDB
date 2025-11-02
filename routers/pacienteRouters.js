@@ -21,7 +21,7 @@ router.get('/:nAfiliado/historiasClinicas', obtenerHistorialClinico);
 router.post('/:id/crearSituacion', validarFechas, crearNuevaSituacionTerapeutica);
 router.get('/:nAfiliado/situacionesTerapeuticas', obtenerSituacionTerapeutica);
 router.patch('/:id/situacion', validarFechaFinal, modificarFechaFinalizacion);
-router.delete('/:id/eliminarSituacion', eliminarSituacion);
+router.patch('/:id/eliminarSituacion', eliminarSituacion);
 
 module.exports = router;
 

@@ -10,28 +10,32 @@ async function seedSituacionesTerapeuticas() {
         titulo: "Embarazo",
         fechaInicio: new Date("2025-08-02"),
         // aca dejo la fecha vacia
-        descripcion: "Control prenatal trimestral"
+        descripcion: "Control prenatal trimestral",
+        activa: true
       },
       {
         pacienteId: pacientes[0]._id,
         titulo: "Neumonía",
         fechaInicio: new Date("2025-07-10"),
         fechaFinal: new Date("2025-07-30"),
-        descripcion: "Internación breve y tratamiento antibiótico completo"
+        descripcion: "Internación breve y tratamiento antibiótico completo",
+        activa: true
       },
       {
         pacienteId: pacientes[1]._id,
         titulo: "Esguince",
         fechaInicio: new Date("2025-02-15"),
         fechaFinal: new Date("2025-03-25"),
-        descripcion: "Esguince leve de tobillo izquierdo. Uso de férula"
+        descripcion: "Esguince leve de tobillo izquierdo. Uso de férula",
+        activa: true
       },
       {
         pacienteId: pacientes[2]._id,
         titulo: "Fractura",
         fechaInicio: new Date("2025-03-11"),
         fechaFinal: new Date("2025-04-22"),
-        descripcion: "Fractura de tibia derecha. Rehabilitación en curso"
+        descripcion: "Fractura de tibia derecha. Rehabilitación en curso",
+        activa: true
       },
     ];
     try {
