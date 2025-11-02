@@ -10,16 +10,17 @@ const { validarFechas} = require('../middlewares/validarFechas');
 
 //para pacientes
 router.get('/', obtenerPacientes);
-router.get('/:nAfiliado/grupoFamiliar', obtenerGrupoFamiliar);
+//router.get('/:nAfiliado/grupoFamiliar', obtenerGrupoFamiliar);
 router.post('/', crearPaciente);
 
 //para historial clinico
-router.get('/:nAfiliado/historiasClinicas', obtenerHistorialClinico);
+//router.get('/:nAfiliado/historiasClinicas', obtenerHistorialClinico);
+router.get('/:id/historiasClinicas', obtenerHistorialClinico);
 
 // para situacion terapeutica
             //aca lo cambie a id en vez de nroafiliado
 router.post('/:id/crearSituacion', validarFechas, crearNuevaSituacionTerapeutica);
-router.get('/:nAfiliado/situacionesTerapeuticas', obtenerSituacionTerapeutica);
+router.get('/:id/situacionesTerapeuticas', obtenerSituacionTerapeutica);
 router.patch('/:id/situacion', validarFechaFinal, modificarFechaFinalizacion);
 router.patch('/:id/eliminarSituacion', eliminarSituacion);
 

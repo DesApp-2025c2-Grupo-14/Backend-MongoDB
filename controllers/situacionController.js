@@ -34,11 +34,11 @@ const situacionTerapeutica = require('../models/situacionTerapeutica')
  */
 
 const obtenerSituacionTerapeutica = async (req, res) => {
-  const { nAfiliado } = req.params; 
+  const { id } = req.params; 
 
   try {
     //buscar paciente en base
-    const paciente = await Paciente.findOne({ nroAfiliado: nAfiliado });
+    const paciente = await Paciente.findOne({ _id: id });
     //error si no lo encuentra
     if (!paciente) {
       return res.status(404).json({ message: 'Paciente no encontrado' });
