@@ -99,40 +99,29 @@ const getDetalleById = async (req, res) => {
 
 const getSolicitudesPrestador = async (req, res) => {
 
+  const tipo = req.query.tipo === 'Reintegro' ? 
+                'reintegros' : 
+              req.query.tipo === 'Autorizacion' ?
+                'autorizaciones' :
+                'recetas'
+  const alias = tipo === 'reintegros' ? 'reintegro' : tipo === 'autorizaciones' ? 'autorizacion' : 'receta'
   try {
     const solicitudes = await Solicitud.aggregate([
       {
         $match: {
-          prestadorId: new mongoose.Types.ObjectId(req.query.id)
+          prestadorId: new mongoose.Types.ObjectId(req.query.id),
+          tipo: req.query.tipo
         }
       },
       {
         $lookup: {
-          from: "reintegros",
+          from: tipo,
           localField: "_id",
           foreignField: "solicitudId",
-          as: "reintegro",
+          as: alias,
         }
       },
-      { $unwind: { path: "$reintegro", preserveNullAndEmptyArrays: true } },
-      {
-        $lookup: {
-          from: "autorizaciones",
-          localField: "_id",
-          foreignField: "solicitudId",
-          as: "autorizacion",
-        }
-      },
-      { $unwind: { path: "$autorizacion", preserveNullAndEmptyArrays: true } },
-      {
-        $lookup: {
-          from: "recetas",
-          localField: "_id",
-          foreignField: "solicitudId",
-          as: "receta",
-        }
-      },
-      { $unwind: { path: "$receta", preserveNullAndEmptyArrays: true } },
+      { $unwind: { path: `$${alias}`, preserveNullAndEmptyArrays: true } },
       {
         $lookup: {
           from: "pacientes",
@@ -171,7 +160,7 @@ const analizarSolicitud = async (req, res) => {
 
   try {
     
-    const solicitud = await Solicitud.findByIdAndUpdate({_id: req.params.id}, {estado: req.body.estado, motivo: req.body.motivo, prestadorId: new mongoose.Types.ObjectId(req.body.prestadorId)}, {new: true})
+    const solicitud = await Solicitud.findByIdAndUpdate({_id: req.params.id}, {estado: req.body.estado, motivo: req.body.motivo ?? "", prestadorId: new mongoose.Types.ObjectId(req.body.prestadorId)}, {new: true})
     res.status(200).json(solicitud)
   }
   catch (error) {
@@ -197,7 +186,6 @@ const getEstadisticasSolicitudes = async (req, res) => {
         }
       }
     ]);
-    console.log(resultado)
     const resumen = {
       total: resultado.reduce((acc, r) => acc + r.total, 0),
       aprobadas: resultado.find(r => r._id === "Aprobada")?.total || 0,
