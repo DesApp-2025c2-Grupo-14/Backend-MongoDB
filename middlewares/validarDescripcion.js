@@ -8,8 +8,6 @@ const validarDescripcion = (req, res, next) => {
                 message: "La descripcion debe contener algo, no me compliques la vida"
             });
         }
-
-        // Todo OK, seguimos al siguiente middleware o controller
         next();
     } catch (error) {
         console.error('Error al validar la descripcion:', error);

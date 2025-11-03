@@ -6,9 +6,7 @@ const validarFechaFinal = async (req, res, next) => {
   const {fechaFinal}=req.body;
 
   try {
-    //buscar situacion en base por id 
     const situacion = await SituacionTerapeutica.findById(id)
-    //error si no lo encuentra
     if (!situacion) {
       return res.status(404).json({ message: 'Situacion no encontrada' });
     }
