@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "��#\u0000 \u0000B\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000-\u0000M\u0000o\u0000n\u0000g\u0000o\u0000D\u0000B\u0000\r\u0000 \u0000",
   "main": "main.js",
+  "type": "commonjs",
   "scripts": {
     "start": "nodemon main.js",
     "dev": "nodemon main.js",
@@ -20,8 +21,10 @@
   },
   "homepage": "https://github.com/DesApp-2025c2-Grupo-14/Backend-MongoDB#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "joi": "^18.0.1",
     "mongodb-memory-server": "^10.2.1",
     "mongoose": "^8.18.3"
   },
