@@ -8,14 +8,14 @@ async function seedHistoriasClinicas() {
       {
         pacienteId: pacientes[0]._id,
         titulo: "Consulta Cardiológica",
-        prestador: "Dr. Peralta",
+        prestador: "Dr. Zed",
         notas: "Presión arterial alta, recomendar dieta baja en sodio",
         fecha: new Date("2023-03-15")
       },
       {
         pacienteId: pacientes[0]._id,
         titulo: "Consulta Pediátrica",
-        prestador: "Dr. Peralta",
+        prestador: "Dr. Pliskin",
         notas: "Control anual completo",
         fecha: new Date("2023-03-15")
       },

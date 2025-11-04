@@ -34,18 +34,18 @@ const situacionTerapeutica = require('../models/situacionTerapeutica')
  */
 
 const obtenerSituacionTerapeutica = async (req, res) => {
-  const { nAfiliado } = req.params; 
+  const { id } = req.params; 
 
   try {
     //buscar paciente en base
-    const paciente = await Paciente.findOne({ nroAfiliado: nAfiliado });
+    const paciente = await Paciente.findOne({ _id: id });
     //error si no lo encuentra
     if (!paciente) {
       return res.status(404).json({ message: 'Paciente no encontrado' });
     }
     
-    //busca las situaciones que hagan match con el _id de paciente y se queda con todas las del paciente 
-    const situaciones = await situacionTerapeutica.find({pacienteId: paciente._id}).select('-__v');
+    //busca las situaciones que hagan match con el _id y que esten activas de paciente y se queda con todas las del paciente 
+    const situaciones = await situacionTerapeutica.find({pacienteId: paciente._id, activa: true}).select('-__v');
 
     if ( situaciones.length === 0) {
       return res.status(404).json({ message: 'No se encontraron situaciones terapeuticas' });
@@ -74,9 +74,9 @@ const crearNuevaSituacionTerapeutica = async (req, res) => {
       fechaInicio,
       fechaFinal: fechaFinal || null // esta es opcional
     })
-
     await nuevaSituacion.save()
-
+    // actualizar el paciente para agregar la referencia a la nueva situacion 
+    await Paciente.findByIdAndUpdate(id,{ $push: { situacionesTerapeuticas: nuevaSituacion._id } },{ new: true });
 
     res.status(201).json({message:"La situación terapéutica fue creada correctamente", situacion:nuevaSituacion});
   } catch (error) {
@@ -107,8 +107,7 @@ const modificarFechaFinalizacion = async (req, res) => {
 const eliminarSituacion = async (req, res) => {
   const {id} = req.params  
   try {
-        const situacionEliminada = await situacionTerapeutica.findByIdAndDelete(id)
-
+        const situacionEliminada = await situacionTerapeutica.findByIdAndUpdate(id, { activa: false }, { new: true })
         if (!situacionEliminada) {
           return res.status(404).json({ message: "Situación terapéutica no existe" });
         }
