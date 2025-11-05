@@ -50,7 +50,30 @@ const obtenerHistorialClinico = async (req, res) => {
   }
 };
 
+const crearHistoria = async (req, res) => {
+  const { titulo, prestador, notas, fecha } = req.body;
+  const {id} = req.params;
+  
+  try {
+    const nuevaHistoria = new HistorialClinico({
+      pacienteId: id,
+      titulo,
+      prestador,
+      notas,
+      fecha
+    })
+    await nuevaHistoria.save()
+    // actualizar el paciente para agregar la referencia a la nueva situacion 
+    await Paciente.findByIdAndUpdate(id,{ $push: { historialClinico: nuevaHistoria._id } },{ new: true });
+
+    res.status(201).json({message:"La historia clinica fue creada correctamente", historia:nuevaHistoria});
+  } catch (error) {
+    console.error("Error al crear nueva historia:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
 
 module.exports = {
-  obtenerHistorialClinico
+  obtenerHistorialClinico,
+  crearHistoria
 };

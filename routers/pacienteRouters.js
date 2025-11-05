@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const { obtenerPacientes, crearPaciente,obtenerGrupoFamiliar } = require('../controllers/pacienteControllers');
-const {obtenerHistorialClinico} = require('../controllers/historialController'); 
+const {obtenerHistorialClinico, crearHistoria} = require('../controllers/historialController'); 
 const {obtenerSituacionTerapeutica, crearNuevaSituacionTerapeutica,eliminarSituacion} = require('../controllers/situacionController')
 const { modificarFechaFinalizacion } = require('../controllers/situacionController');
 const { validarFechaFinal} = require('../middlewares/validarFechaFinal');
@@ -16,6 +16,7 @@ router.post('/', crearPaciente);
 //para historial clinico
 //router.get('/:nAfiliado/historiasClinicas', obtenerHistorialClinico);
 router.get('/:id/historiasClinicas', obtenerHistorialClinico);
+router.post('/:id/crearHistoria', crearHistoria);
 
 // para situacion terapeutica
             //aca lo cambie a id en vez de nroafiliado
