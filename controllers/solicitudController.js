@@ -1,4 +1,5 @@
 const Solicitud = require ("../models/solicitud")
+const Prestador = require ("../models/prestador")
 const mongoose = require("mongoose")
 const obtenerSolicitudesPendientes = async (req,res) => {
   try {
@@ -200,4 +201,15 @@ const getEstadisticasSolicitudes = async (req, res) => {
   }
 }
 
-module.exports = {obtenerSolicitudesPendientes, getDetalleById, analizarSolicitud, getSolicitudesPrestador, getEstadisticasSolicitudes}
+const getPrestadorId = async (req, res) => {
+  try {
+    const prestadores = await Prestador.find()
+    console.log(prestadores)
+    res.status(200).json({"id": prestadores[0]._id})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message })
+  }
+}
+
+module.exports = {obtenerSolicitudesPendientes, getDetalleById, analizarSolicitud, getSolicitudesPrestador, getEstadisticasSolicitudes, getPrestadorId}
