@@ -6,6 +6,7 @@ const {seedReintegros} = require('./reintegros.seed')
 const {seedAutorizaciones} = require('./autorizaciones.seed')
 const {seedRecetas} = require('./recetas.seed')
 const {seedSituacionesTerapeuticas} = require('./situaciones.seed')
+const {seedTurnos} = require('./turnos.seed')
 // const Producto = require('../models/producto.model')
 
 module.exports = {
@@ -16,5 +17,6 @@ module.exports = {
     seedAutorizaciones,
     seedRecetas,
     seedHistoriasClinicas,
-    seedSituacionesTerapeuticas
+    seedSituacionesTerapeuticas,
+    seedTurnos
 }

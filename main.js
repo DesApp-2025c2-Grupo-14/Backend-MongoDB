@@ -3,6 +3,7 @@ const conectarMongoDB = require('./config/database')
 const pacienteRouter = require('./routers/pacienteRouters')
 const situacionTerapeuticaRouter = require('./routers/situacionTerapeuticaRouters')
 const solicitudRouter = require('./routers/solicitudRouters')
+const turnoRouter = require ('./routers/turnoRouters')
 const seeds = require('./seeds')
 const cors = require('cors')
 require('dotenv').config()
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/pacientes', pacienteRouter)
 app.use('/situacionesTerapeuticas', situacionTerapeuticaRouter)
 app.use('/solicitudes', solicitudRouter)
+app.use('/turnos',turnoRouter)
 console.log(process.env.SEED)
 //Conectamos la base de datos
 async function iniciarServidor() {
@@ -31,6 +33,7 @@ async function iniciarServidor() {
     await seeds.seedReintegros();
     await seeds.seedAutorizaciones();
     await seeds.seedRecetas();
+    await seeds.seedTurnos();
   }
   app.listen(PORT, () => {
     console.log(`Servidor iniciado en el puerto ${PORT}`);
