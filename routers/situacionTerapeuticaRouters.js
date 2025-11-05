@@ -12,7 +12,7 @@ const situacionSchema = require('../schemas/situacionSchema');
 const fechaFinalSchema = require('../schemas/fechaFinalSchema');
 
 router.delete('/:id', eliminarSituacion);
-router.patch('/:id/cambiarFecha',fechaFinalSchema,modificarFechaFinalizacion);
+//router.patch('/:id/cambiarFecha',fechaFinalSchema,modificarFechaFinalizacion);
 router.get('/', obtenerSituacionTerapeutica);
 router.post('/',validateSchema(situacionSchema), crearNuevaSituacionTerapeutica);
 
