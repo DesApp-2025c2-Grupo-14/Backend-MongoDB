@@ -142,7 +142,7 @@ const eliminarSituacion = async (req, res) => {
         res.status(400).json({error: 'Error al modificar fecha de finalizacion'})
     }
 } */
- 
+
 
 
 

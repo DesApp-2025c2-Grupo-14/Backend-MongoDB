@@ -6,6 +6,6 @@ router.get('/', obtenerSolicitudesPendientes);
 router.get('/:tipo/:id', getDetalleById);
 router.get('/prestador', getPrestadorId);
 router.patch('/:id', analizarSolicitud);
-router.get('/mis-solicitudes', getSolicitudesPrestador);
+router.get('/solicitudes', getSolicitudesPrestador);
 router.get('/dashboard', getEstadisticasSolicitudes);
 module.exports = router;

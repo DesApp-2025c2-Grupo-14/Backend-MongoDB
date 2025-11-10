@@ -13,6 +13,7 @@ async function seedAutorizaciones() {
         await Autorizacion.deleteMany({})
         await Autorizacion.insertMany(autorizaciones)
     } catch (error) {
+        
         console.log('Error al insertar las autorizaciones', error.message)
     }
 }
