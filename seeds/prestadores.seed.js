@@ -3,7 +3,7 @@ const Prestador = require('../models/prestador')
 const prestadores = [
     {
         "cuit": "20-34567890-1",
-        "nombre": "Dr. Martín González",
+        "nombre": "Dr. Hernan Gutierrrez",
         "centroMedico": false,
         "integraCM": true,
         "lugaresAtencion": [
