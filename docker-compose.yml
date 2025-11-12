@@ -22,18 +22,18 @@ services:
     depends_on:
       - mongo
 
-  app:
-    build: .
-    image: app:${APP_VERSION}
-    ports:
-      - "${EXTERNAL_PORT}:${PORT}"
-    environment:
-      PORT: ${PORT}
-      MONGO_USER: ${MONGO_USER}
-      MONGO_PASSWORD: ${MONGO_PASSWORD}
-      MONGO_URL: ${MONGO_URI}
-    depends_on:
-      - mongo
+  # app:
+  #   build: .
+  #   image: app:${APP_VERSION}
+  #   ports:
+  #     - "${EXTERNAL_PORT}:${PORT}"
+  #   environment:
+  #     PORT: ${PORT}
+  #     MONGO_USER: ${MONGO_USER}
+  #     MONGO_PASSWORD: ${MONGO_PASSWORD}
+  #     MONGO_URL: ${MONGO_URI}
+  #   depends_on:
+  #     - mongo
 
 volumes:
   mongo-data:

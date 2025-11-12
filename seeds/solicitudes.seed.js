@@ -19,37 +19,29 @@ async function seedSolicitudes() {
     // 🧾 5 de tipo Receta
     const recetas = [
         {
-        fechaPrestacion: new Date('2025-10-10'),
         observaciones: 'Receta de analgésico para dolor lumbar',
         estado: 'En analisis',
         },
         {
-        fechaPrestacion: new Date('2025-10-11'),
         observaciones: 'Vacuna antigripal anual',
         estado: 'Aprobada',
         },
         {
-        fechaPrestacion: new Date('2025-10-12'),
         observaciones: 'Antibiótico por infección respiratoria',
         estado: 'Aprobada',
         },
         {
-        fechaPrestacion: new Date('2025-10-13'),
         observaciones: 'Antiséptico tópico para heridas leves',
         estado: 'Observada',
         },
         {
-        fechaPrestacion: new Date('2025-10-14'),
         observaciones: 'Crema dermatológica recetada',
         estado: 'Pendiente',
         },
     ].map((r) => ({
         ...r,
-        prestadorId: prestador._id,
+        prestadorId: r.estado !== "Pendiente" ? prestador._id : null,
         pacienteId: paciente._id,
-        medico: prestador.nombre,
-        especialidad: 'Clínica Médica',
-        lugar: 'Consultorio Central',
         tipo: 'Receta',
     }));
 
@@ -82,7 +74,7 @@ async function seedSolicitudes() {
         },
     ].map((r) => ({
         ...r,
-        prestadorId: prestador._id,
+        prestadorId: r.estado !== "Pendiente" ? prestador._id : null,
         pacienteId: paciente._id,
         medico: prestador.nombre,
         especialidad: 'Clínica Médica',
@@ -119,7 +111,7 @@ async function seedSolicitudes() {
         },
     ].map((r) => ({
         ...r,
-        prestadorId: prestador._id,
+        prestadorId: r.estado !== "Pendiente" ? prestador._id : null,
         pacienteId: paciente._id,
         medico: prestador.nombre,
         especialidad: 'Diagnóstico por Imágenes',
