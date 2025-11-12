@@ -6,15 +6,15 @@ async function seedTurnos() {
 
     const turnos = [
       {
-        fechaHora: new Date('2025-11-03T14:30:00'),
+        fechaHora: new Date('2025-11-03T14:00:00'),
         pacienteId: pacientes[0]._id,
       },
       {
-        fechaHora: new Date('2025-11-06T14:30:00'),
+        fechaHora: new Date('2025-11-06T14:00:00'),
         pacienteId: pacientes[1]._id,
       },
       {
-        fechaHora: new Date('2025-11-03T14:30:00'),
+        fechaHora: new Date('2025-11-03T13:00:00'),
         pacienteId: pacientes[2]._id,
       }
     ];
