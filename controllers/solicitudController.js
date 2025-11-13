@@ -99,13 +99,15 @@ const getDetalleById = async (req, res) => {
 }
 
 const getSolicitudesPrestador = async (req, res) => {
-
+  console.log(req.query.id)
+  console.log(req.query.tipo)
   const tipo = req.query.tipo === 'Reintegro' ? 
                 'reintegros' : 
               req.query.tipo === 'Autorizacion' ?
                 'autorizaciones' :
                 'recetas'
   const alias = tipo === 'reintegros' ? 'reintegro' : tipo === 'autorizaciones' ? 'autorizacion' : 'receta'
+  
   try {
     const solicitudes = await Solicitud.aggregate([
       {
@@ -140,7 +142,15 @@ const getSolicitudesPrestador = async (req, res) => {
           "paciente.situacionesTerapeuticas": 0,
           "paciente.familia": 0,
           "paciente.historialClinico": 0,
-          "solicitud.pacienteId": 0
+          "paciente.tipoDocumento": 0,
+          "paciente.dni": 0,
+          "paciente.fechaNacimiento": 0,
+          "paciente.telefono": 0,
+          "paciente.mail": 0,
+          "paciente.direccion": 0,
+          "paciente.parentesco": 0,
+          "paciente.planMedico": 0,
+          "paciente.__v": 0
         }
       }
     ]);
@@ -155,6 +165,7 @@ const getSolicitudesPrestador = async (req, res) => {
     res.status(500).json({ error: "Error interno del servidor." });
   }
 };
+
 
 const analizarSolicitud = async (req, res) => {
 
@@ -193,7 +204,7 @@ const getEstadisticasSolicitudes = async (req, res) => {
       rechazadas: resultado.find(r => r._id === "Rechazada")?.total || 0,
       observadas: resultado.find(r => r._id === "Observada")?.total || 0
     };
-
+    console.log("hola")
     res.status(200).json(resumen);
   } catch (error) {
     console.error(error);
