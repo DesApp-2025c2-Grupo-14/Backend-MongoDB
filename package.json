@@ -22,6 +22,7 @@
   "homepage": "https://github.com/DesApp-2025c2-Grupo-14/Backend-MongoDB#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dayjs": "^1.11.19",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "mongodb-memory-server": "^10.2.1",
