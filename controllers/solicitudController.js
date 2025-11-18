@@ -204,7 +204,6 @@ const getEstadisticasSolicitudes = async (req, res) => {
       rechazadas: resultado.find(r => r._id === "Rechazada")?.total || 0,
       observadas: resultado.find(r => r._id === "Observada")?.total || 0
     };
-    console.log("hola")
     res.status(200).json(resumen);
   } catch (error) {
     console.error(error);
