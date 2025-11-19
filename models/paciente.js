@@ -28,10 +28,10 @@ planMedico: {
     type: mongoose.Schema.ObjectId,
     ref: 'SituacionTerapeutica'
   }],
-  familia:[{
+  /* familia:[{
     type: mongoose.Schema.ObjectId,
     ref: 'Paciente'
-  }],
+  }], */
   historialClinico:[{
     type: mongoose.Schema.ObjectId,
     ref: 'HistoriaClinica'

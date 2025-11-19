@@ -1,6 +1,7 @@
 const Paciente = require('../models/paciente')
 
 const pacientes = [
+  // flia gonzalez
     {
     tipoDocumento: "DNI",
     dni: "30123456",
@@ -40,6 +41,7 @@ const pacientes = [
     parentesco: "Cónyuge",
     planMedico: "Plata"
   },
+  // flia perez
   {
     tipoDocumento: "DNI",
     dni: "42504601",
@@ -53,6 +55,112 @@ const pacientes = [
     parentesco: "Titular",
     planMedico: "Oro"
   },
+  // flia silva
+  {
+    tipoDocumento: "DNI",
+    dni: "40123456",
+    nombre: "Federico",
+    apellido: "Silva",
+    fechaNacimiento: new Date("1982-01-15"),
+    telefono: "1134123464",
+    mail: "FedericoS@gmail.com.ar",
+    direccion: "Calle Belgrano 321",
+    nroAfiliado: "20001-01",
+    parentesco: "Titular",
+    planMedico: "Oro"
+  },
+  {
+    tipoDocumento: "DNI",
+    dni: "41234567",
+    nombre: "Carolina",
+    apellido: "Silva",
+    fechaNacimiento: new Date("1985-06-20"),
+    telefono: "1134123465",
+    mail: "CarolinaS@gmail.com.ar",
+    direccion: "Calle Belgrano 321",
+    nroAfiliado: "20001-02",
+    parentesco: "Cónyuge",
+    planMedico: "Oro"
+  },
+  {
+    tipoDocumento: "DNI",
+    dni: "43098765",
+    nombre: "Lucas",
+    apellido: "Silva",
+    fechaNacimiento: new Date("2010-09-12"),
+    telefono: "1134123466",
+    mail: "LucasS@gmail.com.ar",
+    direccion: "Calle Belgrano 321",
+    nroAfiliado: "20001-03",
+    parentesco: "Hijo",
+    planMedico: "Oro"
+  },
+  {
+    tipoDocumento: "DNI",
+    dni: "43123456",
+    nombre: "Sofía",
+    apellido: "Silva",
+    fechaNacimiento: new Date("2013-03-05"),
+    telefono: "1134123467",
+    mail: "SofiaS@gmail.com.ar",
+    direccion: "Calle Belgrano 321",
+    nroAfiliado: "20001-04",
+    parentesco: "Hija",
+    planMedico: "Oro"
+  },
+  // flia medina
+  {
+    tipoDocumento: "DNI",
+    dni: "50123456",
+    nombre: "Alejandro",
+    apellido: "Medina",
+    fechaNacimiento: new Date("1978-02-10"),
+    telefono: "1135123456",
+    mail: "AlejandroM@gmail.com.ar",
+    direccion: "Calle San Martín 450",
+    nroAfiliado: "30001-01",
+    parentesco: "Titular",
+    planMedico: "Plata"
+  },
+  {
+    tipoDocumento: "DNI",
+    dni: "51234567",
+    nombre: "Verónica",
+    apellido: "Medina",
+    fechaNacimiento: new Date("1980-07-22"),
+    telefono: "1135123457",
+    mail: "VeronicaM@gmail.com.ar",
+    direccion: "Calle San Martín 450",
+    nroAfiliado: "30001-02",
+    parentesco: "Cónyuge",
+    planMedico: "Plata"
+  },
+  {
+    tipoDocumento: "DNI",
+    dni: "53098765",
+    nombre: "Martín",
+    apellido: "Medina",
+    fechaNacimiento: new Date("2008-11-05"),
+    telefono: "1135123458",
+    mail: "MartinM@gmail.com.ar",
+    direccion: "Calle San Martín 450",
+    nroAfiliado: "30001-03",
+    parentesco: "Hijo",
+    planMedico: "Plata"
+  },
+  {
+    tipoDocumento: "DNI",
+    dni: "53123456",
+    nombre: "Camila",
+    apellido: "Medina",
+    fechaNacimiento: new Date("2012-04-18"),
+    telefono: "1135123459",
+    mail: "CamilaM@gmail.com.ar",
+    direccion: "Calle San Martín 450",
+    nroAfiliado: "30001-04",
+    parentesco: "Hija",
+    planMedico: "Plata"
+  }
 ]
 
 async function seedPacientes() {

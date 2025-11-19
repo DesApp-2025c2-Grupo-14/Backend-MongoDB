@@ -46,5 +46,6 @@ const situacionSchema = new mongoose.Schema({
 }, {
   collection: 'situacionesTerapeuticas'
 });
-
+// para mejorar velocidad de consultas
+situacionSchema.index({ pacienteId: 1 });
 module.exports = mongoose.model("SituacionTerapeutica", situacionSchema);

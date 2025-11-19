@@ -45,5 +45,6 @@ const historiaClinicaSchema = new mongoose.Schema({
 }, {
   collection: 'historialesClinicos'
 });
-
+// mejora de velocidad en consultas, esta en orden ascendente
+historiaClinicaSchema.index({ pacienteId: 1 });
 module.exports = mongoose.model("HistoriaClinica", historiaClinicaSchema);
