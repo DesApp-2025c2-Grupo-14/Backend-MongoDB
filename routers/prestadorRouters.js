@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
         });
 
 
-
+        /*
     router.get('/:id/solicitudes', async (req, res) => {
         try {
             const { id } = req.params;
@@ -113,6 +113,41 @@ router.get('/', async (req, res) => {
 
         } catch (error) {
             console.error("Error al obtener solicitudes:", error);
+            res.status(500).json({ message: error.message });
+        }
+    });
+    */
+    router.get('/mis-solicitudes', async (req, res) => {
+        try {
+            const { id, tipo, desde, hasta } = req.query;
+
+            if (!id) {
+                return res.status(400).json({ message: "Falta el ID del prestador" });
+            }
+
+            const filtro = {
+                prestadorAsignado: id
+            };
+
+            // Filtrar por tipo si viene uno
+            if (tipo && tipo !== 'Todos') {
+                filtro.estado = tipo;
+            }
+
+            // Filtrar por rango de fechas
+            if (desde && hasta) {
+                filtro.fechaCreacion = {
+                    $gte: new Date(desde),
+                    $lte: new Date(hasta)
+                };
+            }
+
+            const solicitudes = await Solicitud.find(filtro);
+
+            res.json(solicitudes);
+
+        } catch (error) {
+            console.error("Error en mis-solicitudes:", error);
             res.status(500).json({ message: error.message });
         }
     });

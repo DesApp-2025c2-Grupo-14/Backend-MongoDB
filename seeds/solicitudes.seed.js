@@ -2,7 +2,6 @@ const Solicitud = require('../models/solicitud');
 const Paciente = require('../models/paciente');
 const Prestador = require('../models/prestador');
 
-<<<<<<< HEAD
 function randomItem(array) {
     return array[Math.floor(Math.random() * array.length)];
 }
@@ -11,9 +10,6 @@ function randomEstado() {
     const estados = ["Pendiente", "En analisis", "Aprobada", "Observada"];
     return randomItem(estados);
 }
-=======
-const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
->>>>>>> 81f40481c95ff15fefb4c3740140f25a8443df75
 
 async function seedSolicitudes() {
     const pacientes = await Paciente.find();
