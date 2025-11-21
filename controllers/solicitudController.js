@@ -1,6 +1,8 @@
 const Solicitud = require ("../models/solicitud")
 const Prestador = require ("../models/prestador")
 const mongoose = require("mongoose")
+const dayjs = require("dayjs")
+
 const obtenerSolicitudesPendientes = async (req,res) => {
   try {
     const solicitudes = await Solicitud.aggregate(
@@ -99,21 +101,29 @@ const getDetalleById = async (req, res) => {
 }
 
 const getSolicitudesPrestador = async (req, res) => {
+  const { desde, hasta } = req.query
   console.log(req.query.id)
   console.log(req.query.tipo)
+  console.log(req.query.desde)
+  console.log(req.query.hasta)
+
+
+  console.log(new Date(desde))
+
   const tipo = req.query.tipo === 'Reintegro' ? 
                 'reintegros' : 
               req.query.tipo === 'Autorizacion' ?
                 'autorizaciones' :
                 'recetas'
   const alias = tipo === 'reintegros' ? 'reintegro' : tipo === 'autorizaciones' ? 'autorizacion' : 'receta'
-  
+
   try {
     const solicitudes = await Solicitud.aggregate([
       {
         $match: {
           prestadorId: new mongoose.Types.ObjectId(req.query.id),
-          tipo: req.query.tipo
+          tipo: req.query.tipo,
+          fechaPrestacion: { $gte: dayjs(desde).toDate(), $lte: dayjs(hasta).toDate() },
         }
       },
       {
@@ -155,9 +165,9 @@ const getSolicitudesPrestador = async (req, res) => {
       }
     ]);
 
-    if (!solicitudes.length) {
-      return res.status(404).json({ message: "No hay solicitudes para este prestador." });
-    }
+    // if (!solicitudes.length) {
+    //   return res.status(404).json({ message: "No hay solicitudes para este prestador." });
+    // }
 
     res.status(200).json(solicitudes);
   } catch (error) {
@@ -182,13 +192,14 @@ const analizarSolicitud = async (req, res) => {
 }
 
 const getEstadisticasSolicitudes = async (req, res) => {
-  const { prestadorId, tipo } = req.query;
+  const { prestadorId, tipo, desde, hasta } = req.query;
   try {
     const resultado = await Solicitud.aggregate([
       {
         $match: {
           prestadorId: new mongoose.Types.ObjectId(prestadorId),
-          tipo
+          tipo,
+          fechaPrestacion: { $gte: dayjs(desde).toDate(), $lte: dayjs(hasta).toDate() },
         }
       },
       {
