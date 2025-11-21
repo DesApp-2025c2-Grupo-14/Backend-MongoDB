@@ -6,16 +6,17 @@ const prestadores = [
         "nombre": "Dr. Hernan Gutierrrez",
         "centroMedico": false,
         "integraCM": true,
+        "especialidad": "Cardiología",
         "lugaresAtencion": [
-        {
-            "nombre": "Consultorio Central",
-            "direccion": "Av. Rivadavia 10300, Caballito",
-            "horarios": [
-                { "dia": "Lunes", "desde": "09:00", "hasta": "13:00" },
-                { "dia": "Miércoles", "desde": "15:00", "hasta": "19:00" },
-                { "dia": "Viernes", "desde": "09:00", "hasta": "13:00" }
-            ]
-        }
+            {
+                "nombre": "Consultorio Central",
+                "direccion": "Av. Rivadavia 10300, Caballito",
+                "horarios": [
+                    { "dia": "Lunes", "desde": "09:00", "hasta": "13:00" },
+                    { "dia": "Miércoles", "desde": "15:00", "hasta": "19:00" },
+                    { "dia": "Viernes", "desde": "09:00", "hasta": "13:00" }
+                ]
+            }
         ]
     },
     {
@@ -23,15 +24,16 @@ const prestadores = [
         "nombre": "Dra. Laura Pérez",
         "centroMedico": false,
         "integraCM": false,
+        "especialidad": "Dermatología",
         "lugaresAtencion": [
-        {
-            "nombre": "Consultorio Norte",
-            "direccion": "Av. del Libertador 4500, Vicente López",
-            "horarios": [
-                { "dia": "Martes", "desde": "10:00", "hasta": "17:00" },
-                { "dia": "Jueves", "desde": "10:00", "hasta": "17:00" }
-            ]
-        }
+            {
+                "nombre": "Consultorio Norte",
+                "direccion": "Av. del Libertador 4500, Vicente López",
+                "horarios": [
+                    { "dia": "Martes", "desde": "10:00", "hasta": "17:00" },
+                    { "dia": "Jueves", "desde": "10:00", "hasta": "17:00" }
+                ]
+            }
         ]
     },
     {
@@ -39,16 +41,17 @@ const prestadores = [
         "nombre": "Dr. Pablo Rodríguez",
         "centroMedico": false,
         "integraCM": true,
+        "especialidad": "Traumatología",
         "lugaresAtencion": [
-        {
-            "nombre": "Consultorio Oeste",
-            "direccion": "Av. Gaona 5800, Ramos Mejía",
-            "horarios": [
-                { "dia": "Lunes", "desde": "14:00", "hasta": "18:00" },
-                { "dia": "Miércoles", "desde": "14:00", "hasta": "18:00" },
-                { "dia": "Viernes", "desde": "10:00", "hasta": "14:00" }
-            ]
-        }
+            {
+                "nombre": "Consultorio Oeste",
+                "direccion": "Av. Gaona 5800, Ramos Mejía",
+                "horarios": [
+                    { "dia": "Lunes", "desde": "14:00", "hasta": "18:00" },
+                    { "dia": "Miércoles", "desde": "14:00", "hasta": "18:00" },
+                    { "dia": "Viernes", "desde": "10:00", "hasta": "14:00" }
+                ]
+            }
         ]
     },
     {
@@ -56,18 +59,19 @@ const prestadores = [
         "nombre": "Centro Médico Belgrano",
         "centroMedico": true,
         "integraCM": true,
+        "especialidad": "Clínica General",
         "lugaresAtencion": [
-        {
-            "nombre": "Sede Belgrano",
-            "direccion": "Av. Cabildo 2500, Buenos Aires",
-            "horarios": [
-            { "dia": "Lunes", "desde": "08:00", "hasta": "20:00" },
-            { "dia": "Martes", "desde": "08:00", "hasta": "20:00" },
-            { "dia": "Miércoles", "desde": "08:00", "hasta": "20:00" },
-            { "dia": "Jueves", "desde": "08:00", "hasta": "20:00" },
-            { "dia": "Viernes", "desde": "08:00", "hasta": "18:00" }
-            ]
-        }
+            {
+                "nombre": "Sede Belgrano",
+                "direccion": "Av. Cabildo 2500, Buenos Aires",
+                "horarios": [
+                    { "dia": "Lunes", "desde": "08:00", "hasta": "20:00" },
+                    { "dia": "Martes", "desde": "08:00", "hasta": "20:00" },
+                    { "dia": "Miércoles", "desde": "08:00", "hasta": "20:00" },
+                    { "dia": "Jueves", "desde": "08:00", "hasta": "20:00" },
+                    { "dia": "Viernes", "desde": "08:00", "hasta": "18:00" }
+                ]
+            }
         ]
     },
     {
@@ -75,19 +79,20 @@ const prestadores = [
         "nombre": "Clínica Los Andes",
         "centroMedico": true,
         "integraCM": false,
+        "especialidad": "Medicina General",
         "lugaresAtencion": [
-        {
-            "nombre": "Sucursal Central",
-            "direccion": "Av. Las Heras 1200, Mendoza",
-            "horarios": [
-            { "dia": "Lunes", "desde": "07:00", "hasta": "19:00" },
-            { "dia": "Martes", "desde": "07:00", "hasta": "19:00" },
-            { "dia": "Miércoles", "desde": "07:00", "hasta": "19:00" },
-            { "dia": "Jueves", "desde": "07:00", "hasta": "19:00" },
-            { "dia": "Viernes", "desde": "07:00", "hasta": "17:00" },
-            { "dia": "Sábado", "desde": "08:00", "hasta": "12:00" }
-            ]
-        }
+            {
+                "nombre": "Sucursal Central",
+                "direccion": "Av. Las Heras 1200, Mendoza",
+                "horarios": [
+                    { "dia": "Lunes", "desde": "07:00", "hasta": "19:00" },
+                    { "dia": "Martes", "desde": "07:00", "hasta": "19:00" },
+                    { "dia": "Miércoles", "desde": "07:00", "hasta": "19:00" },
+                    { "dia": "Jueves", "desde": "07:00", "hasta": "19:00" },
+                    { "dia": "Viernes", "desde": "07:00", "hasta": "17:00" },
+                    { "dia": "Sábado", "desde": "08:00", "hasta": "12:00" }
+                ]
+            }
         ]
     }
 ]

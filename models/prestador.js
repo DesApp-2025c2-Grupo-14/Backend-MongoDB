@@ -18,6 +18,10 @@ const prestadorSchema = new mongoose.Schema({
         type: Boolean, 
         required: true
     },
+    especialidad: {
+        type:String,
+        required:true
+    },
     lugaresAtencion: [{
         nombre: {
             type: String, 
