@@ -44,7 +44,7 @@ async function seedCentrosMedicos() {
                 ]
             }
         ];
-
+        await CentroMedico.deleteMany({});
         await CentroMedico.insertMany(centros);
 
         console.log("Seed de centros médicos creado con éxito ❤️‍🔥");
