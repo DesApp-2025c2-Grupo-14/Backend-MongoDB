@@ -5,6 +5,7 @@ const situacionTerapeuticaRouter = require('./routers/situacionTerapeuticaRouter
 const solicitudRouter = require('./routers/solicitudRouters')
 const turnoRouter = require ('./routers/turnoRouters')
 const prestadorRouter = require('./routers/prestadorRouters');
+const centroMedicoRouter = require ('./routers/centroMedicoRouter');
 const seeds = require('./seeds')
 const cors = require('cors')
 require('dotenv').config()
@@ -20,6 +21,7 @@ app.use('/situacionesTerapeuticas', situacionTerapeuticaRouter)
 app.use('/solicitudes', solicitudRouter)
 app.use('/turnos',turnoRouter)
 app.use('/prestadores', prestadorRouter);
+app.use('/centroMedico', centroMedicoRouter);
 console.log(process.env.SEED)
 //Conectamos la base de datos
 async function iniciarServidor() {
@@ -31,6 +33,8 @@ async function iniciarServidor() {
   try {
     await seeds.seedPrestadores();
     console.log('✅ Prestadores insertados');
+    await seeds.seedCentrosMedicos();
+    console.log('✅ centros medicos insertados');
     await seeds.seedPacientes();
     console.log('✅ Pacientes insertados');
     await seeds.seedHistoriasClinicas();
