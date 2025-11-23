@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-const { obtenerPacientes, crearPaciente,obtenerGrupoFamiliar } = require('../controllers/pacienteControllers');
+const { obtenerPacientes, crearPaciente,obtenerPacienteCongrupoFamiliar } = require('../controllers/pacienteControllers');
 const {obtenerHistorialClinico, crearHistoria} = require('../controllers/historialController'); 
 const {obtenerSituacionTerapeutica, crearNuevaSituacionTerapeutica,eliminarSituacion} = require('../controllers/situacionController')
 const { modificarFechaFinalizacion } = require('../controllers/situacionController');
@@ -12,6 +12,8 @@ const { validarFechas} = require('../middlewares/validarFechas');
 router.get('/', obtenerPacientes);
 //router.get('/:nAfiliado/grupoFamiliar', obtenerGrupoFamiliar);
 router.post('/', crearPaciente);
+router.get('/buscar/:query', obtenerPacienteCongrupoFamiliar);
+
 
 //para historial clinico
 //router.get('/:nAfiliado/historiasClinicas', obtenerHistorialClinico);

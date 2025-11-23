@@ -1,8 +1,6 @@
 const Paciente = require('../models/paciente');
-const SituacionTerapeutica= require ('../models/situacionTerapeutica')
+const mongoose = require('mongoose');
 
-
-/* PACIENTES */
 const crearPaciente = async (req, res) => {
   try {
     const nuevoPaciente = new Paciente(req.body);
@@ -13,21 +11,6 @@ const crearPaciente = async (req, res) => {
     res.status(400).json({ error: 'Error al crear el paciente' });
   }
 };
-
-/* const obtenerPacientes = async (req,res) => {
-  try{
-    const listaPacientes = await Paciente.find().select('nombre');
-    res.status(200).json(listaPacientes)
-    if(!pacientes){
-      return res.status(404).json({ message: 'Publicaciones no encontradas' })
-    }
-  } catch (error){
-    console.log('Error en obtenerPacientes:', error)
-    res.status(500).json({error:'Error interno del servidor'})
-  }
-}
- */
- 
 
 const obtenerPacientes = async (req, res) => {
   try {
@@ -67,21 +50,48 @@ const obtenerPacientes = async (req, res) => {
 };
 
 
-const obtenerGrupoFamiliar = async (req, res) => {
+const obtenerPacienteCongrupoFamiliar = async (req, res) => {
   try {
-    const nroAfiliado = req.params.nAfiliado
-    const paciente = await Paciente.findOne({ nroAfiliado: nroAfiliado }).select('nombre -_id').populate('familia', 'nombre')
-    res.status(200).json(paciente)
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: 'Error al obtener el grupo familiar' })
+     const {query} = req.params; // lo q recibe el buscador
+
+      const condiciones = [
+      { nroAfiliado: query },
+      { dni: query },
+      { telefono: query }
+    ];
+      // verifica si el _id es valido
+      if (mongoose.Types.ObjectId.isValid(query)) {
+      // lo agrega a las condiciones
+      condiciones.push({ _id: query });
+    }
+     const paciente = await Paciente.findOne({
+      // el or deja que varias condiciones sean verdaderas
+      $or: condiciones
+     }).lean(); // para que devuelva un objeto liviano sin metodos de mongoose ya que no se modifica nunca el paciente
+  
+      if (!paciente) {
+        return res.status(404).json({ error: "No se encontró el paciente" });
+      }
+      // tomo la parte comun que comparte el grupo familiar del nroAfiliado (ej 10001)
+      const base = paciente.nroAfiliado.split('-')[0]; 
+
+      // busco todos los pacientes que compartan la base
+      const grupoFamiliar = await Paciente.find({
+        nroAfiliado: { $regex: `^${base}` } // el ^ indica que debe empezar con la base
+      }).lean();  
+    
+      res.status(200).json({ paciente, grupoFamiliar });
+    
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error del servidor' });
+  
   }
+
 }
-
-
 
 module.exports = {
   crearPaciente,
   obtenerPacientes,
-  obtenerGrupoFamiliar
+  obtenerPacienteCongrupoFamiliar
 };
