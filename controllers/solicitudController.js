@@ -3,47 +3,68 @@ const Prestador = require ("../models/prestador")
 const mongoose = require("mongoose")
 const dayjs = require("dayjs")
 
-const obtenerSolicitudesPendientes = async (req,res) => {
+const obtenerSolicitudesPendientes = async (req, res) => {
   try {
-    const solicitudes = await Solicitud.aggregate(
-      [
-        {
-          $match: {
-            $expr: { $eq: ["$estado", "Pendiente"] }
-          }
+    const { tipo, desde, hasta } = req.query; // todos opcionales
+
+    // --- Filtro base: solo pendientes ---
+    const match = { estado: "Pendiente" };
+
+    // --- Filtro opcional por tipo ---
+    if (tipo) {
+      match.tipo = tipo; // Ej: "Reintegro" | "Autorizacion" | "Receta"
+    }
+
+    // --- Filtro opcional por rango de fechas ---
+    // Si viene al menos uno de los dos, armamos la condición
+    if (desde || hasta) {
+      match.fechaPrestacion = {};
+
+      if (desde) {
+        // desde el comienzo del día "desde"
+        match.fechaPrestacion.$gte = dayjs(desde).startOf("day").toDate();
+      }
+
+      if (hasta) {
+        // hasta el final del día "hasta"
+        match.fechaPrestacion.$lte = dayjs(hasta).endOf("day").toDate();
+      }
+    }
+
+    const solicitudes = await Solicitud.aggregate([
+      { $match: match },
+      {
+        $lookup: {
+          from: "pacientes",
+          localField: "pacienteId",
+          foreignField: "_id",
+          as: "paciente",
         },
-        {
-          $lookup: {
-            from: 'pacientes',
-            localField: 'pacienteId',
-            foreignField: '_id',
-            as: 'paciente'
-          }
+      },
+      { $unwind: "$paciente" },
+      {
+        $project: {
+          "paciente._id": 0,
+          "paciente.edad": 0,
+          "paciente.nroAfiliado": 0,
+          "paciente.situacionesTerapeuticas": 0,
+          "paciente.familia": 0,
+          "paciente.historialClinico": 0,
         },
-        {
-          $unwind: '$paciente'
-        },
-        {
-          $project: {
-            'paciente._id': 0,
-            'paciente.edad': 0,
-            'paciente.nroAfiliado': 0,
-            'paciente.situacionesTerapeuticas': 0,
-            'paciente.familia': 0,
-            'paciente.historialClinico': 0
-          }
-        }
-      ]
-    )
-    if (!solicitudes)
-      return res.status(404).json({ message: 'Solicitudes no encontradas.' })
-    res.status(200).json(solicitudes)
+      },
+    ]);
+
+    // aggregate nunca devuelve null, siempre array (vacío o con datos)
+    // si querés, podés chequear length:
+    // if (!solicitudes.length) return res.status(404).json({ message: 'Solicitudes no encontradas.' });
+
+    res.status(200).json(solicitudes);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor.' })
+    res.status(500).json({ error: "Error interno del servidor." });
   }
-  
-}
+};
+
 
 const getDetalleById = async (req, res) => {
   const _id = new mongoose.Types.ObjectId(req.params.id);
