@@ -162,17 +162,20 @@ const getSolicitudesCentroMedico = async (req, res) => {
     const prestadores = await Prestador.find({
       centroMedicoId: new mongoose.Types.ObjectId(id)
     });
-
+    
     const solicitudesPorPrestador = await Promise.all(
       prestadores.map(p =>
         fnSolicitudesPrestador(p._id, tipo, desde, hasta)
       )
     );
 
+    const solicitudesCentro = await fnSolicitudesPrestador(id, tipo, desde, hasta)
     const solicitudes = solicitudesPorPrestador.flat();
+    const resultado = [...solicitudes, solicitudesCentro]
+
     if (!solicitudes)
       return res.status(404).json({ message: 'Solicitudes no encontradas.' })
-    res.status(200).json(solicitudes);
+    res.status(200).json(resultado.flat());
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
@@ -193,6 +196,8 @@ const getEstadisticasCentroMedico = async (req, res) => {
       )
     );
 
+    const estadisticasCentro = await fnEstadisticasPrestador(prestadorId, tipo, desde, hasta)
+
     const estadisticas = estadisticasPorPrestador.flat().reduce((acc, item) => {
       acc.total += item.total
       acc.aprobadas += item.aprobadas
@@ -201,10 +206,10 @@ const getEstadisticasCentroMedico = async (req, res) => {
 
       return acc
     }, {
-      total: 0,
-      aprobadas: 0,
-      rechazadas: 0,
-      observadas: 0 
+      total: estadisticasCentro.total,
+      aprobadas: estadisticasCentro.aprobadas,
+      rechazadas: estadisticasCentro.rechazadas,
+      observadas: estadisticasCentro.observadas
     })
 
     if (!estadisticasPorPrestador)

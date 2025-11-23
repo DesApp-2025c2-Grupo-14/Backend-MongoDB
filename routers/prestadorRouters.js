@@ -42,7 +42,7 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
     });
-    */
+    
    // solicitudes prestador con filtro por rango de fechas (máximo 31 días)
     router.get("/login/:cuit", async (req, res) => {
         try {
