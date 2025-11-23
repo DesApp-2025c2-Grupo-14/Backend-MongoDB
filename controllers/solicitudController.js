@@ -2,6 +2,7 @@ const Solicitud = require ("../models/solicitud")
 const Prestador = require ("../models/prestador")
 const mongoose = require("mongoose")
 const dayjs = require("dayjs")
+const { fnSolicitudesPrestador, fnEstadisticasPrestador } = require("../services/solicitud.service")
 
 const obtenerSolicitudesPendientes = async (req,res) => {
   try {
@@ -101,74 +102,13 @@ const getDetalleById = async (req, res) => {
 }
 
 const getSolicitudesPrestador = async (req, res) => {
-  const { desde, hasta } = req.query
-  console.log(req.query.id)
-  console.log(req.query.tipo)
-  console.log(req.query.desde)
-  console.log(req.query.hasta)
-
-
-  console.log(new Date(desde))
-
-  const tipo = req.query.tipo === 'Reintegro' ? 
-                'reintegros' : 
-              req.query.tipo === 'Autorizacion' ?
-                'autorizaciones' :
-                'recetas'
-  const alias = tipo === 'reintegros' ? 'reintegro' : tipo === 'autorizaciones' ? 'autorizacion' : 'receta'
+  const { id, tipo, desde, hasta } = req.query
 
   try {
-    const solicitudes = await Solicitud.aggregate([
-      {
-        $match: {
-          prestadorId: new mongoose.Types.ObjectId(req.query.id),
-          tipo: req.query.tipo,
-          fechaPrestacion: { $gte: dayjs(desde).toDate(), $lte: dayjs(hasta).toDate() },
-        }
-      },
-      {
-        $lookup: {
-          from: tipo,
-          localField: "_id",
-          foreignField: "solicitudId",
-          as: alias,
-        }
-      },
-      { $unwind: { path: `$${alias}`, preserveNullAndEmptyArrays: true } },
-      {
-        $lookup: {
-          from: "pacientes",
-          localField: "pacienteId",
-          foreignField: "_id",
-          as: "paciente"
-        }
-      },
-      { $unwind: { path: "$paciente", preserveNullAndEmptyArrays: true } },
-      {
-        $project: {
-          "paciente._id": 0,
-          "paciente.edad": 0,
-          "paciente.nroAfiliado": 0,
-          "paciente.situacionesTerapeuticas": 0,
-          "paciente.familia": 0,
-          "paciente.historialClinico": 0,
-          "paciente.tipoDocumento": 0,
-          "paciente.dni": 0,
-          "paciente.fechaNacimiento": 0,
-          "paciente.telefono": 0,
-          "paciente.mail": 0,
-          "paciente.direccion": 0,
-          "paciente.parentesco": 0,
-          "paciente.planMedico": 0,
-          "paciente.__v": 0
-        }
-      }
-    ]);
-
-    // if (!solicitudes.length) {
-    //   return res.status(404).json({ message: "No hay solicitudes para este prestador." });
-    // }
-
+    const solicitudes = await fnSolicitudesPrestador(id, tipo, desde, hasta)
+    
+    if (!solicitudes)
+      return res.status(404).json({ message: 'Solicitudes no encontradas.' })
     res.status(200).json(solicitudes);
   } catch (error) {
     console.error(error);
@@ -177,8 +117,7 @@ const getSolicitudesPrestador = async (req, res) => {
 };
 
 
-const analizarSolicitud = async (req, res) => {
-
+const actualizarSolicitud = async (req, res) => {
 
   try {
     
@@ -191,30 +130,12 @@ const analizarSolicitud = async (req, res) => {
   }
 }
 
-const getEstadisticasSolicitudes = async (req, res) => {
+const getEstadisticasPrestador = async (req, res) => {
   const { prestadorId, tipo, desde, hasta } = req.query;
   try {
-    const resultado = await Solicitud.aggregate([
-      {
-        $match: {
-          prestadorId: new mongoose.Types.ObjectId(prestadorId),
-          tipo,
-          fechaPrestacion: { $gte: dayjs(desde).toDate(), $lte: dayjs(hasta).toDate() },
-        }
-      },
-      {
-        $group: {
-          _id: "$estado",
-          total: { $sum: 1 }
-        }
-      }
-    ]);
-    const resumen = {
-      total: resultado.reduce((acc, r) => acc + r.total, 0),
-      aprobadas: resultado.find(r => r._id === "Aprobada")?.total || 0,
-      rechazadas: resultado.find(r => r._id === "Rechazada")?.total || 0,
-      observadas: resultado.find(r => r._id === "Observada")?.total || 0
-    };
+    
+    const resumen = await fnEstadisticasPrestador(prestadorId, tipo, desde, hasta)
+
     res.status(200).json(resumen);
   } catch (error) {
     console.error(error);
@@ -233,4 +154,71 @@ const getPrestadorId = async (req, res) => {
   }
 }
 
-module.exports = {obtenerSolicitudesPendientes, getDetalleById, analizarSolicitud, getSolicitudesPrestador, getEstadisticasSolicitudes, getPrestadorId}
+const getSolicitudesCentroMedico = async (req, res) => {
+  const { id, tipo, desde, hasta } = req.query;
+
+  try {
+
+    const prestadores = await Prestador.find({
+      centroMedicoId: new mongoose.Types.ObjectId(id)
+    });
+    
+    const solicitudesPorPrestador = await Promise.all(
+      prestadores.map(p =>
+        fnSolicitudesPrestador(p._id, tipo, desde, hasta)
+      )
+    );
+
+    const solicitudesCentro = await fnSolicitudesPrestador(id, tipo, desde, hasta)
+    const solicitudes = solicitudesPorPrestador.flat();
+    const resultado = [...solicitudes, solicitudesCentro]
+
+    if (!solicitudes)
+      return res.status(404).json({ message: 'Solicitudes no encontradas.' })
+    res.status(200).json(resultado.flat());
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getEstadisticasCentroMedico = async (req, res) => {
+  const { prestadorId, tipo, desde, hasta } = req.query;
+  try {
+
+    const prestadores = await Prestador.find({
+      centroMedicoId: new mongoose.Types.ObjectId(prestadorId)
+    });
+
+    const estadisticasPorPrestador = await Promise.all(
+      prestadores.map(p =>
+        fnEstadisticasPrestador(p._id, tipo, desde, hasta)
+      )
+    );
+
+    const estadisticasCentro = await fnEstadisticasPrestador(prestadorId, tipo, desde, hasta)
+
+    const estadisticas = estadisticasPorPrestador.flat().reduce((acc, item) => {
+      acc.total += item.total
+      acc.aprobadas += item.aprobadas
+      acc.rechazadas += item.rechazadas
+      acc.observadas += item.observadas
+
+      return acc
+    }, {
+      total: estadisticasCentro.total,
+      aprobadas: estadisticasCentro.aprobadas,
+      rechazadas: estadisticasCentro.rechazadas,
+      observadas: estadisticasCentro.observadas
+    })
+
+    if (!estadisticasPorPrestador)
+      return res.status(404).json({ message: 'Estadisticas no encontradas.' })
+    res.status(200).json(estadisticas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = {obtenerSolicitudesPendientes, getDetalleById, actualizarSolicitud, getSolicitudesPrestador, getEstadisticasPrestador, getPrestadorId, getSolicitudesCentroMedico, getEstadisticasCentroMedico}

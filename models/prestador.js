@@ -18,10 +18,6 @@ const prestadorSchema = new mongoose.Schema({
         type: Boolean, 
         required: true
     },
-    especialidad: {
-        type:String,
-        required:true
-    },
     lugaresAtencion: [{
         nombre: {
             type: String, 
@@ -46,6 +42,11 @@ const prestadorSchema = new mongoose.Schema({
             }
         }]
     }],
+    centroMedicoId: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Prestador',
+        default: null
+    }
 },
 {
     collection: 'prestadores'
