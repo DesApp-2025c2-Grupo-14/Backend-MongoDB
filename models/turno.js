@@ -5,8 +5,13 @@ const turnoSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  especialidad:{
+  especialidad: {
     type: String,
+    required: true,
+  },
+  prestadorId: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Prestador',
     required: true
   },
   pacienteId: {

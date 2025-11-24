@@ -1,23 +1,48 @@
 const Turno = require('../models/turno');
+const Prestador = require ("../models/prestador")
 
-const obtenerTurnos = async (req, res) => {
+const obtenerTurnos = async (req, res) => {  
   try {
-     const { fecha } = req.query;
-     const query = fecha ? { dia: fecha } : {};
-
-    const turnos = await Turno.find(query).populate('pacienteId',"nombre apellido dni ");;
-
-    if (!turnos) {
-      return res.status(404).json({ message: 'Turnos no encontrado' });
+    const { prestador } = req.query;
+    let query = {};  
+    if (prestador) {
+      const datosPrestador = await Prestador.findById(prestador);  
+      if (!datosPrestador) {
+        return res.status(404).json({ message: "Prestador no encontrado" });
+      }  
+      // si el prestador no es centro medico, va a buscar su especialidad
+      if (!datosPrestador.centroMedico) {
+        query.prestadorId  = prestador;
+      } else {
+        // si es centro medico, va a buscar los prestadores que trabajan ahi
+        const integrantes = await Prestador.find({
+          integraCM: true,
+          centroMedicoId: prestador
+        });
+        if (integrantes.length === 0) {
+          return res
+            .status(404)
+            .json({ message: "El centro médico no tiene prestadores asignados." });
+        }   
+        // busca las especialidades de los que trabajan en el centro medico
+        const idsIntegrantes = integrantes
+          .map(p => p._id)
+         
+        // Filtra turnos que tengan cualquiera de esas especialidades
+        query.prestadorId  = { $in: idsIntegrantes };
+      }
+      const turnos = await Turno.find(query).populate(
+        "pacienteId",
+        "nombre apellido dni"
+       );
+      if (!turnos || turnos.length === 0) {
+        return res.status(404).json({ message: "No se encontraron turnos" });
     }
-    if ( turnos.length === 0) {
-      return res.status(404).json({ message: 'No se encontraron turnos' });
-    }
-
     res.status(200).json(turnos);
+    }  
   } catch (error) {
-    console.error('Error al obtener turnos:', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    console.error("Error al obtener turnos:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
   }
 };
 
