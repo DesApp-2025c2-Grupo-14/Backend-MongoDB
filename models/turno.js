@@ -5,6 +5,10 @@ const turnoSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  especialidad:{
+    type: String,
+    required: true
+  },
   pacienteId: {
     type: mongoose.Schema.ObjectId,
     ref: 'Paciente',

@@ -1,23 +1,6 @@
-/* const mongoose = require("mongoose");
-
-const historialSchema = new mongoose.Schema({
-  titulo: { type: String, required: true },
-  descripcion: { type: String, required: true },
-  paciente: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'Paciente'}
-},
-{
-  collection: 'historialesClinicos'
-}
-);
-
-module.exports = mongoose.model("HistorialClinico", historialSchema); */
-
 const mongoose = require("mongoose");
 
 const historiaClinicaSchema = new mongoose.Schema({
-  //aca es distinto al mock, lo relaciono por id del paciente en vez de nroafiliado
   pacienteId: {
     type: mongoose.Schema.ObjectId,
     ref: 'Paciente',
@@ -27,9 +10,11 @@ const historiaClinicaSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-/*   descripcion: {
-    type: String
-  }, */
+   prestadorId: { // ya que al momento de crear la historia esta es creada por un prestador
+    type: mongoose.Schema.ObjectId,
+    ref: 'Prestador',
+    required: true
+  },
   prestador: {
     type: String,
     required: true

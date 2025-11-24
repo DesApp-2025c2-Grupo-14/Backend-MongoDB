@@ -21,4 +21,46 @@ const obtenerTurnos = async (req, res) => {
   }
 };
 
-module.exports = {obtenerTurnos}
+const turnosPorEspecialidad = async (req,res) => {
+  try {
+    const { especialidad } = req.params;
+    const turnos = await Turno.aggregate(
+      [
+        {
+          $match: {
+            $expr: { $eq: ["$especialidad", especialidad] }
+          }
+        },
+        {
+          $lookup: {
+            from: 'prestadores',
+            localField: 'prestadorId',
+            foreignField: '_id',
+            as: 'prestador'
+          }
+        },
+        {
+          $unwind: '$prestador'
+        },
+        {
+          $project: {
+            'prestador.nombre': 1,
+            'prestador.especialidad': 1
+          }
+        }
+      ]
+    )
+    if (!turnos)
+      return res.status(404).json({ message: 'Solicitudes no encontradas.' })
+    res.status(200).json(turnos)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor.' })
+  }
+  
+}
+
+module.exports = {
+  obtenerTurnos,
+  turnosPorEspecialidad
+}

@@ -635,7 +635,7 @@ async function seedSolicitudes() {
             tipo: 'Autorizacion',
         }
     });
-
+    console.log(autorizaciones.length)
     solicitudes.push(...recetas, ...reintegros, ...autorizaciones);
 
     try {

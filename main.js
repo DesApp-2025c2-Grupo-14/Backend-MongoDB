@@ -29,6 +29,8 @@ async function iniciarServidor() {
   console.log('🌱 Insertando registros de prueba...\n');
 
   try {
+    await seeds.seedCentroMedico();
+    console.log('✅ Centros insertados');
     await seeds.seedPrestadores();
     console.log('✅ Prestadores insertados');
     await seeds.seedPacientes();
