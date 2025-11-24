@@ -45,6 +45,11 @@ const prestadorSchema = new mongoose.Schema({
             }
         }]
     }],
+    centroMedicoId: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Prestador',
+        default: null
+    }
 },
 {
     collection: 'prestadores'

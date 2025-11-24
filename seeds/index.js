@@ -1,3 +1,4 @@
+const {seedCentroMedico} = require('./centroMedico.seed')
 const {seedPrestadores} = require('./prestadores.seed')
 const {seedPacientes} = require('./pacientes.seed')
 const {seedHistoriasClinicas} = require('./historias.seed')
@@ -10,6 +11,7 @@ const {seedTurnos} = require('./turnos.seed')
 // const Producto = require('../models/producto.model')
 
 module.exports = {
+    seedCentroMedico,
     seedPrestadores,
     seedPacientes,
     seedSolicitudes,

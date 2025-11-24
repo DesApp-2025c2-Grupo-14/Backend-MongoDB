@@ -68,7 +68,6 @@ async function seedPrestadores() {
     ]
 
     try {
-        await Prestador.deleteMany({})
         await Prestador.insertMany(prestadores)
     } catch (error) {
         console.log('Error al insertar los prestadores', error.message)
