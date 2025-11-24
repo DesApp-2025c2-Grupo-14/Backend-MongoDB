@@ -10,7 +10,10 @@ const prestadorSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    centroMedico: {
+    especialidad: {
+        type: String, 
+    },
+        centroMedico: {
         type: Boolean, 
         required: true
     },

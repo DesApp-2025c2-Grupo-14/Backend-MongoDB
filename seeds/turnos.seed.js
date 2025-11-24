@@ -1,9 +1,12 @@
 const Turno = require("../models/turno");
 const Paciente = require("../models/paciente");
+const Prestador = require("../models/prestador");
+
+const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 async function seedTurnos() {
     const pacientes = await Paciente.find()
-
+    const prestadores = await Prestador.find()
     const turnos = [
       {
         fechaHora: new Date('2025-11-03T09:00:00'),
@@ -85,7 +88,16 @@ async function seedTurnos() {
         fechaHora: new Date('2025-12-02T11:00:00'),
         pacienteId: pacientes[19]._id,
       }
-    ];
+    ].map((t) => {
+       let prestador = prestadores[rand(3, prestadores.length - 1)]
+       let especialidad = prestador.especialidad
+
+       return {
+            ...t,
+            especialidad: especialidad
+        }
+    } );
+
 
     try {
         await Turno.deleteMany({})
@@ -94,6 +106,7 @@ async function seedTurnos() {
     } catch (error) {
         console.log('Error al insertar los turnos', error.message)
     }
+
 }
 
 module.exports = {seedTurnos}
