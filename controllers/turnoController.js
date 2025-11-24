@@ -4,9 +4,9 @@ const obtenerTurnos = async (req, res) => {
   try {
      const { fecha } = req.query;
      const query = fecha ? { dia: fecha } : {};
-    //busca turnos en base
-    const turnos = await Turno.find(query).populate('pacienteId',"nombre apellido dni");;
-    //error si no lo encuentra
+
+    const turnos = await Turno.find(query).populate('pacienteId',"nombre apellido dni ");;
+
     if (!turnos) {
       return res.status(404).json({ message: 'Turnos no encontrado' });
     }
@@ -21,44 +21,46 @@ const obtenerTurnos = async (req, res) => {
   }
 };
 
-const turnosPorEspecialidad = async (req,res) => {
+const turnosPorEspecialidad = async (req, res) => {
   try {
-    const { especialidad } = req.params;
-    const turnos = await Turno.aggregate(
-      [
-        {
-          $match: {
-            $expr: { $eq: ["$especialidad", especialidad] }
-          }
+    const { especialidad } = req.body;
+
+    if (!especialidad) {
+      return res.status(400).json({ message: "Debe enviar una especialidad en el body." });
+    }
+
+    const turnos = await Turno.aggregate([
+      { $match: { especialidad: especialidad }},
+      { $lookup:{
+        from: "pacientes",
+        localField: "pacienteId",
+        foreignField: "_id",
+        as:"paciente"
+      }},
+      { $unwind:"$paciente"},
+      { $project: {
+        _id: 1,
+        especialidad: 1,
+        fechaHora: 1,
+        paciente: {
+          nombre: 1,
+          apellido: 1,
         },
-        {
-          $lookup: {
-            from: 'prestadores',
-            localField: 'prestadorId',
-            foreignField: '_id',
-            as: 'prestador'
-          }
-        },
-        {
-          $unwind: '$prestador'
-        },
-        {
-          $project: {
-            'prestador.nombre': 1,
-            'prestador.especialidad': 1
-          }
-        }
-      ]
-    )
-    if (!turnos)
-      return res.status(404).json({ message: 'Solicitudes no encontradas.' })
-    res.status(200).json(turnos)
+      }
+      }
+    ]);
+    
+    if (!turnos || turnos.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron turnos para esta especialidad.' });
+    }
+
+    return res.status(200).json(turnos);
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor.' })
+    return res.status(500).json({ error: 'Error interno del servidor.' });
   }
-  
-}
+};
 
 module.exports = {
   obtenerTurnos,
