@@ -31,10 +31,9 @@ const obtenerTurnos = async (req, res) => {
         // Filtra turnos que tengan cualquiera de esas especialidades
         query.prestadorId  = { $in: idsIntegrantes };
       }
-      const turnos = await Turno.find(query).populate(
-        "pacienteId",
-        "nombre apellido dni"
-       );
+      const turnos = await Turno.find(query)
+      .populate("pacienteId","nombre apellido dni")
+      .populate("prestadorId", "nombre apellido especialidad centroMedico");
       if (!turnos || turnos.length === 0) {
         return res.status(404).json({ message: "No se encontraron turnos" });
     }
