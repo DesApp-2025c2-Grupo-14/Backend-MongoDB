@@ -12,7 +12,7 @@ const {
 } = require('../controllers/solicitudController');
 
 router.get('/', obtenerSolicitudesPendientes);
-router.get('/:tipo/:id', getDetalleById);
+router.get('/detalle/:tipo/:id', getDetalleById);
 router.get('/prestador', getPrestadorId);
 router.patch('/:id', actualizarSolicitud);
 router.get('/mis-solicitudes', getSolicitudesPrestador);
