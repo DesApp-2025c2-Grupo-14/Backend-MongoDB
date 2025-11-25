@@ -1,7 +1,7 @@
 
 const HistorialClinico = require('../models/historialClinico');
 const Paciente = require('../models/paciente');
-
+const Prestador = require('../models/prestador');
 /* const obtenerHistoriasClinicasPorPaciente = async (req, res) => {
   try {
     const nroAfiliado = req.params.nAfiliado
@@ -55,7 +55,7 @@ const Paciente = require('../models/paciente');
 
 const obtenerHistorialClinico = async (req, res) => {
   const { id } = req.params; 
-  const { prestador, desde, hasta} = req.query;
+  const { prestadorId, desde, hasta} = req.query;
 
   try {
     //buscar paciente en base
@@ -68,15 +68,17 @@ const obtenerHistorialClinico = async (req, res) => {
     const filtro = { pacienteId: paciente._id };
 
     //agrego el filtro para el prestador
-    if (prestador) {
-      filtro.prestador = { $regex: prestador, $options: 'i' }; // case sensitive
+    if (prestadorId) {
+      filtro.prestadorId = prestadorId; 
     }
+
     // agrego filtro de fechas si vienen en la consulta puede venir una o ambas
     if (desde || hasta) {
       filtro.fecha = {};
       if (desde) filtro.fecha.$gte = new Date(desde);
       if (hasta) filtro.fecha.$lte = new Date(hasta);
     }
+    
     //busca la coleccion de historias con el filtro ademas deja fuera el campo de versiones de mongo
     const historial = await HistorialClinico.find(filtro).select('-__v');
 
@@ -87,6 +89,7 @@ const obtenerHistorialClinico = async (req, res) => {
         mensaje: 'No se encontraron historias clínicas para los criterios seleccionados'
       });
     }
+
 
     res.status(200).json({
       nombrePaciente: `${paciente.nombre} ${paciente.apellido}`,
@@ -99,14 +102,23 @@ const obtenerHistorialClinico = async (req, res) => {
 }; 
 
 const crearHistoria = async (req, res) => {
-  const { titulo, prestador, notas, fecha } = req.body;
+  const { titulo, prestadorId, notas, fecha } = req.body;
   const {id} = req.params;
   
   try {
+    const paciente = await Paciente.findById(id);
+    if (!paciente) {
+      return res.status(404).json({ error: "Paciente no encontrado" });
+    }
+    const prestador = await Prestador.findById(prestadorId);
+    if (!prestador) {
+      return res.status(404).json({ error: "Prestador no encontrado" });
+    }
     const nuevaHistoria = new HistorialClinico({
       pacienteId: id,
       titulo,
-      prestador,
+      prestadorId,
+      prestador: prestador.nombre,
       notas,
       fecha
     })

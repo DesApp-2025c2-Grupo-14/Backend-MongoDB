@@ -12,7 +12,7 @@ async function seedPrestadores() {
     const prestadores = [
         {
             "cuit": "20-34567890-1",
-            "nombre": "Dr. Hernan Gutierrrez",
+            "nombre": "Dr. Hernan Gutierrez",
             "especialidad": "Clínica Médica",
             "centroMedico": false,
             "integraCM": true,
