@@ -1,7 +1,6 @@
 const express = require('express')
 const conectarMongoDB = require('./config/database')
 const pacienteRouter = require('./routers/pacienteRouters')
-const situacionTerapeuticaRouter = require('./routers/situacionTerapeuticaRouters')
 const solicitudRouter = require('./routers/solicitudRouters')
 const turnoRouter = require ('./routers/turnoRouters')
 const prestadorRouter = require('./routers/prestadorRouters');
@@ -16,7 +15,6 @@ app.use(express.json());
 
 //Rutas
 app.use('/pacientes', pacienteRouter)
-app.use('/situacionesTerapeuticas', situacionTerapeuticaRouter)
 app.use('/solicitudes', solicitudRouter)
 app.use('/turnos',turnoRouter)
 app.use('/prestadores', prestadorRouter);

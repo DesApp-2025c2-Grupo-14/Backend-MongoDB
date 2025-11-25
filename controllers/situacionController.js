@@ -35,7 +35,7 @@ const situacionTerapeutica = require('../models/situacionTerapeutica')
 
 const obtenerSituacionTerapeutica = async (req, res) => {
   const { id } = req.params; 
-
+  const { desde, hasta} = req.query;
   try {
     //buscar paciente en base
     const paciente = await Paciente.findOne({ _id: id });
@@ -43,12 +43,24 @@ const obtenerSituacionTerapeutica = async (req, res) => {
     if (!paciente) {
       return res.status(404).json({ message: 'Paciente no encontrado' });
     }
-    
-    //busca las situaciones que hagan match con el _id y que esten activas de paciente y se queda con todas las del paciente 
-    const situaciones = await situacionTerapeutica.find({pacienteId: paciente._id, activa: true}).select('-__v');
+
+    let filtro = { pacienteId: paciente._id, activa: true };
+    // agrego filtro de fechas si vienen en la consulta puede venir una o ambas
+    if (desde || hasta) {
+      filtro.fechaInicio = {};
+      if (desde) filtro.fechaInicio.$gte = new Date(desde);
+      if (hasta) filtro.fechaInicio.$lte = new Date(hasta);
+    }
+
+    //busca las situaciones que hagan match con el _id y que esten activas de paciente ademas de poder agregar las fechas y se queda con todas las del paciente 
+    const situaciones = await situacionTerapeutica.find(filtro).select('-__v');
 
     if ( situaciones.length === 0) {
-      return res.status(404).json({ message: 'No se encontraron situaciones terapeuticas' });
+      return res.status(200).json({
+        nombrePaciente: `${paciente.nombre} ${paciente.apellido}`,
+        situaciones: [],
+        mensaje: 'No se encontraron situaciones terapeuticas para los criterios seleccionados'
+      });
     }
 
     res.status(200).json({

@@ -1,7 +1,7 @@
 
 const HistorialClinico = require('../models/historialClinico');
 const Paciente = require('../models/paciente');
-
+const Prestador = require('../models/prestador');
 /* const obtenerHistoriasClinicasPorPaciente = async (req, res) => {
   try {
     const nroAfiliado = req.params.nAfiliado
@@ -15,7 +15,8 @@ const Paciente = require('../models/paciente');
  */
 
 
-const obtenerHistorialClinico = async (req, res) => {
+
+/* const obtenerHistorialClinico = async (req, res) => {
   const { id } = req.params; 
   const { prestador } = req.query;
 
@@ -48,17 +49,76 @@ const obtenerHistorialClinico = async (req, res) => {
     console.error('Error al obtener historial clínico:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
-};
+};  */
+
+
+
+const obtenerHistorialClinico = async (req, res) => {
+  const { id } = req.params; 
+  const { prestadorId, desde, hasta} = req.query;
+
+  try {
+    //buscar paciente en base
+    const paciente = await Paciente.findOne({ _id: id });
+    //error si no lo encuentra
+    if (!paciente) {
+      return res.status(404).json({ message: 'Paciente no encontrado' });
+    }
+    //filtro base para traer solo las del paciente
+    const filtro = { pacienteId: paciente._id };
+
+    //agrego el filtro para el prestador
+    if (prestadorId) {
+      filtro.prestadorId = prestadorId; 
+    }
+
+    // agrego filtro de fechas si vienen en la consulta puede venir una o ambas
+    if (desde || hasta) {
+      filtro.fecha = {};
+      if (desde) filtro.fecha.$gte = new Date(desde);
+      if (hasta) filtro.fecha.$lte = new Date(hasta);
+    }
+    
+    //busca la coleccion de historias con el filtro ademas deja fuera el campo de versiones de mongo
+    const historial = await HistorialClinico.find(filtro).select('-__v');
+
+    if (!historial || historial.length === 0) {
+      return res.status(200).json({
+        nombrePaciente: `${paciente.nombre} ${paciente.apellido}`,
+        historial: [],
+        mensaje: 'No se encontraron historias clínicas para los criterios seleccionados'
+      });
+    }
+
+
+    res.status(200).json({
+      nombrePaciente: `${paciente.nombre} ${paciente.apellido}`,
+      historial
+    });
+  } catch (error) {
+    console.error('Error al obtener historial clínico:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+}; 
 
 const crearHistoria = async (req, res) => {
-  const { titulo, prestador, notas, fecha } = req.body;
+  const { titulo, prestadorId, notas, fecha } = req.body;
   const {id} = req.params;
   
   try {
+    const paciente = await Paciente.findById(id);
+    if (!paciente) {
+      return res.status(404).json({ error: "Paciente no encontrado" });
+    }
+    const prestador = await Prestador.findById(prestadorId);
+    if (!prestador) {
+      return res.status(404).json({ error: "Prestador no encontrado" });
+    }
     const nuevaHistoria = new HistorialClinico({
       pacienteId: id,
       titulo,
-      prestador,
+      prestadorId,
+      prestador: prestador.nombre,
       notas,
       fecha
     })
