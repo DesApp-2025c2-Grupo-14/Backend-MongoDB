@@ -94,7 +94,8 @@ async function seedTurnos() {
 
        return {
             ...t,
-            especialidad: especialidad
+            prestadorId: prestador._id,
+            especialidad
         }
     } );
 
