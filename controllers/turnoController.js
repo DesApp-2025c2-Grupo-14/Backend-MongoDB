@@ -55,6 +55,7 @@ const turnosPorEspecialidad = async (req, res) => {
 
     const turnos = await Turno.aggregate([
       { $match: { especialidad: especialidad }},
+
       { $lookup:{
         from: "pacientes",
         localField: "pacienteId",
@@ -62,15 +63,31 @@ const turnosPorEspecialidad = async (req, res) => {
         as:"paciente"
       }},
       { $unwind:"$paciente"},
+
+      {$lookup:{
+        from : "prestadores",
+        localField: "prestadorId",
+        foreignField: "_id",
+        as:"prestador"
+      }},
+      { $unwind:"$prestador"},
+
       { $project: {
-        _id: 1,
-        especialidad: 1,
-        fechaHora: 1,
-        paciente: {
-          nombre: 1,
-          apellido: 1,
-        },
-      }
+          _id: 1,
+          especialidad: 1,
+          fechaHora: 1,
+
+          pacienteId: {
+            _id: "$paciente._id",
+           nombre: "$paciente.nombre",
+           apellido: "$paciente.apellido",
+          },
+
+          prestadorId: {
+            _id: "$prestador._id",
+            nombre: "$prestador.nombre"
+          }
+       },
       }
     ]);
     
