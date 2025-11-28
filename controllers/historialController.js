@@ -80,7 +80,7 @@ const obtenerHistorialClinico = async (req, res) => {
     }
     
     //busca la coleccion de historias con el filtro ademas deja fuera el campo de versiones de mongo
-    const historial = await HistorialClinico.find(filtro).select('-__v');
+    const historial = await HistorialClinico.find(filtro).select('-__v').sort({ fecha: -1 });;
 
     if (!historial || historial.length === 0) {
       return res.status(200).json({
