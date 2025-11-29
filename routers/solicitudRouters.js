@@ -11,10 +11,12 @@ const {
     getEstadisticasCentroMedico
 } = require('../controllers/solicitudController');
 
+const { validarEstadoSolicitud } = require('../middlewares/validarEstadoSolicitud');
+
 router.get('/', obtenerSolicitudesPendientes);
 router.get('/detalle/:tipo/:id', getDetalleById);
 router.get('/prestador', getPrestadorId);
-router.patch('/:id', actualizarSolicitud);
+router.patch('/:id', validarEstadoSolicitud, actualizarSolicitud);
 router.get('/mis-solicitudes', getSolicitudesPrestador);
 router.get('/mis-solicitudes-centro-medico', getSolicitudesCentroMedico);
 router.get('/dashboard', getEstadisticasPrestador);
