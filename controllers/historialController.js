@@ -69,9 +69,25 @@ const obtenerHistorialClinico = async (req, res) => {
 
     //agrego el filtro para el prestador
     if (prestadorId) {
-      filtro.prestadorId = prestadorId; 
-    }
+      const prestador = await Prestador.findById(prestadorId);
 
+      if (!prestador) {
+        return res.status(404).json({ message: 'Prestador no encontrado' });
+      }
+
+      if (prestador.centroMedico) {
+        // si soy centro medico busco a todos los prestadores
+        const prestadoresCM = await Prestador.find({ centroMedicoId: prestador._id })
+          .select('_id');
+
+        const idsPrestadores = prestadoresCM.map(p => p._id);
+
+        filtro.prestadorId = { $in: idsPrestadores };
+      } else {
+        // si es prestador solo
+        filtro.prestadorId = prestadorId;
+      }
+    }
     // agrego filtro de fechas si vienen en la consulta puede venir una o ambas
     if (desde || hasta) {
       filtro.fecha = {};
@@ -80,7 +96,7 @@ const obtenerHistorialClinico = async (req, res) => {
     }
     
     //busca la coleccion de historias con el filtro ademas deja fuera el campo de versiones de mongo
-    const historial = await HistorialClinico.find(filtro).select('-__v').sort({ fecha: -1 });;
+    const historial = await HistorialClinico.find(filtro).select('-__v').sort({ fecha: -1 });
 
     if (!historial || historial.length === 0) {
       return res.status(200).json({
