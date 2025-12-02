@@ -53,7 +53,7 @@ const obtenerSituacionTerapeutica = async (req, res) => {
     }
 
     //busca las situaciones que hagan match con el _id y que esten activas de paciente ademas de poder agregar las fechas y se queda con todas las del paciente 
-    const situaciones = await situacionTerapeutica.find(filtro).select('-__v');
+    const situaciones = await situacionTerapeutica.find(filtro).select('-__v').sort({ fechaInicio: -1 });
 
     if ( situaciones.length === 0) {
       return res.status(200).json({

@@ -26,6 +26,29 @@ router.get('/', async (req, res) => {
     }
     });
 
+// Traer prestadores asociados a un centro médico
+    router.get('/centroMedico/:id/prestadores', async (req, res) => {
+        try {
+            const { id } = req.params;
+            const centro = await Prestador.findById(id);
+
+            if (!centro || !centro.centroMedico) {
+                return res.status(404).json({ message: "El prestador no es un centro médico." });
+            }
+
+            const prestadores = await Prestador.find({
+                integraCM: true,
+                centroMedicoId: id
+            });
+
+            res.json({ prestadores });
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Error al buscar prestadores del centro." });
+        }
+    });
+
     // solicitudes prestador
     router.get('/:id/solicitudes', async (req, res) => {
     try {
