@@ -8,50 +8,100 @@ async function seedHistoriasClinicas() {
     const prestadores = await Prestador.find();
 
 const historias = [
-  // Paciente 0
-  {
+  // Paciente 0 // maria gonzalez
+ {
     pacienteId: pacientes[0]._id,
     titulo: "Consulta Cardiológica",
     prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
     prestador: prestadores[3].nombre,
     notas: "Presión arterial alta, recomendar dieta baja en sodio",
-    fecha: new Date("2023-03-15")
+    fecha: new Date("2025-12-04")
   },
-  // Paciente 2
+  {
+    pacienteId: pacientes[0]._id,
+    titulo: "Consulta Traumatología",
+    prestadorId: prestadores[5]._id,
+    prestador: prestadores[5].nombre,
+    notas: "Dolor en hombro tras caída, se indica fisioterapia.",
+    fecha: new Date("2025-11-12")
+  },
+  {
+    pacienteId: pacientes[0]._id,
+    titulo: "Evaluación de Estrés",
+    prestadorId: prestadores[9]._id, // Dr. gustavo dias
+    prestador: prestadores[9].nombre,
+    notas: "Paciente refiere cansancio y ansiedad, se sugieren técnicas de relajación",
+    fecha: new Date("2025-12-01")
+  },
+  {
+    pacienteId: pacientes[0]._id,
+    titulo: "Consulta Nutricional",
+    prestadorId: prestadores[4]._id, // Dra. Laura Pérez
+    prestador: prestadores[4].nombre,
+    notas: "Se revisa plan de alimentación, se incorpora más fibra y vegetales",
+    fecha: new Date("2025-11-01")
+  },
+  {
+    pacienteId: pacientes[0]._id,
+    titulo: "Consulta Neurológica",
+    prestadorId: prestadores[5]._id,
+    prestador: prestadores[5].nombre,
+    notas: "Paciente presenta episodios de migraña, se prescribe medicación preventiva",
+    fecha: new Date("2025-11-01")
+  },
+  {
+    pacienteId: pacientes[0]._id,
+    titulo: "Control Cardiológico de Seguimiento",
+    prestadorId: prestadores[3]._id,
+    prestador: prestadores[3].nombre, // Dr. Hernan Gutierrrez
+    notas: "Presión arterial dentro de rango normal, medicación ajustada correctamente",
+    fecha: new Date("2024-05-15")
+  },
+  // Paciente 2 // martin gonzalez
   {
     pacienteId: pacientes[2]._id,
-    titulo: "Consulta Pediátrica",
+    titulo: "Consulta Anual",
     prestadorId: prestadores[4]._id, // Dra. Laura Pérez
     prestador: prestadores[4].nombre,
     notas: "Control anual completo",
-    fecha: new Date("2023-03-15")
+    fecha: new Date("2025-06-15")
   },
   {
     pacienteId: pacientes[2]._id,
-    titulo: "Evaluación Neurológica",
-    prestadorId: prestadores[5]._id, // Dr. Pablo Rodríguez
+    titulo: "Fractura de muñeca, seguimiento",
+    prestadorId: prestadores[5]._id, 
     prestador: prestadores[5].nombre,
+    notas: "Retirar yeso en 2 semanas.",
+    fecha: new Date("2025-11-02"),
+  },
+  {
+    // martin gonzalez
+    pacienteId: pacientes[2]._id,
+    titulo: "Evaluación Neurológica",
+    prestadorId: prestadores[6]._id, // carvajal
+    prestador: prestadores[6].nombre,
     notas: "Paciente presenta cefaleas frecuentes, se recomienda estudio de resonancia magnética",
     fecha: new Date("2024-09-10")
   },
-  // Paciente 1
+
+  // Paciente 1 // lucia gonzalez
   {
     pacienteId: pacientes[1]._id,
     titulo: "Control Obstétrico",
-    prestadorId: prestadores[4]._id, // Dra. Laura Pérez
-    prestador: prestadores[4].nombre,
+    prestadorId: prestadores[10]._id, // Dra. paisa
+    prestador: prestadores[10].nombre,
     notas: "Embarazo sin complicaciones",
     fecha: new Date("2023-04-20")
   },
   {
-    pacienteId: pacientes[1]._id,
-    titulo: "Consulta General",
-    prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
-    prestador: prestadores[3].nombre,
-    notas: "Se recomienda análisis de sangre",
-    fecha: new Date("2023-05-10")
+    pacienteId: pacientes[1]._id, 
+    titulo: "Consulta por dolor de pecho",
+    prestadorId: prestadores[6]._id, // Dr. carvajal
+    prestador: prestadores[6].nombre,
+    notas: "Posible derivación a cardiología.",
+    fecha: new Date("2025-11-03"),
   },
-  // Paciente 3
+  // Paciente 3 // jorge perez
   {
     pacienteId: pacientes[3]._id,
     titulo: "Chequeo Cardiológico",
@@ -60,50 +110,58 @@ const historias = [
     notas: "Se recomienda electrocardiograma",
     fecha: new Date("2025-08-10")
   },
-  // Paciente 4 (Fede)
+  {
+    pacienteId: pacientes[3]._id,
+    titulo: "Exámenes de rutina",
+    prestadorId: prestadores[12]._id, // Dr. Horacio Chain
+    prestador: prestadores[12].nombre,
+    notas: "Pendiente resultados de laboratorio.",
+    fecha: new Date("2025-10-04"),
+  },
+  // Paciente 4 luis rodriguez
   {
     pacienteId: pacientes[4]._id,
     titulo: "Chequeo Cardiológico",
     prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
     prestador: prestadores[3].nombre,
     notas: "Presión arterial normal, todo bien",
-    fecha: new Date("2023-05-10")
+    fecha: new Date("2025-05-10")
   },
   {
     pacienteId: pacientes[4]._id,
-    titulo: "Control de Colesterol",
-    prestadorId: prestadores[5]._id, // Dr. Pablo Rodríguez
+    titulo: "Esguince de tobillo, control",
+    prestadorId: prestadores[5]._id, 
     prestador: prestadores[5].nombre,
-    notas: "Niveles dentro del rango recomendado",
-    fecha: new Date("2024-01-15")
+    notas: "El paciente evoluciona favorablemente.",
+    fecha: new Date("2025-12-01"),
   },
-  // Paciente 5 (Carolina)
+  // Paciente 5 (florencia rodriguez)
   {
     pacienteId: pacientes[5]._id,
     titulo: "Consulta Ginecológica",
     prestadorId: prestadores[4]._id, // Dra. Laura Pérez
     prestador: prestadores[4].nombre,
     notas: "Control anual, sin novedades",
-    fecha: new Date("2023-06-20")
+    fecha: new Date("2024-06-20")
   },
-  {
+  { // florencia rodriguez
     pacienteId: pacientes[5]._id,
     titulo: "Control de Vitamina D",
-    prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
-    prestador: prestadores[3].nombre,
+    prestadorId: prestadores[6]._id, // Dr. Hernan Carvajal
+    prestador: prestadores[6].nombre,
     notas: "Nivel adecuado",
     fecha: new Date("2024-03-10")
   },
-  // Paciente 6 (Lucas)
+  // Paciente 6 (mariel arrigada)
   {
-    pacienteId: pacientes[6]._id,
-    titulo: "Consulta Pediátrica",
-    prestadorId: prestadores[4]._id, // Dra. Laura Pérez
-    prestador: prestadores[4].nombre,
-    notas: "Vacunas al día, desarrollo normal",
-    fecha: new Date("2023-08-05")
+    pacienteId: pacientes[6]._id, 
+    titulo: "Control post-operatorio",
+    prestadorId: prestadores[11]._id, 
+    prestador: prestadores[11].nombre,
+    notas: "Buena evolución de la cirugía.",
+    fecha: new Date("2024-11-05"),
   },
-  {
+  { // mariel arrigada
     pacienteId: pacientes[6]._id,
     titulo: "Control Dental",
     prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
@@ -113,32 +171,32 @@ const historias = [
   },
   // Paciente 8 (Alejandro)
   {
-    pacienteId: pacientes[8]._id,
-    titulo: "Chequeo General",
-    prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
-    prestador: prestadores[3].nombre,
-    notas: "Todo normal, sin complicaciones",
-    fecha: new Date("2023-06-15")
+    pacienteId: pacientes[7]._id, 
+    titulo: "Exámenes de rutina",
+    prestadorId: prestadores[9]._id, 
+    prestador: prestadores[9].nombre,
+    notas: "Pendiente resultados de laboratorio.",
+    fecha: new Date("2024-11-04"),
   },
   {
-    pacienteId: pacientes[8]._id,
-    titulo: "Control Cardiológico",
-    prestadorId: prestadores[5]._id, // Dr. Pablo Rodríguez
-    prestador: prestadores[5].nombre,
-    notas: "Presión arterial estable",
-    fecha: new Date("2024-01-10")
+    pacienteId: pacientes[7]._id,
+    titulo: "Control oftalmológico anual",
+    prestadorId: prestadores[7]._id, 
+    prestador: prestadores[7].nombre,
+    notas: "Vista en rango normal.",
+    fecha: new Date("2024-11-09"),
   },
   // Paciente 9 (Vero)
   {
-    pacienteId: pacientes[9]._id,
+    pacienteId: pacientes[8]._id,
     titulo: "Consulta Ginecológica",
-    prestadorId: prestadores[5]._id, // Dr. Pablo Rodríguez
-    prestador: prestadores[5].nombre,
+    prestadorId: prestadores[13]._id, // Dra. pesoa
+    prestador: prestadores[13].nombre,
     notas: "Control anual, todo bien",
     fecha: new Date("2023-07-20")
   },
   {
-    pacienteId: pacientes[9]._id,
+    pacienteId: pacientes[8]._id,
     titulo: "Control de Vitamina D",
     prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
     prestador: prestadores[3].nombre,
@@ -147,7 +205,7 @@ const historias = [
   },
   // Paciente 10 (Martin)
   {
-    pacienteId: pacientes[10]._id,
+    pacienteId: pacientes[9]._id,
     titulo: "Consulta Pediátrica",
     prestadorId: prestadores[4]._id, // Dra. Laura Pérez
     prestador: prestadores[4].nombre,
@@ -155,7 +213,7 @@ const historias = [
     fecha: new Date("2023-08-12")
   },
   {
-    pacienteId: pacientes[10]._id,
+    pacienteId: pacientes[9]._id,
     titulo: "Control Dental",
     prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
     prestador: prestadores[3].nombre,
@@ -164,7 +222,7 @@ const historias = [
   },
   // Paciente 11 (Cami)
   {
-    pacienteId: pacientes[11]._id,
+    pacienteId: pacientes[10]._id,
     titulo: "Consulta Pediátrica",
     prestadorId: prestadores[4]._id, // Dra. Laura Pérez
     prestador: prestadores[4].nombre,
@@ -172,7 +230,7 @@ const historias = [
     fecha: new Date("2023-09-10")
   },
   {
-    pacienteId: pacientes[11]._id,
+    pacienteId: pacientes[10]._id,
     titulo: "Control Oftalmológico",
     prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
     prestador: prestadores[3].nombre,
