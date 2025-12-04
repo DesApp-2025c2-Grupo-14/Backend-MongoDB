@@ -136,12 +136,14 @@ const getSolicitudesPrestador = async (req, res) => {
 
 const actualizarSolicitud = async (req, res) => {
   try {
+    const prestador= await Prestador.findById(req.body.prestadorId);
     const solicitud = await Solicitud.findByIdAndUpdate(
       { _id: req.params.id },
       {
         estado: req.body.estado,
         motivo: req.body.motivo ?? "",
         prestadorId: new mongoose.Types.ObjectId(req.body.prestadorId),
+        medico: prestador.nombre,
       },
       { new: true }
     );
