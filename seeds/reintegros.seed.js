@@ -18,7 +18,7 @@ async function seedReintegros() {
             cuit: "30-11223344-9",
             valorTotal: 28400.20,
             pago: "Transferencia",
-            facturadoA: "OSDE",
+            facturadoA: "Particular",
             cbu: "0270132445678901234567",
             solicitudId: solicitudes[101]._id
         },
@@ -26,7 +26,7 @@ async function seedReintegros() {
             cuit: "20-55667788-0",
             valorTotal: 17850.90,
             pago: "Transferencia",
-            facturadoA: "Swiss Medical",
+            facturadoA: "Particular",
             cbu: "0110599543219876543210",
             solicitudId: solicitudes[102]._id
         },
@@ -34,7 +34,7 @@ async function seedReintegros() {
             cuit: "30-99887766-3",
             valorTotal: 46200.10,
             pago: "Transferencia",
-            facturadoA: "Galeno",
+            facturadoA: "Particular",
             cbu: "0720156789012345678901",
             solicitudId: solicitudes[103]._id
         },
@@ -42,7 +42,7 @@ async function seedReintegros() {
             cuit: "33-22334455-2",
             valorTotal: 30500.80,
             pago: "Transferencia",
-            facturadoA: "IOMA",
+            facturadoA: "Particular",
             cbu: "0290012345678909876543",
             solicitudId: solicitudes[104]._id
         },
@@ -58,7 +58,7 @@ async function seedReintegros() {
             cuit: "27-44556677-1",
             valorTotal: 74300.30,
             pago: "Transferencia",
-            facturadoA: "OSDEPYM",
+            facturadoA: "Consultorio Sur",
             cbu: "0170033045678912345678",
             solicitudId: solicitudes[106]._id
         },
@@ -108,7 +108,7 @@ async function seedReintegros() {
             cuit: "30-88776655-2",
             valorTotal: 31000.75,
             pago: "Transferencia",
-            facturadoA: "PAMI",
+            facturadoA: "Particular",
             cbu: "1910023456789001234567",
             solicitudId: solicitudes[112]._id
         },
@@ -124,7 +124,7 @@ async function seedReintegros() {
             cuit: "30-55332211-9",
             valorTotal: 15900.40,
             pago: "Transferencia",
-            facturadoA: "OSDE",
+            facturadoA: "Particular",
             cbu: "0110622234567890123456",
             solicitudId: solicitudes[114]._id
         },
@@ -150,7 +150,7 @@ async function seedReintegros() {
             cuit: "30-22223333-4",
             valorTotal: 20500.20,
             pago: "Transferencia",
-            facturadoA: "Swiss Medical",
+            facturadoA: "Particular",
             cbu: "2850256732109876543210",
             solicitudId: solicitudes[117]._id
         },
@@ -158,7 +158,7 @@ async function seedReintegros() {
             cuit: "20-55446677-2",
             valorTotal: 33800.50,
             pago: "Transferencia",
-            facturadoA: "IOMA",
+            facturadoA: "Particular",
             cbu: "0650598765432109876500",
             solicitudId: solicitudes[118]._id
         },
@@ -166,7 +166,7 @@ async function seedReintegros() {
             cuit: "20-11223344-5",
             valorTotal: 48700.80,
             pago: "Transferencia",
-            facturadoA: "OSDEPYM",
+            facturadoA: "Particular",
             cbu: "0110522200123456789011",
             solicitudId: solicitudes[119]._id
         },
@@ -192,7 +192,7 @@ async function seedReintegros() {
             cuit: "20-30112233-8",
             valorTotal: 24500.10,
             pago: "Transferencia",
-            facturadoA: "Galeno",
+            facturadoA: "Particular",
             cbu: "0720044445678912345000",
             solicitudId: solicitudes[122]._id
         },
@@ -234,7 +234,7 @@ async function seedReintegros() {
             cuit: "20-12344321-9",
             valorTotal: 23900.70,
             pago: "Transferencia",
-            facturadoA: "OSDE",
+            facturadoA: "Particular",
             cbu: "0170400009876543212345",
             solicitudId: solicitudes[127]._id
         },
@@ -260,7 +260,7 @@ async function seedReintegros() {
             cuit: "20-55664433-0",
             valorTotal: 36000.20,
             pago: "Transferencia",
-            facturadoA: "IOMA",
+            facturadoA: "Particular",
             cbu: "0720033332109876001234",
             solicitudId: solicitudes[130]._id
         },
@@ -268,7 +268,7 @@ async function seedReintegros() {
             cuit: "30-66778899-3",
             valorTotal: 51000.80,
             pago: "Transferencia",
-            facturadoA: "OSDEPYM",
+            facturadoA: "Particular",
             cbu: "0650598888777666555444",
             solicitudId: solicitudes[131]._id
         },
@@ -284,7 +284,7 @@ async function seedReintegros() {
             cuit: "20-22113344-1",
             valorTotal: 29800.90,
             pago: "Transferencia",
-            facturadoA: "Galeno",
+            facturadoA: "Particular",
             cbu: "0170666600123456789099",
             solicitudId: solicitudes[133]._id
         },
@@ -334,7 +334,7 @@ async function seedReintegros() {
             cuit: "30-66554422-0",
             valorTotal: 26700.40,
             pago: "Transferencia",
-            facturadoA: "OSDE",
+            facturadoA: "Particular",
             cbu: "0110888800112233445566",
             solicitudId: solicitudes[139]._id
         },
@@ -368,7 +368,7 @@ async function seedReintegros() {
             cuit: "30-99001122-8",
             valorTotal: 22100.10,
             pago: "Transferencia",
-            facturadoA: "OSDEPYM",
+            facturadoA: "Consultorio Sur",
             cbu: "0110999988776655443322",
             solicitudId: solicitudes[143]._id
         },

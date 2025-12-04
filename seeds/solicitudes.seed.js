@@ -7,7 +7,8 @@ const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 async function seedSolicitudes() {
     const pacientes = await Paciente.find();
     const prestadores = await Prestador.find();
-
+    const idsMujeres = [0, 1, 5, 6, 8, 9, 12, 15, 16, 18, 21, 22, 24, 26]
+    const idsHombres = [2, 3, 4, 7, 10, 11, 13, 14, 17, 19, 20, 23, 25]
     if (!prestadores.length || !pacientes.length) {
         console.log('❌ No hay prestadores o pacientes cargados.');
         return;
@@ -17,44 +18,44 @@ async function seedSolicitudes() {
 
     // 🧾 5 de tipo Receta
     const recetas = [
-        { observaciones: "Dolor de cabeza leve - Ibuprofeno", estado: "Aprobada", fechaPrestacion: new Date("2025-09-01") },
-        { observaciones: "Infección respiratoria aguda - Amoxicilina", estado: "Pendiente", fechaPrestacion: new Date("2025-09-02") },
-        { observaciones: "Fiebre y malestar - Paracetamol", estado: "En analisis", fechaPrestacion: new Date("2025-09-03") },
-        { observaciones: "Inflamación articular - Diclofenac", estado: "Observada", fechaPrestacion: new Date("2025-09-04") },
-        { observaciones: "Bronquitis - Azitromicina", estado: "Aprobada", fechaPrestacion: new Date("2025-09-05") },
-        { observaciones: "Alergia estacional - Loratadina", estado: "Pendiente", fechaPrestacion: new Date("2025-09-06") },
-        { observaciones: "Acidez estomacal - Ranitidina", estado: "En analisis", fechaPrestacion: new Date("2025-09-07") },
-        { observaciones: "Dolor infantil - Ibuprofeno Pediátrico", estado: "Aprobada", fechaPrestacion: new Date("2025-09-08") },
-        { observaciones: "Eczema leve - Betametasona crema", estado: "Observada", fechaPrestacion: new Date("2025-09-09") },
-        { observaciones: "Dolor agudo - Ketorolac", estado: "Rechazada", fechaPrestacion: new Date("2025-09-10") },
+        { observaciones: "Dolor de cabeza leve - Ibuprofeno", estado: "Aprobada", fechaPrestacion: new Date("2025-12-01") },
+        { observaciones: "Infección respiratoria aguda - Amoxicilina", estado: "Pendiente", fechaPrestacion: new Date("2025-12-02") },
+        { observaciones: "Fiebre y malestar - Paracetamol", estado: "En analisis", fechaPrestacion: new Date("2025-12-03") },
+        { observaciones: "Inflamación articular - Diclofenac", estado: "Observada", fechaPrestacion: new Date("2025-12-04") },
+        { observaciones: "Bronquitis - Azitromicina", estado: "Rechazada", fechaPrestacion: new Date("2025-12-05") },
+        { observaciones: "Alergia estacional - Loratadina", estado: "Pendiente", fechaPrestacion: new Date("2025-12-06") },
+        { observaciones: "Acidez estomacal - Ranitidina", estado: "En analisis", fechaPrestacion: new Date("2025-12-07") },
+        { observaciones: "Dolor infantil - Ibuprofeno Pediátrico", estado: "Aprobada", fechaPrestacion: new Date("2025-12-08") },
+        { observaciones: "Eczema leve - Betametasona crema", estado: "Observada", fechaPrestacion: new Date("2025-12-09") },
+        { observaciones: "Dolor agudo - Ketorolac", estado: "Rechazada", fechaPrestacion: new Date("2025-12-10") },
 
-        { observaciones: "Infección urinaria - Ciprofloxacina", estado: "Aprobada", fechaPrestacion: new Date("2025-09-11") },
-        { observaciones: "Infección cutánea - Clotrimazol", estado: "Pendiente", fechaPrestacion: new Date("2025-09-12") },
-        { observaciones: "Reflujo gástrico - Omeprazol", estado: "En analisis", fechaPrestacion: new Date("2025-09-13") },
-        { observaciones: "Asma leve - Salbutamol", estado: "Aprobada", fechaPrestacion: new Date("2025-09-14") },
-        { observaciones: "Asma persistente - Budesonida", estado: "Observada", fechaPrestacion: new Date("2025-09-15") },
-        { observaciones: "Dolor moderado - Ibuprofeno 600mg", estado: "Aprobada", fechaPrestacion: new Date("2025-09-16") },
-        { observaciones: "Infección bacteriana - Amoxicilina + Clavulánico", estado: "En analisis", fechaPrestacion: new Date("2025-09-17") },
-        { observaciones: "Alergia crónica - Cetirizina", estado: "Pendiente", fechaPrestacion: new Date("2025-09-18") },
-        { observaciones: "Dermatitis leve - Clobetasol", estado: "Aprobada", fechaPrestacion: new Date("2025-09-19") },
-        { observaciones: "Infección cutánea - Clindamicina", estado: "Rechazada", fechaPrestacion: new Date("2025-09-20") },
+        { observaciones: "Infección urinaria - Ciprofloxacina", estado: "Aprobada", fechaPrestacion: new Date("2025-12-11") },
+        { observaciones: "Infección cutánea - Clotrimazol", estado: "Pendiente", fechaPrestacion: new Date("2025-12-12") },
+        { observaciones: "Reflujo gástrico - Omeprazol", estado: "En analisis", fechaPrestacion: new Date("2025-12-13") },
+        { observaciones: "Asma leve - Salbutamol", estado: "Aprobada", fechaPrestacion: new Date("2025-12-14") },
+        { observaciones: "Asma persistente - Budesonida", estado: "Observada", fechaPrestacion: new Date("2025-12-15") },
+        { observaciones: "Dolor moderado - Ibuprofeno 600mg", estado: "Aprobada", fechaPrestacion: new Date("2025-12-16") },
+        { observaciones: "Infección bacteriana - Amoxicilina + Clavulánico", estado: "En analisis", fechaPrestacion: new Date("2025-12-17") },
+        { observaciones: "Alergia crónica - Cetirizina", estado: "Pendiente", fechaPrestacion: new Date("2025-12-18") },
+        { observaciones: "Dermatitis leve - Clobetasol", estado: "Aprobada", fechaPrestacion: new Date("2025-12-19") },
+        { observaciones: "Infección cutánea - Clindamicina", estado: "Rechazada", fechaPrestacion: new Date("2025-12-20") },
 
-        { observaciones: "Otitis - Gotas óticas con Ciprofloxacina", estado: "Aprobada", fechaPrestacion: new Date("2025-09-21") },
-        { observaciones: "Acné leve - Tetraciclina", estado: "Observada", fechaPrestacion: new Date("2025-09-22") },
-        { observaciones: "Dolor menstrual - Ibuprofeno", estado: "Aprobada", fechaPrestacion: new Date("2025-09-23") },
-        { observaciones: "Inflamación articular - Naproxeno", estado: "Pendiente", fechaPrestacion: new Date("2025-09-24") },
-        { observaciones: "Tos productiva - Ambroxol", estado: "En analisis", fechaPrestacion: new Date("2025-09-25") },
-        { observaciones: "Conjuntivitis - Colirio Antibiótico", estado: "Aprobada", fechaPrestacion: new Date("2025-09-26") },
-        { observaciones: "Déficit de vitamina D - Ampollas", estado: "Observada", fechaPrestacion: new Date("2025-09-27") },
-        { observaciones: "Anemia - Suplemento de Hierro", estado: "Aprobada", fechaPrestacion: new Date("2025-09-28") },
-        { observaciones: "Infección urinaria - Trimetoprima-Sulfametoxazol", estado: "Rechazada", fechaPrestacion: new Date("2025-09-29") },
-        { observaciones: "Ansiedad - Clonazepam", estado: "En analisis", fechaPrestacion: new Date("2025-09-30") },
+        { observaciones: "Otitis - Gotas óticas con Ciprofloxacina", estado: "Aprobada", fechaPrestacion: new Date("2025-12-21") },
+        { observaciones: "Acné leve - Tetraciclina", estado: "Observada", fechaPrestacion: new Date("2025-12-22") },
+        { observaciones: "Dolor menstrual - Ibuprofeno", estado: "Aprobada", fechaPrestacion: new Date("2025-12-23") },
+        { observaciones: "Inflamación articular - Naproxeno", estado: "Pendiente", fechaPrestacion: new Date("2025-12-24") },
+        { observaciones: "Tos productiva - Ambroxol", estado: "En analisis", fechaPrestacion: new Date("2025-12-25") },
+        { observaciones: "Conjuntivitis - Colirio Antibiótico", estado: "Aprobada", fechaPrestacion: new Date("2025-12-26") },
+        { observaciones: "Déficit de vitamina D - Ampollas", estado: "Observada", fechaPrestacion: new Date("2025-12-27") },
+        { observaciones: "Anemia - Suplemento de Hierro", estado: "Aprobada", fechaPrestacion: new Date("2025-12-28") },
+        { observaciones: "Infección urinaria - Trimetoprima-Sulfametoxazol", estado: "Rechazada", fechaPrestacion: new Date("2025-12-29") },
+        { observaciones: "Ansiedad - Clonazepam", estado: "En analisis", fechaPrestacion: new Date("2025-12-30") },
 
         { observaciones: "Dolor lumbar - Ibuprofeno", estado: "Aprobada", fechaPrestacion: new Date("2025-10-01") },
         { observaciones: "Herida infectada - Mupirocina", estado: "Pendiente", fechaPrestacion: new Date("2025-10-02") },
         { observaciones: "Infección infantil - Amoxicilina suspensión", estado: "Aprobada", fechaPrestacion: new Date("2025-10-03") },
         { observaciones: "Control glucémico - Metformina", estado: "En analisis", fechaPrestacion: new Date("2025-10-04") },
-        { observaciones: "Hipertensión - Losartán", estado: "Observada", fechaPrestacion: new Date("2025-10-05") },
+        { observaciones: "Hipertensión - Losartán", estado: "Pendiente", fechaPrestacion: new Date("2025-10-05") },
         { observaciones: "Psoriasis leve - Hidrocortisona", estado: "Aprobada", fechaPrestacion: new Date("2025-10-06") },
         { observaciones: "Infección respiratoria - Amoxicilina", estado: "Pendiente", fechaPrestacion: new Date("2025-10-07") },
         { observaciones: "Fiebre infantil - Paracetamol Jarabe", estado: "Aprobada", fechaPrestacion: new Date("2025-10-08") },
@@ -121,7 +122,7 @@ async function seedSolicitudes() {
         { observaciones: "Infección respiratoria - Amoxicilina", estado: "Aprobada", fechaPrestacion: new Date("2025-12-02") },
         { observaciones: "Fiebre leve - Paracetamol", estado: "En analisis", fechaPrestacion: new Date("2025-12-03") },
         { observaciones: "Dolor lumbar - Ibuprofeno", estado: "Observada", fechaPrestacion: new Date("2025-12-04") },
-        { observaciones: "Reflujo gástrico - Omeprazol", estado: "Aprobada", fechaPrestacion: new Date("2025-12-05") },
+        { observaciones: "Reflujo gástrico - Omeprazol", estado: "Pendiente", fechaPrestacion: new Date("2025-12-05") },
         { observaciones: "Ansiedad leve - Clonazepam", estado: "Pendiente", fechaPrestacion: new Date("2025-12-06") },
         { observaciones: "Dolor postquirúrgico - Tramadol", estado: "En analisis", fechaPrestacion: new Date("2025-12-07") },
         { observaciones: "Bronquitis - Salbutamol", estado: "Aprobada", fechaPrestacion: new Date("2025-12-08") },
@@ -135,7 +136,10 @@ async function seedSolicitudes() {
         return {
             ...r,
             prestadorId: r.estado !== "Pendiente" ? prestador._id : null,
-            pacienteId: paciente._id,
+            pacienteId: r.especialidad === "Ginecología" || r.especialidad === "Obstetricia" ? 
+                pacientes[idsMujeres[Math.floor(Math.random() * idsMujeres.length)]]._id :
+                r.especialidad === "Urología" ? pacientes[idsHombres[Math.floor(Math.random() * idsHombres.length)]]._id :
+                paciente._id,
             tipo: 'Receta',
         }
     });
@@ -143,70 +147,70 @@ async function seedSolicitudes() {
     // 💸 5 de tipo Reintegro
     const reintegros = [
         {
-            fechaPrestacion: new Date('2025-09-01'),
+            fechaPrestacion: new Date('2025-12-01'),
             observaciones: 'Reintegro por sesión de fisioterapia',
             estado: 'Aprobada',
             especialidad: 'Kinesiología',
             lugar: 'Centro Kinesiológico del Oeste'
         },
         {
-            fechaPrestacion: new Date('2025-09-02'),
+            fechaPrestacion: new Date('2025-12-02'),
             observaciones: 'Reintegro por compra de gotas oftálmicas',
             estado: 'Pendiente',
             especialidad: 'Oftalmología',
             lugar: 'Farmacia Belgrano'
         },
         {
-            fechaPrestacion: new Date('2025-09-03'),
+            fechaPrestacion: new Date('2025-12-03'),
             observaciones: 'Reintegro por análisis de sangre',
             estado: 'En analisis',
             especialidad: 'Laboratorio',
             lugar: 'Laboratorio Rossi'
         },
         {
-            fechaPrestacion: new Date('2025-09-04'),
+            fechaPrestacion: new Date('2025-12-04'),
             observaciones: 'Reintegro por estudio radiológico de rodilla',
             estado: 'Aprobada',
             especialidad: 'Radiología',
             lugar: 'Diagnóstico por Imágenes CABA'
         },
         {
-            fechaPrestacion: new Date('2025-09-05'),
+            fechaPrestacion: new Date('2025-12-05'),
             observaciones: 'Reintegro por consulta dermatológica',
             estado: 'Observada',
             especialidad: 'Dermatología',
             lugar: 'Clínica Santa Cecilia'
         },
         {
-            fechaPrestacion: new Date('2025-09-06'),
+            fechaPrestacion: new Date('2025-12-06'),
             observaciones: 'Reintegro por sesión de masoterapia',
             estado: 'Pendiente',
             especialidad: 'Kinesiología',
             lugar: 'Consultorio Kine+'
         },
         {
-            fechaPrestacion: new Date('2025-09-07'),
+            fechaPrestacion: new Date('2025-12-07'),
             observaciones: 'Reintegro por compra de antibióticos',
             estado: 'Aprobada',
             especialidad: 'Clínica Médica',
             lugar: 'Farmacia Azul'
         },
         {
-            fechaPrestacion: new Date('2025-09-08'),
+            fechaPrestacion: new Date('2025-12-08'),
             observaciones: 'Reintegro por consulta otorrinolaringológica',
             estado: 'En analisis',
             especialidad: 'Otorrinolaringología',
             lugar: 'Centro ORL Caballito'
         },
         {
-            fechaPrestacion: new Date('2025-09-09'),
+            fechaPrestacion: new Date('2025-12-09'),
             observaciones: 'Reintegro por ecografía abdominal',
             estado: 'Rechazada',
             especialidad: 'Ecografía',
             lugar: 'Diagnóstico Norte'
         },
         {
-            fechaPrestacion: new Date('2025-09-10'),
+            fechaPrestacion: new Date('2025-12-10'),
             observaciones: 'Reintegro por compra de medicación para alergias',
             estado: 'Observada',
             especialidad: 'Alergología',
@@ -214,70 +218,70 @@ async function seedSolicitudes() {
         },
 
         {
-            fechaPrestacion: new Date('2025-09-11'),
+            fechaPrestacion: new Date('2025-12-11'),
             observaciones: 'Reintegro por consulta cardiológica',
             estado: 'Aprobada',
             especialidad: 'Cardiología',
             lugar: 'Sanatorio Modelo'
         },
         {
-            fechaPrestacion: new Date('2025-09-12'),
+            fechaPrestacion: new Date('2025-12-12'),
             observaciones: 'Reintegro por análisis de orina completo',
             estado: 'Pendiente',
             especialidad: 'Laboratorio',
             lugar: 'Hospital Vélez Sarsfield'
         },
         {
-            fechaPrestacion: new Date('2025-09-13'),
+            fechaPrestacion: new Date('2025-12-13'),
             observaciones: 'Reintegro por estudio de audición',
             estado: 'En analisis',
             especialidad: 'Otorrinolaringología',
             lugar: 'Centro Auditivo Palermo'
         },
         {
-            fechaPrestacion: new Date('2025-09-14'),
+            fechaPrestacion: new Date('2025-12-14'),
             observaciones: 'Reintegro por placas de codo',
             estado: 'Aprobada',
             especialidad: 'Radiología',
             lugar: 'Consultorios Médicos San Martín'
         },
         {
-            fechaPrestacion: new Date('2025-09-15'),
+            fechaPrestacion: new Date('2025-12-15'),
             observaciones: 'Reintegro por compra de crema dermatológica',
             estado: 'Observada',
             especialidad: 'Dermatología',
             lugar: 'Farmacia Popular'
         },
         {
-            fechaPrestacion: new Date('2025-09-16'),
+            fechaPrestacion: new Date('2025-12-16'),
             observaciones: 'Reintegro por consulta de nutrición',
             estado: 'Pendiente',
             especialidad: 'Nutrición',
             lugar: 'Centro Integral de Salud'
         },
         {
-            fechaPrestacion: new Date('2025-09-17'),
+            fechaPrestacion: new Date('2025-12-17'),
             observaciones: 'Reintegro por sesión de rehabilitación motora',
             estado: 'Aprobada',
             especialidad: 'Kinesiología',
             lugar: 'KineLife Ramos'
         },
         {
-            fechaPrestacion: new Date('2025-09-18'),
+            fechaPrestacion: new Date('2025-12-18'),
             observaciones: 'Reintegro por lentes recetados',
             estado: 'Rechazada',
             especialidad: 'Oftalmología',
             lugar: 'Óptica Visión Plus'
         },
         {
-            fechaPrestacion: new Date('2025-09-19'),
+            fechaPrestacion: new Date('2025-12-19'),
             observaciones: 'Reintegro por consulta ginecológica',
             estado: 'Aprobada',
             especialidad: 'Ginecología',
             lugar: 'Clínica del Sol'
         },
         {
-            fechaPrestacion: new Date('2025-09-20'),
+            fechaPrestacion: new Date('2025-12-20'),
             observaciones: 'Reintegro por compra de suplementos vitamínicos',
             estado: 'Pendiente',
             especialidad: 'Clínica Médica',
@@ -285,70 +289,70 @@ async function seedSolicitudes() {
         },
 
         {
-            fechaPrestacion: new Date('2025-09-21'),
+            fechaPrestacion: new Date('2025-12-21'),
             observaciones: 'Reintegro por estudio de tiroides',
             estado: 'En analisis',
             especialidad: 'Endocrinología',
             lugar: 'Laboratorio Hidalgo'
         },
         {
-            fechaPrestacion: new Date('2025-09-22'),
+            fechaPrestacion: new Date('2025-12-22'),
             observaciones: 'Reintegro por placas de tórax',
             estado: 'Aprobada',
             especialidad: 'Radiología',
             lugar: 'Centro Diagnóstico Sur'
         },
         {
-            fechaPrestacion: new Date('2025-09-23'),
+            fechaPrestacion: new Date('2025-12-23'),
             observaciones: 'Reintegro por consulta psiquiátrica',
             estado: 'Observada',
             especialidad: 'Psiquiatría',
             lugar: 'Clínica del Parque'
         },
         {
-            fechaPrestacion: new Date('2025-09-24'),
+            fechaPrestacion: new Date('2025-12-24'),
             observaciones: 'Reintegro por compra de medicación hormonal',
             estado: 'Pendiente',
             especialidad: 'Endocrinología',
             lugar: 'Farmacia Constitución'
         },
         {
-            fechaPrestacion: new Date('2025-09-25'),
+            fechaPrestacion: new Date('2025-12-25'),
             observaciones: 'Reintegro por sesión de terapia respiratoria',
             estado: 'Aprobada',
             especialidad: 'Neumonología',
             lugar: 'Centro del Pulmón'
         },
         {
-            fechaPrestacion: new Date('2025-09-26'),
+            fechaPrestacion: new Date('2025-12-26'),
             observaciones: 'Reintegro por consulta traumatológica',
             estado: 'Aprobada',
             especialidad: 'Traumatología',
             lugar: 'Sanatorio Rivera'
         },
         {
-            fechaPrestacion: new Date('2025-09-27'),
+            fechaPrestacion: new Date('2025-12-27'),
             observaciones: 'Reintegro por ecocardiograma',
             estado: 'En analisis',
             especialidad: 'Cardiología',
             lugar: 'Diagnóstico Med-Heart'
         },
         {
-            fechaPrestacion: new Date('2025-09-28'),
+            fechaPrestacion: new Date('2025-12-28'),
             observaciones: 'Reintegro por sesiones de psicoterapia',
             estado: 'Observada',
             especialidad: 'Psicología',
             lugar: 'Consultorios Palermo'
         },
         {
-            fechaPrestacion: new Date('2025-09-29'),
+            fechaPrestacion: new Date('2025-12-29'),
             observaciones: 'Reintegro por análisis de vitamina D',
             estado: 'Pendiente',
             especialidad: 'Laboratorio',
             lugar: 'Laboratorio Suizo'
         },
         {
-            fechaPrestacion: new Date('2025-09-30'),
+            fechaPrestacion: new Date('2025-12-30'),
             observaciones: 'Reintegro por compra de medicamentos pediátricos',
             estado: 'Aprobada',
             especialidad: 'Pediatría',
@@ -537,9 +541,9 @@ async function seedSolicitudes() {
     { fechaPrestacion: new Date('2025-11-30'), observaciones: 'Reintegro por consulta odontológica', estado: 'Aprobada', especialidad: 'Odontología', lugar: 'Clínica Dental Sonrisas' },
     { fechaPrestacion: new Date('2025-12-01'), observaciones: 'Reintegro por consulta pediátrica', estado: 'Rechazada', especialidad: 'Pediatría', lugar: 'Consultorios Pequeños Pasos' },
     { fechaPrestacion: new Date('2025-12-02'), observaciones: 'Reintegro por consulta psicológica', estado: 'Observada', especialidad: 'Psicología', lugar: 'Espacio Mental' },
-    { fechaPrestacion: new Date('2025-12-03'), observaciones: 'Reintegro por consulta dermatológica', estado: 'Pendiente', especialidad: 'Dermatología', lugar: 'Dermacenter' },
-    { fechaPrestacion: new Date('2025-12-04'), observaciones: 'Reintegro por control oftalmológico', estado: 'Aprobada', especialidad: 'Oftalmología', lugar: 'Clínica Visión' },
-    { fechaPrestacion: new Date('2025-12-05'), observaciones: 'Reintegro por consulta nutricional', estado: 'En analisis', especialidad: 'Nutrición', lugar: 'Consultorios NutriVida' },
+    { fechaPrestacion: new Date('2025-12-03'), observaciones: 'Reintegro por consulta dermatológica', estado: 'Aprobada', especialidad: 'Dermatología', lugar: 'Dermacenter' },
+    { fechaPrestacion: new Date('2025-12-05'), observaciones: 'Reintegro por control oftalmológico', estado: 'Pendiente', especialidad: 'Oftalmología', lugar: 'Clínica Visión' },
+    { fechaPrestacion: new Date('2025-12-05'), observaciones: 'Reintegro por consulta nutricional', estado: 'Pendiente', especialidad: 'Nutrición', lugar: 'Consultorios NutriVida' },
     { fechaPrestacion: new Date('2025-12-06'), observaciones: 'Reintegro por consulta ginecológica', estado: 'Aprobada', especialidad: 'Ginecología', lugar: 'Clínica FemVida' },
     { fechaPrestacion: new Date('2025-12-07'), observaciones: 'Reintegro por sesión de kinesiología', estado: 'Pendiente', especialidad: 'Kinesiología', lugar: 'FisioCenter' },
     { fechaPrestacion: new Date('2025-12-08'), observaciones: 'Reintegro por consulta cardiológica', estado: 'Observada', especialidad: 'Cardiología', lugar: 'CardioCenter' },
@@ -554,7 +558,10 @@ async function seedSolicitudes() {
         return {
             ...r,
             prestadorId: r.estado !== "Pendiente" ? prestador._id : null,
-            pacienteId: paciente._id,
+            pacienteId: r.especialidad === "Ginecología" || r.especialidad === "Obstetricia" ? 
+                pacientes[idsMujeres[Math.floor(Math.random() * idsMujeres.length)]]._id :
+                r.especialidad === "Urología" ? pacientes[idsHombres[Math.floor(Math.random() * idsHombres.length)]]._id :
+                paciente._id,
             medico: r.estado !== "Pendiente" ? prestador.nombre : null,
             tipo: 'Reintegro',
         }
@@ -562,67 +569,128 @@ async function seedSolicitudes() {
     console.log(reintegros.length)
     // 🩺 5 de tipo Autorizacion
     const autorizaciones = [
-        { fechaPrestacion: new Date('2025-09-01'), observaciones: 'Autorización para resonancia magnética lumbar', estado: 'En analisis', especialidad: 'Diagnóstico por Imágenes', lugar: 'Hospital Italiano' },
-        { fechaPrestacion: new Date('2025-09-02'), observaciones: 'Autorización para ecografía abdominal', estado: 'Pendiente', especialidad: 'Ecografía', lugar: 'Clínica del Sol' },
-        { fechaPrestacion: new Date('2025-09-03'), observaciones: 'Autorización para tomografía computada de cráneo', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Centro Médico Norte' },
-        { fechaPrestacion: new Date('2025-09-04'), observaciones: 'Autorización para estudios cardiológicos completos', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
-        { fechaPrestacion: new Date('2025-09-05'), observaciones: 'Autorización para análisis hormonales ampliados', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
+    { fechaPrestacion: new Date('2025-12-01'), observaciones: 'Autorización para resonancia magnética lumbar', estado: 'En analisis', especialidad: 'Diagnóstico por Imágenes', lugar: 'Hospital Italiano' },
+    { fechaPrestacion: new Date('2025-12-02'), observaciones: 'Autorización para ecografía abdominal', estado: 'Pendiente', especialidad: 'Ecografía', lugar: 'Clínica del Sol' },
+    { fechaPrestacion: new Date('2025-12-03'), observaciones: 'Autorización para tomografía computada de cráneo', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Centro Médico Norte' },
+    { fechaPrestacion: new Date('2025-12-04'), observaciones: 'Autorización para estudios cardiológicos completos', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
+    { fechaPrestacion: new Date('2025-12-05'), observaciones: 'Autorización para análisis hormonales ampliados', estado: 'Pendiente', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
 
-        { fechaPrestacion: new Date('2025-09-06'), observaciones: 'Autorización para mamografía bilateral', estado: 'Pendiente', especialidad: 'Diagnóstico por Imágenes', lugar: 'Clínica Favaloro' },
-        { fechaPrestacion: new Date('2025-09-07'), observaciones: 'Autorización para radiografía de tórax', estado: 'Rechazada', especialidad: 'Radiología', lugar: 'Hospital Fernández' },
-        { fechaPrestacion: new Date('2025-09-08'), observaciones: 'Autorización para ecocardiograma Doppler', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Centro de Cardiología' },
-        { fechaPrestacion: new Date('2025-09-09'), observaciones: 'Autorización para punción biopsia', estado: 'En analisis', especialidad: 'Anatomía Patológica', lugar: 'Instituto de Patología' },
-        { fechaPrestacion: new Date('2025-09-10'), observaciones: 'Autorización para control dermatológico', estado: 'Pendiente', especialidad: 'Dermatología', lugar: 'Centro Médico Cabildo' },
+    { fechaPrestacion: new Date('2025-12-06'), observaciones: 'Autorización para mamografía bilateral', estado: 'Pendiente', especialidad: 'Diagnóstico por Imágenes', lugar: 'Clínica Favaloro' },
+    { fechaPrestacion: new Date('2025-12-07'), observaciones: 'Autorización para radiografía de tórax', estado: 'Rechazada', especialidad: 'Radiología', lugar: 'Hospital Fernández' },
+    { fechaPrestacion: new Date('2025-12-08'), observaciones: 'Autorización para ecocardiograma Doppler', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Centro de Cardiología' },
+    { fechaPrestacion: new Date('2025-12-09'), observaciones: 'Autorización para punción biopsia', estado: 'En analisis', especialidad: 'Anatomía Patológica', lugar: 'Instituto de Patología' },
+    { fechaPrestacion: new Date('2025-12-10'), observaciones: 'Autorización para control dermatológico', estado: 'Pendiente', especialidad: 'Dermatología', lugar: 'Centro Médico Cabildo' },
 
-        { fechaPrestacion: new Date('2025-09-11'), observaciones: 'Autorización para polisomnografía', estado: 'Aprobada', especialidad: 'Neumonología', lugar: 'Sanatorio Los Arcos' },
-        { fechaPrestacion: new Date('2025-09-12'), observaciones: 'Autorización para consulta neurológica', estado: 'Aprobada', especialidad: 'Neurología', lugar: 'Instituto Neurológico Argentino' },
-        { fechaPrestacion: new Date('2025-09-13'), observaciones: 'Autorización para análisis de hemoglobina glicosilada', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio de Análisis Clínicos Norte' },
-        { fechaPrestacion: new Date('2025-09-14'), observaciones: 'Autorización para radiografía de cadera', estado: 'Pendiente', especialidad: 'Radiología', lugar: 'Clínica Sagrada Familia' },
-        { fechaPrestacion: new Date('2025-09-15'), observaciones: 'Autorización para tomografía de abdomen', estado: 'En analisis', especialidad: 'Diagnóstico por Imágenes', lugar: 'Hospital Italiano' },
+    { fechaPrestacion: new Date('2025-12-11'), observaciones: 'Autorización para polisomnografía', estado: 'Aprobada', especialidad: 'Neumonología', lugar: 'Sanatorio Los Arcos' },
+    { fechaPrestacion: new Date('2025-12-12'), observaciones: 'Autorización para consulta neurológica', estado: 'Aprobada', especialidad: 'Neurología', lugar: 'Instituto Neurológico Argentino' },
+    { fechaPrestacion: new Date('2025-12-13'), observaciones: 'Autorización para análisis de hemoglobina glicosilada', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio de Análisis Clínicos Norte' },
+    { fechaPrestacion: new Date('2025-12-14'), observaciones: 'Autorización para radiografía de cadera', estado: 'Pendiente', especialidad: 'Radiología', lugar: 'Clínica Sagrada Familia' },
+    { fechaPrestacion: new Date('2025-12-15'), observaciones: 'Autorización para tomografía de abdomen', estado: 'En analisis', especialidad: 'Diagnóstico por Imágenes', lugar: 'Hospital Italiano' },
 
-        { fechaPrestacion: new Date('2025-09-16'), observaciones: 'Autorización para estudios de tiroides', estado: 'Rechazada', especialidad: 'Endocrinología', lugar: 'Centro Médico Norte' },
-        { fechaPrestacion: new Date('2025-09-17'), observaciones: 'Autorización para ecografía renal', estado: 'Aprobada', especialidad: 'Ecografía', lugar: 'Sanatorio Anchorena' },
-        { fechaPrestacion: new Date('2025-09-18'), observaciones: 'Autorización para examen oftalmológico completo', estado: 'Pendiente', especialidad: 'Oftalmología', lugar: 'Centro de Oftalmología' },
-        { fechaPrestacion: new Date('2025-09-19'), observaciones: 'Autorización para audiometría', estado: 'Aprobada', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído y la Voz' },
-        { fechaPrestacion: new Date('2025-09-20'), observaciones: 'Autorización para laboratorio general', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
+    { fechaPrestacion: new Date('2025-12-16'), observaciones: 'Autorización para estudios de tiroides', estado: 'Rechazada', especialidad: 'Endocrinología', lugar: 'Centro Médico Norte' },
+    { fechaPrestacion: new Date('2025-12-17'), observaciones: 'Autorización para ecografía renal', estado: 'Aprobada', especialidad: 'Ecografía', lugar: 'Sanatorio Anchorena' },
+    { fechaPrestacion: new Date('2025-12-18'), observaciones: 'Autorización para examen oftalmológico completo', estado: 'Pendiente', especialidad: 'Oftalmología', lugar: 'Centro de Oftalmología' },
+    { fechaPrestacion: new Date('2025-12-19'), observaciones: 'Autorización para audiometría', estado: 'Aprobada', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído y la Voz' },
+    { fechaPrestacion: new Date('2025-12-20'), observaciones: 'Autorización para laboratorio general', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
 
-        { fechaPrestacion: new Date('2025-09-21'), observaciones: 'Autorización para resonancia de rodilla', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Centro Médico Belgrano' },
-        { fechaPrestacion: new Date('2025-09-22'), observaciones: 'Autorización para control cardiológico', estado: 'Pendiente', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
-        { fechaPrestacion: new Date('2025-09-23'), observaciones: 'Autorización para consulta traumatológica', estado: 'En analisis', especialidad: 'Traumatología', lugar: 'Clínica San Jorge' },
-        { fechaPrestacion: new Date('2025-09-24'), observaciones: 'Autorización para ecografía obstétrica', estado: 'Aprobada', especialidad: 'Obstetricia', lugar: 'Centro Materno Infantil' },
-        { fechaPrestacion: new Date('2025-09-25'), observaciones: 'Autorización para electrocardiograma', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Hospital Fernández' },
+    { fechaPrestacion: new Date('2025-12-21'), observaciones: 'Autorización para resonancia de rodilla', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Centro Médico Belgrano' },
+    { fechaPrestacion: new Date('2025-12-22'), observaciones: 'Autorización para control cardiológico', estado: 'Pendiente', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
+    { fechaPrestacion: new Date('2025-12-23'), observaciones: 'Autorización para consulta traumatológica', estado: 'En analisis', especialidad: 'Traumatología', lugar: 'Clínica San Jorge' },
+    { fechaPrestacion: new Date('2025-12-24'), observaciones: 'Autorización para ecografía obstétrica', estado: 'Aprobada', especialidad: 'Obstetricia', lugar: 'Centro Materno Infantil' },
+    { fechaPrestacion: new Date('2025-12-25'), observaciones: 'Autorización para electrocardiograma', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Hospital Fernández' },
 
-        { fechaPrestacion: new Date('2025-09-26'), observaciones: 'Autorización para analítica de vitamina D', estado: 'Rechazada', especialidad: 'Laboratorio', lugar: 'Laboratorio CEMIC' },
-        { fechaPrestacion: new Date('2025-09-27'), observaciones: 'Autorización para control ginecológico', estado: 'Observada', especialidad: 'Ginecología', lugar: 'Clínica Santa Isabel' },
-        { fechaPrestacion: new Date('2025-09-28'), observaciones: 'Autorización para TAC contrastada', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Maipú' },
-        { fechaPrestacion: new Date('2025-09-29'), observaciones: 'Autorización para endoscopía digestiva', estado: 'Pendiente', especialidad: 'Gastroenterología', lugar: 'Instituto Digestivo' },
-        { fechaPrestacion: new Date('2025-09-30'), observaciones: 'Autorización para laboratorio clínico completo', estado: 'Aprobada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
+    { fechaPrestacion: new Date('2025-12-26'), observaciones: 'Autorización para analítica de vitamina D', estado: 'Rechazada', especialidad: 'Laboratorio', lugar: 'Laboratorio CEMIC' },
+    { fechaPrestacion: new Date('2025-12-27'), observaciones: 'Autorización para control ginecológico', estado: 'Observada', especialidad: 'Ginecología', lugar: 'Clínica Santa Isabel' },
+    { fechaPrestacion: new Date('2025-12-28'), observaciones: 'Autorización para TAC contrastada', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Maipú' },
+    { fechaPrestacion: new Date('2025-12-29'), observaciones: 'Autorización para endoscopía digestiva', estado: 'Pendiente', especialidad: 'Gastroenterología', lugar: 'Instituto Digestivo' },
+    { fechaPrestacion: new Date('2025-12-30'), observaciones: 'Autorización para laboratorio clínico completo', estado: 'Aprobada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
 
-        // Octubre (20 más)
-        { fechaPrestacion: new Date('2025-10-01'), observaciones: 'Autorización para radiografía panorámica dental', estado: 'En analisis', especialidad: 'Odontología', lugar: 'Clínica Dental Norte' },
-        { fechaPrestacion: new Date('2025-10-02'), observaciones: 'Autorización para ecografía mamaria', estado: 'Pendiente', especialidad: 'Ecografía', lugar: 'Clínica Favaloro' },
-        { fechaPrestacion: new Date('2025-10-03'), observaciones: 'Autorización para resonancia de columna cervical', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Hospital Italiano' },
-        { fechaPrestacion: new Date('2025-10-04'), observaciones: 'Autorización para consulta endocrinológica', estado: 'Aprobada', especialidad: 'Endocrinología', lugar: 'Centro Médico Norte' },
-        { fechaPrestacion: new Date('2025-10-05'), observaciones: 'Autorización para estudios hematológicos', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
+    // Octubre → ahora diciembre manteniendo días correlativos
+    { fechaPrestacion: new Date('2025-12-01'), observaciones: 'Autorización para radiografía panorámica dental', estado: 'En analisis', especialidad: 'Odontología', lugar: 'Clínica Dental Norte' },
+    { fechaPrestacion: new Date('2025-12-02'), observaciones: 'Autorización para ecografía mamaria', estado: 'Pendiente', especialidad: 'Ecografía', lugar: 'Clínica Favaloro' },
+    { fechaPrestacion: new Date('2025-12-03'), observaciones: 'Autorización para resonancia de columna cervical', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Hospital Italiano' },
+    { fechaPrestacion: new Date('2025-12-04'), observaciones: 'Autorización para consulta endocrinológica', estado: 'Aprobada', especialidad: 'Endocrinología', lugar: 'Centro Médico Norte' },
+    { fechaPrestacion: new Date('2025-12-05'), observaciones: 'Autorización para estudios hematológicos', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
 
-        { fechaPrestacion: new Date('2025-10-06'), observaciones: 'Autorización para doppler venoso', estado: 'Pendiente', especialidad: 'Angiología', lugar: 'Instituto de Flebolinfología' },
-        { fechaPrestacion: new Date('2025-10-07'), observaciones: 'Autorización para consulta psiquiátrica', estado: 'Rechazada', especialidad: 'Psiquiatría', lugar: 'Clínica de Salud Mental Norte' },
-        { fechaPrestacion: new Date('2025-10-08'), observaciones: 'Autorización para prueba de esfuerzo', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Centro de Cardiología' },
-        { fechaPrestacion: new Date('2025-10-09'), observaciones: 'Autorización para TAC de tórax', estado: 'En analisis', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Maipú' },
-        { fechaPrestacion: new Date('2025-10-10'), observaciones: 'Autorización para estudios de fertilidad', estado: 'Pendiente', especialidad: 'Ginecología', lugar: 'Centro Materno Infantil' },
+    { fechaPrestacion: new Date('2025-12-06'), observaciones: 'Autorización para doppler venoso', estado: 'Pendiente', especialidad: 'Angiología', lugar: 'Instituto de Flebolinfología' },
+    { fechaPrestacion: new Date('2025-12-07'), observaciones: 'Autorización para consulta psiquiátrica', estado: 'Rechazada', especialidad: 'Psiquiatría', lugar: 'Clínica de Salud Mental Norte' },
+    { fechaPrestacion: new Date('2025-12-08'), observaciones: 'Autorización para prueba de esfuerzo', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Centro de Cardiología' },
+    { fechaPrestacion: new Date('2025-12-09'), observaciones: 'Autorización para TAC de tórax', estado: 'En analisis', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Maipú' },
+    { fechaPrestacion: new Date('2025-12-10'), observaciones: 'Autorización para estudios de fertilidad', estado: 'Pendiente', especialidad: 'Ginecología', lugar: 'Centro Materno Infantil' },
 
-        { fechaPrestacion: new Date('2025-10-11'), observaciones: 'Autorización para radiografía de columna', estado: 'Aprobada', especialidad: 'Radiología', lugar: 'Clínica San Jorge' },
-        { fechaPrestacion: new Date('2025-10-12'), observaciones: 'Autorización para ecografía de tiroides', estado: 'Aprobada', especialidad: 'Ecografía', lugar: 'Sanatorio Anchorena' },
-        { fechaPrestacion: new Date('2025-10-13'), observaciones: 'Autorización para encefalograma', estado: 'Observada', especialidad: 'Neurología', lugar: 'Instituto Neurológico Argentino' },
-        { fechaPrestacion: new Date('2025-10-14'), observaciones: 'Autorización para consulta otorrinolaringológica', estado: 'Pendiente', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído y la Voz' },
-        { fechaPrestacion: new Date('2025-10-15'), observaciones: 'Autorización para control de embarazo', estado: 'En analisis', especialidad: 'Obstetricia', lugar: 'Centro Materno Infantil' },
+    { fechaPrestacion: new Date('2025-12-11'), observaciones: 'Autorización para radiografía de columna', estado: 'Aprobada', especialidad: 'Radiología', lugar: 'Clínica San Jorge' },
+    { fechaPrestacion: new Date('2025-12-12'), observaciones: 'Autorización para ecografía de tiroides', estado: 'Aprobada', especialidad: 'Ecografía', lugar: 'Sanatorio Anchorena' },
+    { fechaPrestacion: new Date('2025-12-13'), observaciones: 'Autorización para encefalograma', estado: 'Observada', especialidad: 'Neurología', lugar: 'Instituto Neurológico Argentino' },
+    { fechaPrestacion: new Date('2025-12-14'), observaciones: 'Autorización para consulta otorrinolaringológica', estado: 'Pendiente', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído y la Voz' },
+    { fechaPrestacion: new Date('2025-12-15'), observaciones: 'Autorización para control de embarazo', estado: 'En analisis', especialidad: 'Obstetricia', lugar: 'Centro Materno Infantil' },
 
-        { fechaPrestacion: new Date('2025-10-16'), observaciones: 'Autorización para doppler cardíaco', estado: 'Rechazada', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
-        { fechaPrestacion: new Date('2025-10-17'), observaciones: 'Autorización para audiometría tonal', estado: 'Aprobada', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído y la Voz' },
-        { fechaPrestacion: new Date('2025-10-18'), observaciones: 'Autorización para laboratorio metabólico', estado: 'Pendiente', especialidad: 'Laboratorio', lugar: 'Laboratorio de Análisis Clínicos Norte' },
-        { fechaPrestacion: new Date('2025-10-19'), observaciones: 'Autorización para resonancia de hombro', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Maipú' },
-        { fechaPrestacion: new Date('2025-10-20'), observaciones: 'Autorización para consulta clínica general', estado: 'Observada', especialidad: 'Clínica Médica', lugar: 'Hospital Fernández' }
-    ].map((r) => {
+    { fechaPrestacion: new Date('2025-12-16'), observaciones: 'Autorización para doppler cardíaco', estado: 'Rechazada', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
+    { fechaPrestacion: new Date('2025-12-17'), observaciones: 'Autorización para audiometría tonal', estado: 'Aprobada', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído y la Voz' },
+    { fechaPrestacion: new Date('2025-12-18'), observaciones: 'Autorización para laboratorio metabólico', estado: 'Pendiente', especialidad: 'Laboratorio', lugar: 'Laboratorio de Análisis Clínicos Norte' },
+    { fechaPrestacion: new Date('2025-12-19'), observaciones: 'Autorización para resonancia de hombro', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Maipú' },
+    { fechaPrestacion: new Date('2025-12-20'), observaciones: 'Autorización para consulta clínica general', estado: 'Observada', especialidad: 'Clínica Médica', lugar: 'Hospital Fernández' },
+    { fechaPrestacion: new Date('2025-11-01'), observaciones: 'Autorización para espirometría basal', estado: 'Pendiente', especialidad: 'Neumonología', lugar: 'Sanatorio Güemes' },
+    { fechaPrestacion: new Date('2025-11-02'), observaciones: 'Autorización para control reumatológico', estado: 'Aprobada', especialidad: 'Reumatología', lugar: 'Clínica Santa Isabel' },
+    { fechaPrestacion: new Date('2025-11-03'), observaciones: 'Autorización para fondo de ojo', estado: 'En analisis', especialidad: 'Oftalmología', lugar: 'Centro de Ojos Belgrano' },
+    { fechaPrestacion: new Date('2025-11-04'), observaciones: 'Autorización para ecografía de partes blandas', estado: 'Pendiente', especialidad: 'Ecografía', lugar: 'Diagnóstico Caballito' },
+    { fechaPrestacion: new Date('2025-11-05'), observaciones: 'Autorización para laboratorio de función renal', estado: 'Pendiente', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
+
+    { fechaPrestacion: new Date('2025-11-06'), observaciones: 'Autorización para consulta alergológica', estado: 'Observada', especialidad: 'Alergia e Inmunología', lugar: 'Centro Alergológico Norte' },
+    { fechaPrestacion: new Date('2025-11-07'), observaciones: 'Autorización para electromiografía', estado: 'Rechazada', especialidad: 'Neurología', lugar: 'Instituto Neurológico Belgrano' },
+    { fechaPrestacion: new Date('2025-11-08'), observaciones: 'Autorización para densitometría ósea', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'CEMIC' },
+    { fechaPrestacion: new Date('2025-11-09'), observaciones: 'Autorización para control diabetológico', estado: 'Pendiente', especialidad: 'Endocrinología', lugar: 'Hospital Durand' },
+    { fechaPrestacion: new Date('2025-11-10'), observaciones: 'Autorización para ecografía testicular', estado: 'En analisis', especialidad: 'Ecografía', lugar: 'Clínica Sarmiento' },
+
+    { fechaPrestacion: new Date('2025-11-11'), observaciones: 'Autorización para consulta hepatológica', estado: 'Aprobada', especialidad: 'Hepatología', lugar: 'Fundación Favaloro' },
+    { fechaPrestacion: new Date('2025-11-12'), observaciones: 'Autorización para resonancia de muñeca', estado: 'Pendiente', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Maipú' },
+    { fechaPrestacion: new Date('2025-11-13'), observaciones: 'Autorización para monitoreo Holter', estado: 'Observada', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
+    { fechaPrestacion: new Date('2025-11-14'), observaciones: 'Autorización para control urológico', estado: 'Aprobada', especialidad: 'Urología', lugar: 'Centro Urológico Norte' },
+    { fechaPrestacion: new Date('2025-11-15'), observaciones: 'Autorización para examen audiológico', estado: 'En analisis', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído' },
+
+    { fechaPrestacion: new Date('2025-11-16'), observaciones: 'Autorización para panel lipídico completo', estado: 'Aprobada', especialidad: 'Laboratorio', lugar: 'Laboratorio Cabildo' },
+    { fechaPrestacion: new Date('2025-11-17'), observaciones: 'Autorización para radiografía de muñeca', estado: 'Pendiente', especialidad: 'Radiología', lugar: 'Hospital Italiano' },
+    { fechaPrestacion: new Date('2025-11-18'), observaciones: 'Autorización para consulta nutricional', estado: 'Rechazada', especialidad: 'Nutrición', lugar: 'Centro Integral de Nutrición' },
+    { fechaPrestacion: new Date('2025-11-19'), observaciones: 'Autorización para ergometría', estado: 'Observada', especialidad: 'Cardiología', lugar: 'Centro de Cardiología' },
+    { fechaPrestacion: new Date('2025-11-20'), observaciones: 'Autorización para examen ginecológico de control', estado: 'Aprobada', especialidad: 'Ginecología', lugar: 'Clínica del Sol' },
+
+    { fechaPrestacion: new Date('2025-11-21'), observaciones: 'Autorización para ecografía vesicular', estado: 'En analisis', especialidad: 'Ecografía', lugar: 'Sanatorio Anchorena' },
+    { fechaPrestacion: new Date('2025-11-22'), observaciones: 'Autorización para tomografía facial', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Belgrano' },
+    { fechaPrestacion: new Date('2025-11-23'), observaciones: 'Autorización para evaluación fonoaudiológica', estado: 'Pendiente', especialidad: 'Fonoaudiología', lugar: 'Centro Fonoaudiológico' },
+    { fechaPrestacion: new Date('2025-11-24'), observaciones: 'Autorización para análisis hematológicos ampliados', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
+    { fechaPrestacion: new Date('2025-11-25'), observaciones: 'Autorización para TAC de senos paranasales', estado: 'Rechazada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Cabildo' },
+
+    { fechaPrestacion: new Date('2025-11-26'), observaciones: 'Autorización para consulta vascular periférica', estado: 'Aprobada', especialidad: 'Angiología', lugar: 'Clínica de Flebolinfología' },
+    { fechaPrestacion: new Date('2025-11-27'), observaciones: 'Autorización para ecografía de tiroides', estado: 'Pendiente', especialidad: 'Ecografía', lugar: 'CEMIC' },
+    { fechaPrestacion: new Date('2025-11-28'), observaciones: 'Autorización para control clínico general', estado: 'En analisis', especialidad: 'Clínica Médica', lugar: 'Hospital Rivadavia' },
+    { fechaPrestacion: new Date('2025-11-29'), observaciones: 'Autorización para consulta dermatológica', estado: 'Aprobada', especialidad: 'Dermatología', lugar: 'Centro Dermatológico Norte' },
+    { fechaPrestacion: new Date('2025-11-30'), observaciones: 'Autorización para estudio de función pulmonar', estado: 'Observada', especialidad: 'Neumonología', lugar: 'Sanatorio Güemes' },
+
+    // ---- DICIEMBRE ----
+
+    { fechaPrestacion: new Date('2025-12-01'), observaciones: 'Autorización para ecografía renal bilateral', estado: 'Pendiente', especialidad: 'Ecografía', lugar: 'Diagnóstico Maipú' },
+    { fechaPrestacion: new Date('2025-12-02'), observaciones: 'Autorización para resonancia de tobillo', estado: 'Aprobada', especialidad: 'Diagnóstico por Imágenes', lugar: 'CEMIC' },
+    { fechaPrestacion: new Date('2025-12-03'), observaciones: 'Autorización para consulta psiquiátrica inicial', estado: 'Rechazada', especialidad: 'Psiquiatría', lugar: 'Sanatorio Las Heras' },
+    { fechaPrestacion: new Date('2025-12-04'), observaciones: 'Autorización para análisis de vitamina B12', estado: 'En analisis', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' },
+    { fechaPrestacion: new Date('2025-12-05'), observaciones: 'Autorización para control odontológico anual', estado: 'Pendiente', especialidad: 'Odontología', lugar: 'Clínica Dental Centro' },
+
+    { fechaPrestacion: new Date('2025-12-06'), observaciones: 'Autorización para ecocardiograma fetal', estado: 'Pendiente', especialidad: 'Obstetricia', lugar: 'Centro Materno Infantil' },
+    { fechaPrestacion: new Date('2025-12-07'), observaciones: 'Autorización para radiografía de pie', estado: 'Observada', especialidad: 'Radiología', lugar: 'Hospital Fernández' },
+    { fechaPrestacion: new Date('2025-12-08'), observaciones: 'Autorización para electroencefalograma', estado: 'Aprobada', especialidad: 'Neurología', lugar: 'Instituto Neurológico' },
+    { fechaPrestacion: new Date('2025-12-09'), observaciones: 'Autorización para control otorrinolaringológico', estado: 'En analisis', especialidad: 'Otorrinolaringología', lugar: 'Clínica del Oído' },
+    { fechaPrestacion: new Date('2025-12-10'), observaciones: 'Autorización para análisis prequirúrgicos', estado: 'Pendiente', especialidad: 'Laboratorio', lugar: 'Laboratorio Cabildo' },
+
+    { fechaPrestacion: new Date('2025-12-11'), observaciones: 'Autorización para evaluación cardiometabólica', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Instituto Cardiológico Argentino' },
+    { fechaPrestacion: new Date('2025-12-12'), observaciones: 'Autorización para ecografía ginecológica', estado: 'Pendiente', especialidad: 'Ginecología', lugar: 'Clínica Santa Isabel' },
+    { fechaPrestacion: new Date('2025-12-13'), observaciones: 'Autorización para resonancia torácica', estado: 'Observada', especialidad: 'Diagnóstico por Imágenes', lugar: 'Diagnóstico Belgrano' },
+    { fechaPrestacion: new Date('2025-12-14'), observaciones: 'Autorización para prueba cutánea alérgica', estado: 'Rechazada', especialidad: 'Alergia e Inmunología', lugar: 'Centro Alergológico Norte' },
+    { fechaPrestacion: new Date('2025-12-15'), observaciones: 'Autorización para examen urodinámico', estado: 'Aprobada', especialidad: 'Urología', lugar: 'Hospital Italiano' },
+
+    { fechaPrestacion: new Date('2025-12-16'), observaciones: 'Autorización para ecografía doppler hepática', estado: 'En analisis', especialidad: 'Ecografía', lugar: 'Sanatorio Anchorena' },
+    { fechaPrestacion: new Date('2025-12-17'), observaciones: 'Autorización para control traumatológico', estado: 'Aprobada', especialidad: 'Traumatología', lugar: 'Clínica San Jorge' },
+    { fechaPrestacion: new Date('2025-12-18'), observaciones: 'Autorización para examen de fondo uterino', estado: 'Pendiente', especialidad: 'Obstetricia', lugar: 'Centro Materno Infantil' },
+    { fechaPrestacion: new Date('2025-12-19'), observaciones: 'Autorización para test ergométrico', estado: 'Aprobada', especialidad: 'Cardiología', lugar: 'Centro de Cardiología' },
+    { fechaPrestacion: new Date('2025-12-20'), observaciones: 'Autorización para laboratorio endócrino completo', estado: 'Observada', especialidad: 'Laboratorio', lugar: 'Laboratorio Central' }
+].map((r) => {
 
         let prestador = prestadores[rand(0, prestadores.length - 1)]
         let paciente = pacientes[rand(0, pacientes.length - 1)]
@@ -630,7 +698,10 @@ async function seedSolicitudes() {
         return {
             ...r,
             prestadorId: r.estado !== "Pendiente" ? prestador._id : null,
-            pacienteId: paciente._id,
+            pacienteId: r.especialidad === "Ginecología" || r.especialidad === "Obstetricia" ? 
+                pacientes[idsMujeres[Math.floor(Math.random() * idsMujeres.length)]]._id :
+                r.especialidad === "Urología" ? pacientes[idsHombres[Math.floor(Math.random() * idsHombres.length)]]._id :
+                paciente._id,
             medico: r.estado !== "Pendiente" ? prestador.nombre : null,
             tipo: 'Autorizacion',
         }
