@@ -11,10 +11,10 @@ const historias = [
   // Paciente 0 // maria gonzalez
  {
     pacienteId: pacientes[0]._id,
-    titulo: "Consulta Cardiológica",
+    titulo: "Consulta Cardiológica rutinaria",
     prestadorId: prestadores[3]._id, // Dr. Hernan Gutierrrez
     prestador: prestadores[3].nombre,
-    notas: "Presión arterial alta, recomendar dieta baja en sodio",
+    notas: "Presión arterial alta, se ajusta medicación.",
     fecha: new Date("2025-12-04")
   },
   {
@@ -26,12 +26,12 @@ const historias = [
     fecha: new Date("2025-11-12")
   },
   {
-    pacienteId: pacientes[0]._id,
-    titulo: "Evaluación de Estrés",
-    prestadorId: prestadores[9]._id, // Dr. gustavo dias
+    pacienteId: pacientes[0]._id, 
+    titulo: "Control de hipertensión arterial crónica",
+    prestadorId: prestadores[9]._id,
     prestador: prestadores[9].nombre,
-    notas: "Paciente refiere cansancio y ansiedad, se sugieren técnicas de relajación",
-    fecha: new Date("2025-12-01")
+    notas: "PA en consultorio 150/95 mmHg. Refiere buena adherencia, sin síntomas de alarma. Se mantiene medicación y se programa control.",
+    fecha: new Date("2025-12-20"),
   },
   {
     pacienteId: pacientes[0]._id,

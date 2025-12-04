@@ -92,6 +92,14 @@ async function seedTurnos() {
       fechaHora: new Date("2025-12-02T11:00:00"),
       pacienteId: pacientes[19]._id,
     },
+        {
+      fechaHora: new Date("2025-12-02T11:00:00"),
+      pacienteId: pacientes[18]._id,
+    },
+            {
+      fechaHora: new Date("2025-12-02T11:00:00"),
+      pacienteId: pacientes[18]._id,
+    },
   ].map((t) => {
     let prestador = prestadores[rand(3, prestadores.length - 1)];
     let especialidad = prestador.especialidad;

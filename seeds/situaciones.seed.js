@@ -7,27 +7,43 @@ async function seedSituacionesTerapeuticas() {
     const situaciones = [
       // flia gonzalez
       {
+        titulo: "Hipertensión arterial crónica",
+        fechaInicio: new Date("2025-12-10"),
+        fechaFinal: null,
+        descripcion: "Control periódico por hipertensión diagnosticada. Se requiere monitoreo de presión arterial, ajustes de medicación y seguimiento mensual.",
         pacienteId: pacientes[0]._id,
+        activa: true
+      },
+      {
+        titulo: "Cardiopatía isquémica crónica",
+        fechaInicio: new Date("2025-09-12"),
+        fechaFinal: null,
+        descripcion: "En tratamiento por cardiopatía isquémica. Se realizan controles cardiológicos regulares y ajuste de tratamiento según evolución.",
+        pacienteId: pacientes[0]._id,
+        activa: true
+      },
+      {
         titulo: "Embarazo",
-        fechaInicio: new Date("2025-08-02"),
-        // aca dejo la fecha vacia
-        descripcion: "Control prenatal trimestral",
-        activa: true
-      },
-      {
+        fechaInicio: new Date("2024-02-01"),
+        fechaFinal: new Date("2024-11-10"),
+        descripcion: "Seguimiento obstétrico completo durante el embarazo sin complicaciones. Se registran controles y ecografías mensuales.",
         pacienteId: pacientes[0]._id,
-        titulo: "Neumonía",
-        fechaInicio: new Date("2025-07-10"),
-        fechaFinal: new Date("2025-07-30"),
-        descripcion: "Internación breve y tratamiento antibiótico completo",
+        activa: false
+      },      
+      {
+        titulo: "Asma persistente moderada",
+        fechaInicio: new Date("2024-09-15"),
+        fechaFinal: null,
+        descripcion: "Paciente con asma persistente. Requiere inhaladores de mantenimiento, controles periódicos y evitar factores desencadenantes.",
+        pacienteId: pacientes[1]._id,
         activa: true
       },
       {
+        titulo: "Fractura de clavícula - Recuperación funcional",
+        fechaInicio: "2025-01-15",
+        fechaFinal: null, 
+        descripcion: "Paciente con fractura de clavícula izquierda tratada con inmovilización y posterior rehabilitación. Requiere controles traumatológicos periódicos y sesiones de kinesiología para recuperar movilidad y fuerza en el hombro.",
         pacienteId: pacientes[1]._id,
-        titulo: "Esguince",
-        fechaInicio: new Date("2025-02-15"),
-        fechaFinal: new Date("2025-03-25"),
-        descripcion: "Esguince leve de tobillo izquierdo. Uso de férula",
         activa: true
       },
       {
@@ -41,127 +57,82 @@ async function seedSituacionesTerapeuticas() {
       // flia perez
       {
         pacienteId: pacientes[3]._id,
-        titulo: "Fiebre y resfrío",
-        fechaInicio: new Date("2025-05-11"),
-        fechaFinal: new Date("2025-05-22"),
-        descripcion: "Síntomas leves de resfrío con fiebre ocasional. Tratamiento sintomático",
+        titulo: "Diabetes tipo 2",
+        fechaInicio: new Date("2022-03-10"),
+        fechaFinal: null,
+        descripcion: "Control metabólico, medicación oral y monitoreo de glucemias. Evaluación anual de pie diabético y fondo de ojo.",
         activa: true
       },
     // Federico
   {
     pacienteId: pacientes[4]._id,
-    titulo: "Chequeo Cardiológico",
-    fechaInicio: new Date("2023-05-10"),
-    descripcion: "Revisión cardiológica anual, presión arterial normal",
+    titulo: "Rehabilitación post cirugía de rodilla",
+    fechaInicio: new Date("2025-01-15"),
+    fechaFinal: new Date("2025-04-15"),
+    descripcion: "Recuperación prolongada tras artroscopia de rodilla. Ejercicios de movilidad y fortalecimiento.",
     activa: true
   },
   {
     pacienteId: pacientes[4]._id,
-    titulo: "Control de Colesterol",
-    fechaInicio: new Date("2024-01-15"),
-    fechaFinal: new Date("2024-01-15"),
-    descripcion: "Niveles dentro del rango recomendado",
+    titulo: "Asma persistente moderada",
+    fechaInicio: new Date("2019-11-12"),
+    fechaFinal: null,
+    descripcion: "Tratamiento inhalatorio de mantenimiento. Control de crisis y seguimiento neumonológico.",
     activa: true
   },
   // Carolina
   {
     pacienteId: pacientes[5]._id,
-    titulo: "Consulta Ginecológica",
-    fechaInicio: new Date("2023-06-20"),
-    fechaFinal: new Date("2023-06-20"),
-    descripcion: "Control anual, sin novedades",
-    activa: true
-  },
-  {
-    pacienteId: pacientes[6]._id,
-    titulo: "Control de Vitamina D",
-    fechaInicio: new Date("2024-03-10"),
-    fechaFinal: new Date("2024-03-10"),
-    descripcion: "Nivel adecuado",
+    titulo: "Artritis reumatoide",
+    fechaInicio: new Date("2019-12-10"),
+    fechaFinal: null,
+    descripcion: "Control reumatológico crónico con medicación inmunomoduladora.",
     activa: true
   },
   // Lucas
   {
     pacienteId: pacientes[7]._id,
-    titulo: "Consulta Pediátrica",
-    fechaInicio: new Date("2023-08-05"),
-    fechaFinal: new Date("2023-08-05"),
-    descripcion: "Vacunas al día, desarrollo normal",
+    titulo: "Migraña crónica",
+    fechaInicio: new Date("2021-09-30"),
+    fechaFinal: null,
+    descripcion: "Cefaleas frecuentes con tratamiento preventivo y abortivo.",
     activa: true
   },
-  {
-    pacienteId: pacientes[7]._id,
-    titulo: "Control Dental",
-    fechaInicio: new Date("2024-02-20"),
-    fechaFinal: new Date("2024-02-20"),
-    descripcion: "Revisión dental sin problemas",
-    activa: true
-  },
+
     // Alejandro
   {
-    pacienteId: pacientes[8]._id,
-    titulo: "Chequeo Cardiológico",
-    fechaInicio: new Date("2023-04-12"),
-    descripcion: "Control anual, presión arterial normal",
-    activa: true
-  },
-  {
-    pacienteId: pacientes[8]._id,
-    titulo: "Control de Colesterol",
-    fechaInicio: new Date("2024-01-20"),
-    fechaFinal: new Date("2024-01-20"),
-    descripcion: "Niveles de colesterol dentro del rango recomendado",
+    pacienteId: pacientes[12]._id,
+    titulo: "EPOC",
+    fechaInicio: new Date("2019-03-01"),
+    fechaFinal: null,
+    descripcion: "Tratamiento broncodilatador y controles periódicos.",
     activa: true
   },
   // Verónica
   {
     pacienteId: pacientes[9]._id,
-    titulo: "Consulta Ginecológica",
-    fechaInicio: new Date("2023-05-18"),
-    fechaFinal: new Date("2023-05-18"),
-    descripcion: "Control anual, sin novedades",
-    activa: true
-  },
-  {
-    pacienteId: pacientes[9]._id,
-    titulo: "Control de Vitamina D",
-    fechaInicio: new Date("2024-03-10"),
-    fechaFinal: new Date("2024-03-10"),
-    descripcion: "Nivel adecuado",
+    titulo: "Hipotiroidismo",
+    fechaInicio: new Date("2016-01-01"),
+    fechaFinal: null,
+    descripcion: "Control endocrinológico y ajuste de levotiroxina.",
     activa: true
   },
   // Martín
   {
     pacienteId: pacientes[10]._id,
-    titulo: "Consulta Pediátrica",
-    fechaInicio: new Date("2023-06-15"),
-    fechaFinal: new Date("2023-06-15"),
-    descripcion: "Vacunas al día, crecimiento normal",
-    activa: true
-  },
-  {
-    pacienteId: pacientes[10]._id,
-    titulo: "Control Dental",
-    fechaInicio: new Date("2024-02-28"),
-    fechaFinal: new Date("2024-02-28"),
-    descripcion: "Revisión dental sin problemas",
+    titulo: "Rinitis alérgica crónica",
+    fechaInicio: new Date("2024-09-12"),
+    fechaFinal: null,
+    descripcion: "Sensibilización a ácaros con tratamiento antihistamínico continuo.",
     activa: true
   },
   // Camila
   {
     pacienteId: pacientes[11]._id,
-    titulo: "Consulta Pediátrica",
-    fechaInicio: new Date("2023-07-10"),
-    fechaFinal: new Date("2023-07-10"),
-    descripcion: "Vacunas al día, desarrollo normal",
-    activa: true
-  },
-  {
-    pacienteId: pacientes[11]._id,
-    titulo: "Control Oftalmológico",
-    fechaInicio: new Date("2024-03-15"),
-    fechaFinal: new Date("2024-03-15"),
-    descripcion: "Revisión de la vista, sin problemas",
+    titulo: "Hernia cervical",
+    fechaInicio: new Date("2023-10-05"),
+    fechaFinal: null,
+    descripcion: "Dolor cervical con irradiación a miembro superior. Tratamiento kinésico prolongado.",
     activa: true
   }
     ];

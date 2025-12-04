@@ -66,7 +66,7 @@ async function seedPrestadores() {
             "centroMedicoId": centros[0]._id
         },
         {
-            "cuit": "20-987654321-1",
+            "cuit": "20-97451247-1",
             "nombre": "Dr. Hernan Carabajal",
             "especialidad": "Clínica Médica",
             "centroMedico": false,
@@ -85,7 +85,7 @@ async function seedPrestadores() {
             "centroMedicoId": centros[0]._id
         },
         {
-            "cuit": "23-98765432-0",
+            "cuit": "23-96124578-0",
             "nombre": "Dra. Laura Pérez Roldán",
             "especialidad": "Pediatría",
             "centroMedico": false,
@@ -103,7 +103,7 @@ async function seedPrestadores() {
             "centroMedicoId": centros[0]._id
         },
         {
-            "cuit": "27-65432109-8",
+            "cuit": "27-70804598-8",
             "nombre": "Dr. Pablo Gomez",
             "especialidad": "Traumatología",
             "centroMedico": false,
@@ -141,7 +141,7 @@ async function seedPrestadores() {
             "centroMedicoId": centros[0]._id
         },
         {
-            "cuit": "23-98765432-0",
+            "cuit": "23-91547812-0",
             "nombre": "Dra. Laura Paisa",
             "especialidad": "Pediatría",
             "centroMedico": false,
@@ -159,7 +159,7 @@ async function seedPrestadores() {
             "centroMedicoId": centros[0]._id
         },
         {
-            "cuit": "27-65432109-8",
+            "cuit": "27-69879512-8",
             "nombre": "Dr. Lucas Guterreza",
             "especialidad": "Traumatología",
             "centroMedico": false,
@@ -197,7 +197,7 @@ async function seedPrestadores() {
             "centroMedicoId": centros[0]._id
         },
         {
-            "cuit": "23-98765432-0",
+            "cuit": "23-92546970-0",
             "nombre": "Dra. Yamila Pesoa",
             "especialidad": "Pediatría",
             "centroMedico": false,
@@ -215,7 +215,7 @@ async function seedPrestadores() {
             "centroMedicoId": centros[0]._id
         },
         {
-            "cuit": "27-65432109-8",
+            "cuit": "27-53147823-8",
             "nombre": "Dr. Alejo Corbera",
             "especialidad": "Traumatología",
             "centroMedico": false,
